@@ -76,15 +76,64 @@ Eine spezialisierte Plattform für Besitzer und Enthusiasten des Ford Fiesta (Mo
 - Kommentar
 - Erstellungsdatum
 
+## Benutzerrollen und Berechtigungen
+- **Admin**: 
+  - Kann alle Events verwalten
+  - Kann Benutzer verwalten
+  - Hat Zugriff auf erweiterte Statistiken
+- **Standardbenutzer**: 
+  - Kann eigene Events erstellen, bearbeiten und löschen
+  - Kann Events bewerten und kommentieren
+
+## Sicherheit und Datenschutz
+- **Datenverschlüsselung**: Stellt sicher, dass sensible Daten wie Passwörter und persönliche Informationen verschlüsselt gespeichert werden.
+- **Datenschutzrichtlinien**: Implementiere klare Datenschutzrichtlinien und stelle sicher, dass Benutzer über die Verwendung ihrer Daten informiert sind.
+
+## Technische Komponenten im Detail
+
+### Frontend (React)
+- **State Management**: Nutze Context API zur Verwaltung des globalen Zustands.
+- **Routing**: Verwende React Router für die Navigation zwischen verschiedenen Seiten (Login, Eventliste, Eventdetails, Eventerstellung).
+- **Formulare**: Verwende Formik und Yup zur Validierung und Verwaltung von Formularen (Registrierung, Login, Eventerstellung).
+
+### Backend (Express API)
+- **Middleware**: Nutze Middleware wie `body-parser` zur Verarbeitung von JSON-Daten und `cors` zur Handhabung von Cross-Origin-Requests.
+- **Sicherheitsmaßnahmen**: Implementiere Sicherheitsmaßnahmen wie Rate Limiting  
+  - Schutz vor DDoS-Angriffen: Rate Limiting hilft, die Anzahl der Anfragen pro Zeiteinheit zu begrenzen, was hilft, deine Server vor übermäßigem Traffic zu schützen, der durch Distributed Denial-of-Service (DDoS) Angriffe verursacht werden könnte.
+
+  - Verhinderung von Brute-Force-Angriffen: Durch das Begrenzen der Anzahl von Anfragen pro Benutzer oder IP-Adresse kannst du Brute-Force-Angriffe erschweren, bei denen Angreifer durch wiederholtes Ausprobieren von Passwörtern oder Zugangsdaten versuchen, unbefugten Zugriff zu erhalten.
+
+  - Stabilität und Leistungsoptimierung: Indem du die Anzahl der gleichzeitigen Anfragen kontrollierst, kannst du sicherstellen, dass deine Server stabil bleiben und eine gleichbleibende Leistung für alle Benutzer bieten.
+
+  - Kostenkontrolle: Rate Limiting kann auch helfen, Kosten zu kontrollieren, indem unnötiger oder missbräuchlicher Traffic reduziert wird, der zusätzliche Serverressourcen und Bandbreite verbraucht.
+
+### Datenbank (MySQL)
+- **ORM**: Nutze ein ORM wie Sequelize zur Verwaltung der Datenbankoperationen und zur Vereinfachung der Datenbankabfragen.
+- **Backups**: Regelmäßige Backups der Datenbank zur Sicherstellung der Datenintegrität.
+
+## API-Endpunkte
+
+### Benutzer
+- **POST** `/api/register`: Registrierung eines neuen Benutzers.
+- **POST** `/api/login`: Anmeldung eines Benutzers.
+- **GET** `/api/profile`: Abrufen der Benutzerdaten.
+- **PUT** `/api/profile`: Aktualisieren der Benutzerdaten.
+
+### Events
+- **GET** `/api/events`: Abrufen aller Events.
+- **GET** `/api/events/:id`: Abrufen eines spezifischen Events.
+- **POST** `/api/events`: Erstellen eines neuen Events.
+- **PUT** `/api/events/:id`: Bearbeiten eines bestehenden Events.
+- **DELETE** `/api/events/:id`: Löschen eines Events.
+
+### Bewertungen
+- **POST** `/api/events/:id/rate`: Hinzufügen einer Bewertung zu einem Event.
+- **GET** `/api/events/:id/ratings`: Abrufen aller Bewertungen eines Events.
+
+
+
+---
 ### Mögliche Erweiterungen
 - **Soziale Funktionen**: Integration von sozialen Medien zur einfachen Event-Teilung.
 - **Geo-Location**: Automatische Erkennung des Standorts des Benutzers zur Anzeige von lokalen Events.
 - **Event-Benachrichtigungen**: Erweiterte Benachrichtigungsoptionen wie SMS oder Push-Benachrichtigungen.
-
-### Nächste Schritte
-1. **Planung**: Detailplanung der Funktionen und Benutzeroberflächen.
-2. **Design**: UI/UX-Design für eine benutzerfreundliche Oberfläche.
-3. **Prototyping**: Erstellung eines funktionalen Prototyps zur Validierung der Idee.
-4. **Implementierung**: Schrittweise Implementierung der einzelnen Komponenten.
-5. **Testing**: Umfangreiche Tests zur Sicherstellung der Funktionalität und Benutzerfreundlichkeit.
-6. **Deployment**: Vorbereitung und Durchführung des Deployments auf AWS.
