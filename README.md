@@ -134,6 +134,62 @@ Eine spezialisierte Plattform für Besitzer und Enthusiasten des Ford Fiesta (Mo
 - **POST** `/api/events/:id/rate`: Hinzufügen einer Bewertung zu einem Event.
 - **GET** `/api/events/:id/ratings`: Abrufen aller Bewertungen eines Events.
 
+### UI Design für V FORD FIESTA EVENTS
+
+## Designrichtlinien
+
+### Farbschema
+- Primärfarbe: #FF5733 (Orange)
+- Sekundärfarbe: #C70039 (Dunkelrot)
+- Hervorhebungsfarbe: #900C3F (Dunkelviolett)
+- Hintergrundfarbe:  #F8F9FA (Hellgrau)
+
+### Schriftarten
+- Primäre Schriftart: Galindo
+- Sekundäre Schriftart: Roboto
+
+## Komponenten und Layout
+
+### Header
+- Gestaltung des Header mit Logo
+### Navbar
+- Gestaltung der Hauptnavigation mit Logo und Menüpunkten für Benutzeraktionen.
+
+### Startseite
+- Kachelansicht der neuesten Events mit Titel und Bildvorschau.
+![alt text](image.png)
+
+### Eventdetails
+- Detailansicht eines Events mit Beschreibung, Datum und Ort.
+
+### Eventerstellung
+- Formular zur Erstellung neuer Events mit Feldern für Titel, Beschreibung, Datum, Ort und Bildupload.
+
+### Profilseite
+- Anzeige der Benutzerinformationen mit Optionen zum Bearbeiten des Profils.
+
+## Nutzung von Bootstrap
+
+### Grid-System
+- Verwendung des Bootstrap Grids zur responsiven Gestaltung der Seitenlayouts.
+
+### Komponenten
+- Integration von Bootstrap-Komponenten wie Modals, Forms und Cards für eine konsistente Benutzeroberfläche.
+
+### Anpassung der Farben
+- Anpassung des Bootstrap-Farbschemas an die definierten Primär-, Sekundär- und Hervorhebungsfarben.
+
+### Responsives Design
+- Sicherstellung, dass das Design auf verschiedenen Bildschirmgrößen gut funktioniert, insbesondere auf Mobilgeräten.
+
+## Nächste Schritte
+
+1. **Farbschema festlegen**: Definiere die genauen Farbwerte für das Farbschema.✅
+2. **Bootstrap integrieren**: Füge Bootstrap in das Projekt ein und passe es an die eigenen Farben an.
+3. **Komponenten entwickeln**: Entwickle die UI-Komponenten basierend auf den Designrichtlinien.
+4. **Prototyping**: Erstelle Prototypen und überprüfe das Design auf Benutzerfreundlichkeit.✅
+5. **Implementierung**: Implementiere das Design in die React-Anwendung unter Verwendung von Bootstrap.
+6. **Testing**: Führe Tests durch, um sicherzustellen, dass das UI gut funktioniert und benutzerfreundlich ist.
 
 
 ---
