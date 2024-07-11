@@ -1,7 +1,7 @@
 // App.js
 import React from "react";
 import "./styles/App.css";
-import {Container} from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import Header from "./components/Header";
 
 function App() {
@@ -9,7 +9,8 @@ function App() {
     <div className="App">
       <Header />
       <Container>
-        hier kommt der inhalt hin
+        <h2 className="text-center">Willkommen in meiner App</h2>
+        <p>Hier ist der Hauptinhalt...</p>
       </Container>
     </div>
   );

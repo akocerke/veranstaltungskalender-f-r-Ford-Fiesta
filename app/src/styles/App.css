@@ -4,6 +4,10 @@
     background-color: var(--bg-app);
     font-family: 'Roboto', sans-serif;
 }
+.App h1, .App h2, .App h3{
+    color: var(--highlight-color);
+}
+
 
 .headline {
     color: var(--highlight-color);
@@ -15,7 +19,6 @@
     margin: 0 auto;
     padding: 0;
     background: linear-gradient(to bottom, #ffffff, #cccccc);
-    
 }
 
 
@@ -23,4 +26,8 @@
     border: none;
     border-top: 2px solid var(--highlight-color);
     margin: 1em 0;
+}
+
+.bg-nav{
+    background-color: var(--highlight-color);
 }
