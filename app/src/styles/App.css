@@ -1,3 +1,5 @@
+@import url('./globalVars.css');
+
 .App {
     background-color: var(--bg-app);
     font-family: 'Roboto', sans-serif;
@@ -13,6 +15,7 @@
     margin: 0 auto;
     padding: 0;
     background: linear-gradient(to bottom, #ffffff, #cccccc);
+    
 }
 
 
