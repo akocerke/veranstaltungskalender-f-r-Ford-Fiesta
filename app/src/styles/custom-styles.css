@@ -1,0 +1,17 @@
+/* costum-styles.css */
+/* Überschreibt die Bootstrap-Klassen mit benutzerdefinierten Farben */
+.primary-color {
+    color: #FF5733 !important; /* Orange */
+}
+
+.secondary-color {
+    color: #C70039 !important; /* Dunkelrot */
+}
+
+.highlight-color {
+    color: #900C3F !important; /* Dunkelviolett */
+}
+
+.background-color {
+    background-color: #F8F9FA !important; /* Hellgrau */
+}

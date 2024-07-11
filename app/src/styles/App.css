@@ -1,0 +1,23 @@
+.App {
+    background-color: var(--bg-app);
+    font-family: 'Roboto', sans-serif;
+}
+
+.headline {
+    color: var(--highlight-color);
+    text-align: center;
+    font-family: 'Galindo', cursive;
+}
+
+.Header {
+    margin: 0 auto;
+    padding: 0;
+    background: linear-gradient(to bottom, #ffffff, #cccccc);
+}
+
+
+.hr1 {
+    border: none;
+    border-top: 2px solid var(--highlight-color);
+    margin: 1em 0;
+}
