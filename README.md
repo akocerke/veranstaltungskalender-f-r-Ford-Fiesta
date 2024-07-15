@@ -185,10 +185,10 @@ Eine spezialisierte Plattform für Besitzer und Enthusiasten des Ford Fiesta (Mo
 ## Nächste Schritte
 
 1. **Farbschema festlegen**: Definiere die genauen Farbwerte für das Farbschema.✅
-2. **Bootstrap integrieren**: Füge Bootstrap in das Projekt ein und passe es an die eigenen Farben an.
-3. **Komponenten entwickeln**: Entwickle die UI-Komponenten basierend auf den Designrichtlinien.
+2. **Bootstrap integrieren**: Füge Bootstrap in das Projekt ein und passe es an die eigenen Farben an.✅
+3. **Komponenten entwickeln**: Entwickle die UI-Komponenten basierend auf den Designrichtlinien.✅
 4. **Prototyping**: Erstelle Prototypen und überprüfe das Design auf Benutzerfreundlichkeit.✅
-5. **Implementierung**: Implementiere das Design in die React-Anwendung unter Verwendung von Bootstrap.
+5. **Implementierung**: Implementiere das Design in die React-Anwendung unter Verwendung von Bootstrap.✅
 6. **Testing**: Führe Tests durch, um sicherzustellen, dass das UI gut funktioniert und benutzerfreundlich ist.
 
 
