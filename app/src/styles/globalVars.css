@@ -1,8 +1,6 @@
-:root{
-    --primary-color: #FF5733 !important; /* Orange */
-    --secondary-color: #C70039 !important; /* Dunkelrot */
-    --highlight-color: #900C3F !important; /* Dunkelviolett */
-    --bg-app: #F8F9FA !important; /* Hellgrau */
+:root {
+  --primary-color: #ff5733 !important; /* Orange */
+  --secondary-color: #c70039 !important; /* Dunkelrot */
+  --highlight-color: #900c3f !important; /* Dunkelviolett */
+  --bg-app: #f8f9fa !important; /* Hellgrau */
 }
-
-

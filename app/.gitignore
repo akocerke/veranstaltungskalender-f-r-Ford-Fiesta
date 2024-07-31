@@ -25,3 +25,6 @@ yarn-error.log*
 # eslint
 .eslintrc.json
 eslint.config.mjs
+
+# prettier
+.prettierrc
