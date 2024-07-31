@@ -31,3 +31,12 @@
 .bg-nav{
     background-color: var(--highlight-color);
 }
+
+footer {
+    background-color: var(--highlight-color);
+    color: #ffffff;
+}
+
+footer .nav-link:hover{
+    color: #ffffff !important;
+}
