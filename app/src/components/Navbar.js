@@ -4,7 +4,7 @@ import { Navbar, Nav, Container } from "react-bootstrap";
 import logo from "../images/logo.png";
 
 const NavigationBar = () => (
-  <Navbar className="bg-nav fixed-bottom" variant="dark" expand="lg">
+  <Navbar className="bg-nav fixed-top" variant="dark" expand="lg">
     <Container>
       <Navbar.Brand href="/">
         <img
