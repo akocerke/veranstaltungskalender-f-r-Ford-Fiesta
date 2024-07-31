@@ -28,7 +28,7 @@ const Footer = () => {
             <Nav className="flex-column text-center">
               <Nav.Link href="/impressum" className="text-white-50">Impressum</Nav.Link>
               <Nav.Link href="/datenschutz" className="text-white-50">Datenschutz</Nav.Link>
-              <Nav.Link href="/agb" className="text-white-50">AGB</Nav.Link>
+              <Nav.Link href="/richtlinien" className="text-white-50">Forum-Richtlinien</Nav.Link>
             </Nav>
           </Col>
         </Row>
