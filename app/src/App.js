@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Imprint from './pages/imprint'; // Importiere die Impressum-Seite
+import Policys from './pages/policys';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             
             {/* Impressum-Seite */}
             <Route path="/imprint" element={<Imprint />} />
+            <Route path="/policys" element={<Policys />} />
             
             {/* Weitere Routen können hier hinzugefügt werden */}
           </Routes>
