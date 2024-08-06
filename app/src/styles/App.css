@@ -16,7 +16,7 @@
   font-family: 'Galindo', cursive;
 }
 
-.headline2{
+.headline2 {
   color: var(--highlight-color) !important;
   font-family: 'Galindo', cursive;
 }
@@ -48,14 +48,17 @@ footer .nav-link:hover {
 /* CSS für die .primary-Klasse */
 .primary {
   color: #ffffff !important; /* Weißer Text */
-  background-color: var(--highlight-color) !important; /* Hintergrundfarbe auf Basis der Highlight-Farbe */
+  background-color: var(
+    --highlight-color
+  ) !important; /* Hintergrundfarbe auf Basis der Highlight-Farbe */
   border: none !important; /* Keine Randlinie */
 }
 
 .primary:hover {
-  color: var(--highlight-color) !important; /* Textfarbe auf Highlight-Farbe ändern beim Hover */
+  color: var(
+    --highlight-color
+  ) !important; /* Textfarbe auf Highlight-Farbe ändern beim Hover */
   background-color: #ffffff !important; /* Hintergrundfarbe auf Weiß ändern beim Hover */
   border: 1px solid var(--highlight-color) !important; /* Randlinie mit Highlight-Farbe beim Hover */
   cursor: pointer; /* Mauszeiger als Zeiger anzeigen beim Hover */
 }
-

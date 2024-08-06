@@ -1,0 +1,10 @@
+# Ignoriere alle Dateien im node_modules-Verzeichnis
+node_modules/
+
+# Ignoriere alle Build-Ausgaben
+build/
+dist/
+
+# Ignore 
+package-lock.json
+package.json

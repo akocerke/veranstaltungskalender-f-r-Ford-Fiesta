@@ -1,7 +1,7 @@
 // Navbar.js
 import React from 'react'
 import { Navbar, Nav, Container } from 'react-bootstrap'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import logo from '../images/logo.png'
 
 const NavigationBar = () => (

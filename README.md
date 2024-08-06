@@ -134,6 +134,17 @@ Eine spezialisierte Plattform für Besitzer und Enthusiasten des Ford Fiesta (Mo
 - **POST** `/api/events/:id/rate`: Hinzufügen einer Bewertung zu einem Event.
 - **GET** `/api/events/:id/ratings`: Abrufen aller Bewertungen eines Events.
 
+### Verstoßmeldungen
+- **POST** `/api/violations/report`: Meldung eines Verstoßes. Erforderliche Felder: `eventId`, `reason`, `details`.
+- **GET** `/api/violations`: Abrufen aller gemeldeten Verstöße (Admin).
+- **PUT** `/api/violations/:id/status`: Aktualisieren des Status eines Verstoßes (Admin). Erforderliche Felder: `status`.
+
+### Admin
+- **GET** `/api/admin/dashboard`: Abrufen von Dashboard-Daten (Admin). Zeigt Übersicht über Verstöße, Benutzerstatistiken etc.
+- **PUT** `/api/admin/users/:id`: Aktualisieren von Benutzerdaten (Admin). Erforderliche Felder: `role`, `status`.
+- **DELETE** `/api/admin/users/:id`: Löschen eines Benutzers (Admin).
+
+
 ### UI Design für V FORD FIESTA EVENTS
 
 ## Designrichtlinien
@@ -193,7 +204,21 @@ Eine spezialisierte Plattform für Besitzer und Enthusiasten des Ford Fiesta (Mo
 
 
 ---
-### Mögliche Erweiterungen
+
+## Neue Features
+
+### Verstoßmeldung
+- **Ziel**: Ermöglicht es Benutzern, Verstöße gegen die Richtlinien zu melden.
+- **Verwendung**: Benutzer können Verstöße über das spezielle Meldeformular auf der Plattform melden.
+
+### Adminbereich
+- **Ziel**: Bereitstellung von Verwaltungsfunktionen für Administratoren.
+- **Funktionen**:
+  - **Dashboard**: Übersicht über Plattform-Statistiken und Verstöße.
+  - **Verwaltung von Benutzern**: Erstellen, Bearbeiten und Löschen von Benutzern.
+  - **Verwaltung von Verstößen**: Überprüfen und Bearbeiten von Verstoßmeldungen.
+
+## Mögliche Erweiterungen
 - **Soziale Funktionen**: Integration von sozialen Medien zur einfachen Event-Teilung.
 - **Geo-Location**: Automatische Erkennung des Standorts des Benutzers zur Anzeige von lokalen Events.
 - **Event-Benachrichtigungen**: Erweiterte Benachrichtigungsoptionen wie SMS oder Push-Benachrichtigungen.
