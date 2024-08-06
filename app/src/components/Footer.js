@@ -32,7 +32,7 @@ const Footer = () => {
             <h5 className="text-center">Rechtliches</h5>
             <hr></hr>
             <Nav className="flex-column text-center">
-              <Nav.Link href="/impressum" className="text-white-50">
+              <Nav.Link href="/imprint" className="text-white-50">
                 Impressum
               </Nav.Link>
               <Nav.Link href="/datenschutz" className="text-white-50">
