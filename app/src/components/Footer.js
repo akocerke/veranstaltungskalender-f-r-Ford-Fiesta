@@ -1,6 +1,7 @@
 // components/Footer.js
 import React from 'react'
 import { Container, Row, Col, Nav } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
@@ -32,10 +33,10 @@ const Footer = () => {
             <h5 className="text-center">Rechtliches</h5>
             <hr></hr>
             <Nav className="flex-column text-center">
-              <Nav.Link href="/imprint" className="text-white-50">
+              <Nav.Link as={Link} to="/imprint" className="text-white-50">
                 Impressum
               </Nav.Link>
-              <Nav.Link href="/datenschutz" className="text-white-50">
+              <Nav.Link as={Link} to="/policys" className="text-white-50">
                 Datenschutz
               </Nav.Link>
               <Nav.Link href="/richtlinien" className="text-white-50">
