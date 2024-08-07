@@ -1,12 +1,12 @@
 // src/pages/Admin/Users.js
-import React from 'react';
-import { Container, Table, Button, Form } from 'react-bootstrap';
+import React from 'react'
+import { Container, Table, Button, Form } from 'react-bootstrap'
 
 const Users = () => {
   return (
     <Container className="mt-5 mb-5">
-      <h1 className='headline'>Benutzerverwaltung</h1>
-      
+      <h1 className="headline">Benutzerverwaltung</h1>
+
       {/* Suchfeld und Button */}
       <Form className="mb-3">
         <Form.Group controlId="searchId">
@@ -16,9 +16,11 @@ const Users = () => {
             placeholder="Geben Sie die Benutzer-ID ein"
           />
         </Form.Group>
-        <Button variant="primary" className="mt-2">Suchen</Button>
+        <Button variant="primary" className="mt-2">
+          Suchen
+        </Button>
       </Form>
-      
+
       {/* Tabelle */}
       <Table striped bordered hover>
         <thead>
@@ -38,15 +40,19 @@ const Users = () => {
             <td>max.mustermann@example.com</td>
             <td>Admin</td>
             <td>
-              <Button variant="primary" className='me-3'>Bearbeiten</Button>
-              <Button variant="danger" className='me-3'>Löschen</Button>
+              <Button variant="primary" className="me-3">
+                Bearbeiten
+              </Button>
+              <Button variant="danger" className="me-3">
+                Löschen
+              </Button>
             </td>
           </tr>
           {/* Weitere Beispiel-Daten können hier hinzugefügt werden */}
         </tbody>
       </Table>
     </Container>
-  );
-};
+  )
+}
 
-export default Users;
+export default Users

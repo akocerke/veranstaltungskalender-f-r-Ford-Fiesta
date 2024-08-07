@@ -1,6 +1,6 @@
 // src/pages/Admin/Dashboard.js
-import React from 'react';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import React from 'react'
+import { Container, Row, Col, Card } from 'react-bootstrap'
 
 const Dashboard = () => {
   return (
@@ -9,15 +9,17 @@ const Dashboard = () => {
         <Col>
           <Card>
             <Card.Body>
-              <Card.Title className='headline'>Dashboard Übersicht</Card.Title>
-              <Card.Text>Hier finden Sie eine Übersicht der wichtigsten Statistiken.</Card.Text>
+              <Card.Title className="headline">Dashboard Übersicht</Card.Title>
+              <Card.Text>
+                Hier finden Sie eine Übersicht der wichtigsten Statistiken.
+              </Card.Text>
               {/* Füge hier weitere Statistiken und Informationen hinzu */}
             </Card.Body>
           </Card>
         </Col>
       </Row>
     </Container>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

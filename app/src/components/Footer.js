@@ -4,7 +4,7 @@ import { Container, Row, Col, Nav } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear()
   return (
     <footer className="text-white py-4">
       <Container>
@@ -53,9 +53,9 @@ const Footer = () => {
         <Row className="mt-5">
           <hr></hr>
           <Col className="text-center text-white-50 mt-3">
-          <p>
-              &copy; {currentYear} Veranstaltungskalender für Ford Fiesta. Alle Rechte
-              vorbehalten.
+            <p>
+              &copy; {currentYear} Veranstaltungskalender für Ford Fiesta. Alle
+              Rechte vorbehalten.
             </p>
           </Col>
         </Row>

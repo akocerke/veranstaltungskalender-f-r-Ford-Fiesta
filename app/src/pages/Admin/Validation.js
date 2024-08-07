@@ -1,6 +1,6 @@
 // src/pages/Admin/Violations.js
-import React from 'react';
-import { Container, Table, Button } from 'react-bootstrap';
+import React from 'react'
+import { Container, Table, Button } from 'react-bootstrap'
 
 const Violations = () => {
   return (
@@ -33,7 +33,7 @@ const Violations = () => {
         </tbody>
       </Table>
     </Container>
-  );
-};
+  )
+}
 
-export default Violations;
+export default Violations
