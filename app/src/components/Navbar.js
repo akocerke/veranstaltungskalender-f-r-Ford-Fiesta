@@ -4,12 +4,17 @@ import { Navbar, Nav, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import logo from '../images/logo.png'
 import LoginModal from '../pages/Login/LoginPage'
+import SignupModal from '../pages/Signup/SignupMordal'
 
 const NavigationBar = () => {
   const [showLoginModal, setShowLoginModal] = useState(false)
+  const [showSignupModal, setShowSignupModal] = useState(false)
 
   const handleLoginShow = () => setShowLoginModal(true)
   const handleLoginClose = () => setShowLoginModal(false)
+
+  const handleSignupShow = () => setShowSignupModal(true)
+  const handleSignupClose = () => setShowSignupModal(false)
 
   return (
     <>
@@ -41,7 +46,7 @@ const NavigationBar = () => {
               <Nav.Link as="button" onClick={handleLoginShow}>
                 <i className="bi bi-box-arrow-in-left p-1"></i>Login
               </Nav.Link>
-              <Nav.Link as={Link} to="#">
+              <Nav.Link as="button" onClick={handleSignupShow}>
                 <i className="bi bi-person-plus p-1"></i>Register
               </Nav.Link>
               <Nav.Link as={Link} to="#">
@@ -54,6 +59,9 @@ const NavigationBar = () => {
 
       {/* Hier wird das LoginModal eingebunden */}
       <LoginModal show={showLoginModal} handleClose={handleLoginClose} />
+
+      {/* Hier wird das SignupModal eingebunden */}
+      <SignupModal show={showSignupModal} handleClose={handleSignupClose} />
     </>
   )
 }
