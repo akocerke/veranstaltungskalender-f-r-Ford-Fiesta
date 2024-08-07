@@ -81,6 +81,8 @@ function App() {
 
             {/* Events */}
             <Route path="/events" element={<Events />} />
+
+            {/* Navbar */}
           </Routes>
         </Container>
         <Footer />
