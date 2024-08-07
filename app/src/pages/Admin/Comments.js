@@ -1,12 +1,12 @@
 // src/pages/Admin/Comments.js
-import React from 'react';
-import { Container, Table, Button, Form } from 'react-bootstrap';
+import React from 'react'
+import { Container, Table, Button, Form } from 'react-bootstrap'
 
 const Comments = () => {
   return (
     <Container className="mt-5 mb-5">
-      <h1 className='headline'>Kommentare verwalten</h1>
-      
+      <h1 className="headline">Kommentare verwalten</h1>
+
       {/* Suchfeld und Button */}
       <Form className="mb-3">
         <Form.Group controlId="searchId">
@@ -16,9 +16,11 @@ const Comments = () => {
             placeholder="Geben Sie die Kommentar-ID ein"
           />
         </Form.Group>
-        <Button variant="primary" className="mt-2">Suchen</Button>
+        <Button variant="primary" className="mt-2">
+          Suchen
+        </Button>
       </Form>
-      
+
       {/* Tabelle */}
       <Table striped bordered hover>
         <thead>
@@ -45,7 +47,7 @@ const Comments = () => {
         </tbody>
       </Table>
     </Container>
-  );
-};
+  )
+}
 
-export default Comments;
+export default Comments

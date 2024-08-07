@@ -74,9 +74,12 @@ function App() {
 
             {/* Admin-Bereich */}
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
-                <Route path="/admin/users" element={<AdminUsers />} />
-                <Route path="/admin/violations" element={<AdminViolations />} />
-                <Route path="/admin/comments" element={<AdminComments />} />
+            <Route path="/admin/users" element={<AdminUsers />} />
+            <Route path="/admin/violations" element={<AdminViolations />} />
+            <Route path="/admin/comments" element={<AdminComments />} />
+
+            {/* Events */}
+            
           </Routes>
         </Container>
         <Footer />

@@ -43,8 +43,8 @@ const ForumGuidelines = () => {
           <p className="headline2 mt-2">Meldung von Verstößen</p>
           <p>
             Wenn du einen Verstoß gegen die Richtlinien bemerkst, melde dies
-            bitte einem Administrator. Wir werden die
-            Angelegenheit so schnell wie möglich prüfen.
+            bitte einem Administrator. Wir werden die Angelegenheit so schnell
+            wie möglich prüfen.
           </p>
           <p className="headline2 mt-2">Änderungen der Richtlinien</p>
           <p>
