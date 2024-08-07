@@ -8,7 +8,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Imprint from './pages/imprint'
 import Policys from './pages/policys'
 import Forumguidelines from './pages/forumguidelines'
-
+import AdminDashboard from './pages/Admin/Dashboard'
+import AdminUsers from './pages/Admin/Users'
+import AdminViolations from './pages/Admin/Validation'
+import AdminComments from './pages/Admin/Comments'
 function App() {
   return (
     <Router>
@@ -69,7 +72,11 @@ function App() {
             {/* Forum-Richtlinien-Seite */}
             <Route path="/forumguidelines" element={<Forumguidelines />} />
 
-            {/* Weitere Routen können hier hinzugefügt werden */}
+            {/* Admin-Bereich */}
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                <Route path="/admin/users" element={<AdminUsers />} />
+                <Route path="/admin/violations" element={<AdminViolations />} />
+                <Route path="/admin/comments" element={<AdminComments />} />
           </Routes>
         </Container>
         <Footer />
