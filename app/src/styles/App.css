@@ -47,18 +47,18 @@ footer .nav-link:hover {
 
 /* CSS für die .primary-Klasse */
 .primary {
-  color: #ffffff !important; /* Weißer Text */
-  background-color: var(
-    --highlight-color
-  ) !important; /* Hintergrundfarbe auf Basis der Highlight-Farbe */
-  border: none !important; /* Keine Randlinie */
+  color: #ffffff !important;
+  background-color: var(--highlight-color) !important;
+  border: 1px solid #ffffff !important;
 }
 
 .primary:hover {
-  color: var(
-    --highlight-color
-  ) !important; /* Textfarbe auf Highlight-Farbe ändern beim Hover */
-  background-color: #ffffff !important; /* Hintergrundfarbe auf Weiß ändern beim Hover */
-  border: 1px solid var(--highlight-color) !important; /* Randlinie mit Highlight-Farbe beim Hover */
-  cursor: pointer; /* Mauszeiger als Zeiger anzeigen beim Hover */
+  color: var(--highlight-color) !important;
+  background-color: #dfdfdf !important;
+  border: 1px solid var(--highlight-color) !important;
+  cursor: pointer;
+}
+
+.bg-mordal {
+  background-color: #900c3f7d !important;
 }
