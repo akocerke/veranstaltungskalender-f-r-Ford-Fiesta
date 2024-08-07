@@ -12,6 +12,7 @@ import AdminDashboard from './pages/Admin/Dashboard'
 import AdminUsers from './pages/Admin/Users'
 import AdminViolations from './pages/Admin/Validation'
 import AdminComments from './pages/Admin/Comments'
+import Events from './pages/Events/Events'
 function App() {
   return (
     <Router>
@@ -79,7 +80,7 @@ function App() {
             <Route path="/admin/comments" element={<AdminComments />} />
 
             {/* Events */}
-            
+            <Route path="/events" element={<Events />} />
           </Routes>
         </Container>
         <Footer />
