@@ -378,12 +378,12 @@ const CalendarPage = () => {
               </Form>
             ) : (
               <Button variant="primary" onClick={handleEdit} className="me-3">
-                Bearbeiten
+                Event bearbeiten
               </Button>
             )}
 
             <Button variant="danger" onClick={handleDelete} className="me-3">
-              Löschen
+              Event löschen
             </Button>
           </Modal.Body>
           <Modal.Footer>
