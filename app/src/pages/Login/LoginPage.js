@@ -16,7 +16,7 @@ const LoginModal = ({ show, handleClose }) => {
   return (
     <Modal show={show} onHide={handleClose} centered className="bg-mordal">
       <Modal.Header closeButton>
-        <Modal.Title>Login</Modal.Title>
+        <Modal.Title className='text-color headline'>Login</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Container>
@@ -24,7 +24,7 @@ const LoginModal = ({ show, handleClose }) => {
             <Col xs={12} md={12}>
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Email</Form.Label>
+                  <Form.Label className='text-color'>Email</Form.Label>
                   <Form.Control
                     type="email"
                     placeholder="Email"
@@ -34,7 +34,7 @@ const LoginModal = ({ show, handleClose }) => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label>Passwort</Form.Label>
+                  <Form.Label className='text-color'>Passwort</Form.Label>
                   <Form.Control
                     type="password"
                     placeholder="Passwort"
@@ -52,7 +52,7 @@ const LoginModal = ({ show, handleClose }) => {
         </Container>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button className='primary' onClick={handleClose}>
           Close
         </Button>
       </Modal.Footer>
