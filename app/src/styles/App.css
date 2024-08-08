@@ -62,3 +62,8 @@ footer .nav-link:hover {
 .bg-mordal {
   background-color: #900c3f7d !important;
 }
+
+.text-color{
+  color: var(--highlight-color) !important;
+  font-weight: bold !important;
+}

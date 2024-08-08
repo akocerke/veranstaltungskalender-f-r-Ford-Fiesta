@@ -17,7 +17,7 @@ const SignupModal = ({ show, handleClose }) => {
   return (
     <Modal show={show} onHide={handleClose} centered className="bg-mordal">
       <Modal.Header closeButton>
-        <Modal.Title>Signup</Modal.Title>
+        <Modal.Title className='text-color headline'>Signup</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Container>
@@ -25,7 +25,7 @@ const SignupModal = ({ show, handleClose }) => {
             <Col xs={12} md={12}>
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicUsername">
-                  <Form.Label>Benutzername</Form.Label>
+                  <Form.Label className='text-color'>Benutzername</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Benutzernamen"
@@ -35,7 +35,7 @@ const SignupModal = ({ show, handleClose }) => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Email</Form.Label>
+                  <Form.Label className='text-color'>Email</Form.Label>
                   <Form.Control
                     type="email"
                     placeholder="Email"
@@ -45,7 +45,7 @@ const SignupModal = ({ show, handleClose }) => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label>Passwort</Form.Label>
+                  <Form.Label className='text-color'>Passwort</Form.Label>
                   <Form.Control
                     type="password"
                     placeholder="Passwort"
@@ -63,7 +63,7 @@ const SignupModal = ({ show, handleClose }) => {
         </Container>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button className='primary' onClick={handleClose}>
           Close
         </Button>
       </Modal.Footer>
