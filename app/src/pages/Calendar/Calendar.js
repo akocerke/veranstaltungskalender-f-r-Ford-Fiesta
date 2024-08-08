@@ -1,6 +1,6 @@
 // src/pages/Calendar/Calendar.js
 import React, { useState, useEffect } from 'react'
-import { Container, Modal, Button, Form } from 'react-bootstrap'
+import { Container, Modal, Button, Form, ListGroup, InputGroup, FormControl } from 'react-bootstrap'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
@@ -16,10 +16,14 @@ moment.locale('de')
 
 const CalendarPage = () => {
   const [events, setEvents] = useState([])
+  const [filteredEvents, setFilteredEvents] = useState([])
   const [selectedEvent, setSelectedEvent] = useState(null)
   const [isEditing, setIsEditing] = useState(false)
   const [editedEvent, setEditedEvent] = useState(null)
   const [rating, setRating] = useState(0)
+  const [comment, setComment] = useState('')
+  const [comments, setComments] = useState({})
+  const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
     // Hier API-Anfrage für Events einfügen
@@ -145,21 +149,36 @@ const CalendarPage = () => {
         ownerId: 11,
         rating: 4
     },
-    
-      // Weitere Events...
     ]
     setEvents(fetchedEvents)
+    setFilteredEvents(fetchedEvents)
+    setComments({
+      1: ['Toller Event!', 'Hat mir sehr gefallen.'],
+      2: ['Ganz okay, aber verbesserungswürdig.'],
+      // weitere Kommentare
+    })
   }, [])
+
+  useEffect(() => {
+    if (searchTerm === '') {
+      setFilteredEvents(events)
+    } else {
+      setFilteredEvents(events.filter(event =>
+        event.title.toLowerCase().includes(searchTerm.toLowerCase())
+      ))
+    }
+  }, [searchTerm, events])
 
   const handleEventClick = (event) => {
     setSelectedEvent(event)
     setIsEditing(false)
-    setRating(event.rating || 0) // Setze die Bewertung des ausgewählten Events
+    setRating(event.rating || 0)
   }
 
   const handleClose = () => {
     setSelectedEvent(null)
     setIsEditing(false)
+    setComment('')
   }
 
   const handleEdit = () => {
@@ -168,13 +187,11 @@ const CalendarPage = () => {
   }
 
   const handleSave = () => {
-    // Hier die Logik für das Speichern der Änderungen hinzufügen
     console.log('Event updated:', editedEvent)
     handleClose()
   }
 
   const handleDelete = () => {
-    // Hier die Logik für das Löschen des Events hinzufügen
     console.log('Event deleted:', selectedEvent.id)
     handleClose()
   }
@@ -184,21 +201,35 @@ const CalendarPage = () => {
   }
 
   const handleSubmitRating = () => {
-    // Hier die Logik für das Speichern der Bewertung hinzufügen
     console.log('Rating submitted:', rating)
-    // Eventuell API-Aufruf hier hinzufügen
   }
 
   const handleDateChange = (date, field) => {
     setEditedEvent({ ...editedEvent, [field]: date })
   }
 
+  const handleAddComment = () => {
+    if (!comment.trim()) return;
+    setComments(prev => ({
+      ...prev,
+      [selectedEvent.id]: [...(prev[selectedEvent.id] || []), comment]
+    }));
+    setComment('');
+  }
+
   return (
     <Container className="mt-5 mb-5">
       <p className="headline">Kalender</p>
+      <InputGroup className="mb-4">
+        <FormControl
+          placeholder="Nach Events suchen"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </InputGroup>
       <Calendar
         localizer={localizer}
-        events={events}
+        events={filteredEvents}
         startAccessor="start"
         endAccessor="end"
         onSelectEvent={handleEventClick}
@@ -207,11 +238,10 @@ const CalendarPage = () => {
         culture="de"
       />
 
-      {/* Detailansicht als Modal */}
       {selectedEvent && (
         <Modal show={true} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>{selectedEvent.title}</Modal.Title>
+            <Modal.Title className='text-color'>{selectedEvent.title}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <img
@@ -219,17 +249,19 @@ const CalendarPage = () => {
               alt={selectedEvent.title}
               className="img-fluid mb-3"
             />
-            <p>
-              <strong>Datum:</strong> {moment(selectedEvent.start).format('LL')}
+            <p className='text-color'>
+              <strong>Datum:</strong>
+              <span className='span'> {moment(selectedEvent.start).format('LL')}</span>
             </p>
-            <p>
-              <strong>Ort:</strong> {selectedEvent.location}
+            <p className='text-color'>
+              <strong>Ort:</strong> 
+              <span className='span'> {selectedEvent.location}</span>
             </p>
-            <p>
-              <strong>Beschreibung:</strong> {selectedEvent.description}
+            <p className='text-color'>
+              <strong>Beschreibung:</strong> 
+              <span className='span'> {selectedEvent.description}</span>
             </p>
 
-            {/* Bewertung */}
             <div className="mb-3">
               <StarRatings
                 rating={rating}
@@ -241,7 +273,7 @@ const CalendarPage = () => {
                 starSpacing="2px"
               />
               <Button
-                variant="info"
+                variant="warning"
                 onClick={handleSubmitRating}
                 className="mt-2 ms-3"
               >
@@ -249,7 +281,30 @@ const CalendarPage = () => {
               </Button>
             </div>
 
-            {/* Bearbeitungsformular */}
+            <div className="mb-3">
+              <Form.Group>
+                <Form.Label className='text-color fw-bold'>Kommentar hinzufügen</Form.Label>
+                <Form.Control
+                  as="textarea"
+                  rows={3}
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                />
+                <Button
+                  variant="info"
+                  onClick={handleAddComment}
+                  className="mt-2"
+                >
+                  Kommentar hinzufügen
+                </Button>
+              </Form.Group>
+              <ListGroup className="mt-3 mb-3"> <span className='text-color fw-bold mb-2'>User Komentare</span>
+                {comments[selectedEvent.id]?.map((c, index) => (
+                  <ListGroup.Item key={index}>@user  {c}</ListGroup.Item>
+                ))}
+              </ListGroup>
+            </div>
+
             {isEditing ? (
               <Form>
                 <Form.Group controlId="formTitle">
@@ -300,7 +355,7 @@ const CalendarPage = () => {
                   />
                 </Form.Group>
                 <Form.Group controlId="formDescription">
-                  <Form.Label className="fw-bold">Beschreibung</Form.Label>
+                  <Form.Label className="fw-bold text-color">Beschreibung</Form.Label>
                   <Form.Control
                     type="text"
                     value={editedEvent.description}
@@ -313,7 +368,6 @@ const CalendarPage = () => {
                     className="mb-3"
                   />
                 </Form.Group>
-                {/* Weitere Formularfelder für Event-Daten */}
                 <Button
                   variant="primary"
                   onClick={handleSave}
@@ -333,7 +387,7 @@ const CalendarPage = () => {
             </Button>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button className='primary' onClick={handleClose}>
               Schließen
             </Button>
           </Modal.Footer>

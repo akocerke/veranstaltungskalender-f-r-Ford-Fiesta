@@ -65,5 +65,8 @@ footer .nav-link:hover {
 
 .text-color{
   color: var(--highlight-color) !important;
-  font-weight: bold !important;
+}
+
+.span {
+  color: black !important;
 }
