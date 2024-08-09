@@ -25,7 +25,7 @@ const SignupModal = ({ show, handleClose }) => {
             <Col xs={12} md={12}>
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicUsername">
-                  <Form.Label className='text-color'>Benutzername</Form.Label>
+                  <Form.Label className='text-color fw-bold'>Benutzername</Form.Label>
                   <Form.Control
                     type="text"
                     placeholder="Benutzernamen"
@@ -35,7 +35,7 @@ const SignupModal = ({ show, handleClose }) => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label className='text-color'>Email</Form.Label>
+                  <Form.Label className='text-color fw-bold'>Email</Form.Label>
                   <Form.Control
                     type="email"
                     placeholder="Email"
@@ -45,7 +45,7 @@ const SignupModal = ({ show, handleClose }) => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label className='text-color'>Passwort</Form.Label>
+                  <Form.Label className='text-color fw-bold'>Passwort</Form.Label>
                   <Form.Control
                     type="password"
                     placeholder="Passwort"
