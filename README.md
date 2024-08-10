@@ -115,37 +115,106 @@ Eine spezialisierte Plattform für Besitzer und Enthusiasten des Ford Fiesta (Mo
 - **ORM**: Nutze ein ORM wie Sequelize zur Verwaltung der Datenbankoperationen und zur Vereinfachung der Datenbankabfragen.
 - **Backups**: Regelmäßige Backups der Datenbank zur Sicherstellung der Datenintegrität.
 
-## API-Endpunkte
+Das sieht nach einer soliden Dokumentation der API-Endpunkte aus. Hier sind einige Vorschläge, um die Übersichtlichkeit und Verständlichkeit weiter zu verbessern:
 
-### Benutzer
-- **POST** `/api/register`: Registrierung eines neuen Benutzers.
-- **POST** `/api/login`: Anmeldung eines Benutzers.
-- **GET** `/api/profile`: Abrufen der Benutzerdaten.
-- **PUT** `/api/profile`: Aktualisieren der Benutzerdaten.
+### Ergänzungen und Verbesserungsvorschläge:
 
-### Events
-- **GET** `/api/events`: Abrufen aller Events.
-- **GET** `/api/events/:id`: Abrufen eines spezifischen Events.
-- **POST** `/api/events`: Erstellen eines neuen Events.
-- **PUT** `/api/events/:id`: Bearbeiten eines bestehenden Events.
-- **DELETE** `/api/events/:id`: Löschen eines Events.
+1. **Zusätzliche Informationen zu den Endpunkten:**
+   - **Parameter:** Für jede Route, die Parameter akzeptiert (z.B. `:id`), könnte eine kurze Beschreibung hinzugefügt werden, was diese Parameter repräsentieren.
+   - **Beispiele:** Es kann hilfreich sein, für einige der Endpunkte Beispiele für Anfragen und Antworten hinzuzufügen.
+   - **Status-Codes:** Erwäge, die möglichen HTTP-Status-Codes für jede Route zu dokumentieren, um klarzustellen, was bei Erfolg oder Fehler zurückgegeben wird.
 
-### Bewertungen
-- **POST** `/api/events/:id/rate`: Hinzufügen einer Bewertung zu einem Event.
-- **GET** `/api/events/:id/ratings`: Abrufen aller Bewertungen eines Events.
-
-### Verstoßmeldungen
-- **POST** `/api/violations/report`: Meldung eines Verstoßes. Erforderliche Felder: `eventId`, `reason`, `details`.
-- **GET** `/api/violations`: Abrufen aller gemeldeten Verstöße (Admin).
-- **PUT** `/api/violations/:id/status`: Aktualisieren des Status eines Verstoßes (Admin). Erforderliche Felder: `status`.
-
-### Admin
-- **GET** `/api/admin/dashboard`: Abrufen von Dashboard-Daten (Admin). Zeigt Übersicht über Verstöße, Benutzerstatistiken etc.
-- **PUT** `/api/admin/users/:id`: Aktualisieren von Benutzerdaten (Admin). Erforderliche Felder: `role`, `status`.
-- **DELETE** `/api/admin/users/:id`: Löschen eines Benutzers (Admin).
+2. **Konsistenz der Beschreibung:**
+   - Achte darauf, dass die Beschreibung der Routen konsistent ist. Z.B. könntest du bei jeder Route angeben, ob sie authentifiziert werden muss und welche Daten im Body (bei POST/PUT) erwartet werden.
 
 
-### UI Design für V FORD FIESTA EVENTS
+# API-Endpunkte
+
+### Benutzer API-Endpunkte
+
+#### Benutzer
+- **POST** `/api/user/register`: Registrierung eines neuen Benutzers.
+  - **Erforderliche Felder:** `username`, `password`, `email`
+  - **Antwort:** Erfolgreiche Registrierung gibt eine Benutzer-ID zurück.
+
+- **POST** `/api/user/login`: Anmeldung eines Benutzers.
+  - **Erforderliche Felder:** `username`, `password`
+  - **Antwort:** Bei Erfolg wird ein Token zurückgegeben.
+
+- **GET** `/api/user/profile`: Abrufen der Benutzerdaten.
+  - **Header:** `Authorization: Bearer <token>`
+  - **Antwort:** Gibt die Profilinformationen des angemeldeten Benutzers zurück.
+
+- **PUT** `/api/user/profile/update`: Aktualisieren der Benutzerdaten.
+  - **Header:** `Authorization: Bearer <token>`
+  - **Erforderliche Felder:** Je nach Update, z.B. `email`, `password`
+  - **Antwort:** Bestätigt die Aktualisierung der Daten.
+
+#### Events
+- **POST** `/api/user/events/create`: Erstellen eines neuen Events durch den Benutzer.
+  - **Erforderliche Felder:** `title`, `description`, `date`, `image`
+  - **Antwort:** Gibt die ID des erstellten Events zurück.
+
+- **PUT** `/api/user/events/update/:id`: Bearbeiten eines Events, das der Benutzer erstellt hat.
+  - **Parameter:** `:id` - ID des zu bearbeitenden Events
+  - **Parameter:** `UserId` - Prüfen ob der Benutzer das Event erstellt hat.
+  - **Erforderliche Felder:** Je nach Update, z.B. `title`, `description`, `date`
+  - **Antwort:** Bestätigt die Aktualisierung des Events.
+
+- **DELETE** `/api/user/events/:id`: Löschen eines Events, das der Benutzer erstellt hat.
+  - **Parameter:** `:id` - ID des zu löschenden Events
+  - **Parameter:** `UserId` - Prüfen ob der Benutzer das Event erstellt hat.
+  - **Antwort:** Bestätigt das Löschen des Events.
+
+#### Bewertungen & Kommentare
+- **POST** `/api/user/events/:id/rate`: Hinzufügen einer Bewertung zu einem Event.
+  - **Parameter:** `:id` - ID des Events
+  - **Erforderliche Felder:** `rating` (1-5)
+  - **Antwort:** Bestätigt die Hinzufügung der Bewertung.
+
+- **POST** `/api/user/events/:id/comment`: Hinzufügen eines Kommentars zu einem Event.
+  - **Parameter:** `:id` - ID des Events
+  - **Erforderliche Felder:** `comment`
+  - **Antwort:** Bestätigt die Hinzufügung des Kommentars.
+
+- **GET** `/api/user/events/:id/ratings`: Abrufen aller Bewertungen eines Events.
+  - **Parameter:** `:id` - ID des Events
+  - **Antwort:** Liste aller Bewertungen zu dem Event.
+
+
+
+## Admin API-Endpunkte
+
+#### Events
+- **DELETE** `/api/admin/events/:id`: Löschen eines Events (unabhängig vom Ersteller).
+  - **Parameter:** `:id` - ID des zu löschenden Events
+  - **Antwort:** Bestätigt das Löschen des Events.
+
+#### Kommentare
+- **DELETE** `/api/admin/comments/:id`: Löschen eines Kommentars (unabhängig vom Ersteller).
+  - **Parameter:** `:id` - ID des zu löschenden Kommentars
+  - **Antwort:** Bestätigt das Löschen des Kommentars.
+
+#### Benutzer
+- **DELETE** `/api/admin/users/:id`: Löschen eines Benutzers.
+  - **Parameter:** `:id` - ID des zu löschenden Benutzers
+  - **Antwort:** Bestätigt das Löschen des Benutzers.
+
+#### Verstoßmeldungen
+- **GET** `/api/admin/violations`: Abrufen aller gemeldeten Verstöße.
+  - **Antwort:** Liste aller gemeldeten Verstöße.
+
+- **PUT** `/api/admin/violations/:id/status`: Aktualisieren des Status eines Verstoßes.
+  - **Parameter:** `:id` - ID der Verstoßmeldung
+  - **Erforderliche Felder:** `status`
+  - **Antwort:** Bestätigt die Statusaktualisierung.
+
+### Dashboard
+- **GET** `/api/admin/dashboard`: Abrufen von Dashboard-Daten.
+  - **Antwort:** Übersichtsdaten wie Anzahl der Benutzer, Events, Verstöße.
+
+
+# UI Design für V FORD FIESTA EVENTS
 
 ## Designrichtlinien
 
@@ -201,7 +270,6 @@ Eine spezialisierte Plattform für Besitzer und Enthusiasten des Ford Fiesta (Mo
 4. **Prototyping**: Erstelle Prototypen und überprüfe das Design auf Benutzerfreundlichkeit.✅
 5. **Implementierung**: Implementiere das Design in die React-Anwendung unter Verwendung von Bootstrap.✅
 6. **Testing**: Führe Tests durch, um sicherzustellen, dass das UI gut funktioniert und benutzerfreundlich ist.
-
 
 ---
 
