@@ -51,45 +51,92 @@ Eine spezialisierte Plattform für Besitzer und Enthusiasten des Ford Fiesta (Mo
    - **Content Delivery**: AWS CloudFront zur Beschleunigung der Auslieferung der statischen Dateien.
    - **Autoscaling**: AWS Autoscaling Groups zur automatischen Skalierung der Backend-Server.
 
-### Datenstruktur und -management
+---
+# Datenstruktur und -management
 
-#### Tabellenstruktur
+## Tabellenstruktur
 
-**Benutzer**:
-- ID
-- Benutzername
-- E-Mail
-- Passwort (verschlüsselt)
-- Erstellungsdatum
+1. **users**  
+   Diese Tabelle speichert die Benutzerinformationen.
+   - **id** (Primary Key, Auto-Increment)
+   - **username** (VARCHAR, unique)
+   - **email** (VARCHAR, unique)
+   - **password** (VARCHAR)
+   - **role** (ENUM: 'user', 'admin') - Rolle des Benutzers
+   - **created_at** (DATETIME) - Zeitstempel der Erstellung
+   - **updated_at** (DATETIME) - Zeitstempel der letzten Aktualisierung
 
-**Events**:
-- ID
-- Benutzer-ID (Referenz auf Benutzer)
-- Titel
-- Beschreibung
-- Ort
-- Datum
-- Bild-URL
-- Erstellungsdatum
+2. **events**  
+   Diese Tabelle speichert die Events, die Benutzer erstellen.
+   - **id** (Primary Key, Auto-Increment)
+   - **user_id** (Foreign Key zu `users.id`) - Der Benutzer, der das Event erstellt hat
+   - **title** (VARCHAR)
+   - **description** (TEXT)
+   - **date** (DATETIME) - Datum und Uhrzeit des Events
+   - **image** (VARCHAR) - Pfad zum Eventbild
+   - **created_at** (DATETIME) - Zeitstempel der Erstellung
+   - **updated_at** (DATETIME) - Zeitstempel der letzten Aktualisierung
 
-**Bewertungen**:
-- ID
-- Event-ID (Referenz auf Event)
-- Benutzer-ID (Referenz auf Benutzer)
-- Bewertung (1-5)
-- Kommentar
-- Erstellungsdatum
+3. **ratings**  
+   Diese Tabelle speichert die Bewertungen zu Events.
+   - **id** (Primary Key, Auto-Increment)
+   - **event_id** (Foreign Key zu `events.id`) - Das Event, das bewertet wurde
+   - **user_id** (Foreign Key zu `users.id`) - Der Benutzer, der die Bewertung abgegeben hat
+   - **rating** (INT) - Bewertung (1-5)
+   - **created_at** (DATETIME) - Zeitstempel der Erstellung
 
-## Benutzerrollen und Berechtigungen
-- **Admin**: 
-  - Kann alle Events verwalten
-  - Kann Benutzer verwalten
-  - Hat Zugriff auf erweiterte Statistiken
-- **Standardbenutzer**: 
-  - Kann eigene Events erstellen, bearbeiten und löschen
-  - Kann Events bewerten und kommentieren
+4. **comments**  
+   Diese Tabelle speichert die Kommentare zu Events.
+   - **id** (Primary Key, Auto-Increment)
+   - **event_id** (Foreign Key zu `events.id`) - Das Event, zu dem der Kommentar gehört
+   - **user_id** (Foreign Key zu `users.id`) - Der Benutzer, der den Kommentar abgegeben hat
+   - **comment** (TEXT)
+   - **created_at** (DATETIME) - Zeitstempel der Erstellung
 
-## Sicherheit und Datenschutz
+5. **violations**  
+   Diese Tabelle speichert die gemeldeten Verstöße.
+   - **id** (Primary Key, Auto-Increment)
+   - **event_id** (Foreign Key zu `events.id`) - Das Event, das gemeldet wurde
+   - **reported_by** (Foreign Key zu `users.id`) - Der Benutzer, der den Verstoß gemeldet hat
+   - **reason** (VARCHAR) - Grund für die Meldung
+   - **details** (TEXT) - Details zur Meldung
+   - **status** (ENUM: 'pending', 'reviewed', 'resolved') - Status der Meldung
+   - **created_at** (DATETIME) - Zeitstempel der Erstellung
+   - **updated_at** (DATETIME) - Zeitstempel der letzten Aktualisierung
+
+## Beziehungen
+
+- **users** ↔ **events**: Ein Benutzer kann viele Events erstellen (One-to-Many).
+- **users** ↔ **ratings**: Ein Benutzer kann viele Bewertungen abgeben (One-to-Many).
+- **users** ↔ **comments**: Ein Benutzer kann viele Kommentare schreiben (One-to-Many).
+- **users** ↔ **violations**: Ein Benutzer kann viele Verstöße melden (One-to-Many).
+- **events** ↔ **ratings**: Ein Event kann viele Bewertungen haben (One-to-Many).
+- **events** ↔ **comments**: Ein Event kann viele Kommentare haben (One-to-Many).
+- **events** ↔ **violations**: Ein Event kann viele Verstöße haben (One-to-Many).
+
+
+### ER-Diagramm
+
+<img src="ERM.png"></img>
+
+
+### Das Schema für die Datenbank ist in der folgenden SQL-Datei:
+
+[Download des Datenbankschemas](scripts/veranstaltungskalender_ford_fiesta.sql)
+
+
+#### Verwendung
+
+Um das Schema anzuwenden, führe das SQL-Skript wie folgt aus:
+
+1. Lade die SQL-Datei herunter.
+2. Verbinde dich mit deiner Datenbank.
+3. Führe das SQL-Skript aus, um die Tabellen zu erstellen.
+
+
+---
+
+# Sicherheit und Datenschutz
 - **Datenverschlüsselung**: Stellt sicher, dass sensible Daten wie Passwörter und persönliche Informationen verschlüsselt gespeichert werden.
 - **Datenschutzrichtlinien**: Implementiere klare Datenschutzrichtlinien und stelle sicher, dass Benutzer über die Verwendung ihrer Daten informiert sind.
 
