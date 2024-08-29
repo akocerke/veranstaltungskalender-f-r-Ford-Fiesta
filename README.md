@@ -10,7 +10,7 @@ Eine spezialisierte Plattform für Besitzer und Enthusiasten des Ford Fiesta (Mo
 ### Wichtige Komponenten und Funktionen
 
 #### Benutzerverwaltung
-- **Registrierung und Anmeldung**: Benutzer können sich registrieren und anmelden, um Events zu verwalten. AWS Cognito wird zur Benutzerverwaltung und Authentifizierung verwendet.
+- **Registrierung und Anmeldung**: Benutzer können sich registrieren und anmelden, um Events zu verwalten. JWToken wird zur Benutzerverwaltung und Authentifizierung verwendet.
 - **Profilverwaltung**: Benutzer können ihre Profile verwalten und persönliche Daten aktualisieren.
 
 #### Event-Verwaltung
@@ -38,7 +38,7 @@ Eine spezialisierte Plattform für Besitzer und Enthusiasten des Ford Fiesta (Mo
 2. **Backend**
    - **Technologie**: Express API
    - **Beschreibung**: API zur Verwaltung der Datenbankoperationen (CRUD) für Benutzer und Events.
-   - **Auth**: AWS Cognito für Benutzerauthentifizierung und -verwaltung.
+   - **Auth**: JWToken für Benutzerauthentifizierung und -verwaltung.
 
 3. **Datenbank**
    - **Technologie**: MySQL
