@@ -13,7 +13,7 @@ import AdminUsers from './pages/Admin/Users'
 import AdminViolations from './pages/Admin/Validation'
 import AdminComments from './pages/Admin/Comments'
 import Events from './pages/Events/Events'
-import Contact from './pages/Contact/contact';
+import Contact from './pages/Contact/contact'
 
 function App() {
   return (
@@ -82,7 +82,6 @@ function App() {
             <Route path="/events" element={<Events />} />
 
             {/* Navbar */}
-
           </Routes>
         </Container>
         <Footer />
