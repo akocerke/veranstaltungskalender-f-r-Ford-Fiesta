@@ -262,6 +262,51 @@ Das sieht nach einer soliden Dokumentation der API-Endpunkte aus. Hier sind eini
 - **GET** `/api/admin/dashboard`: Abrufen von Dashboard-Daten.
   - **Antwort:** Übersichtsdaten wie Anzahl der Benutzer, Events, Verstöße.
 
+## Visuelle Kennzeichnung für Admins und Benutzer
+
+Um die Benutzerfreundlichkeit und Navigation in unserem System zu verbessern, haben wir visuelle Kennzeichnungen eingeführt, um zwischen Admins und normalen Benutzern zu unterscheiden. Hier sind die Details zur Implementierung:
+
+### Dashboard-Design
+
+- **Admin-Dashboard:**
+  - **Farbe:** Das Admin-Dashboard verwendet eine auffällige Farbe oder ein spezielles Design, um sofort zu erkennen, dass es sich um Admin-Funktionen handelt.
+  - **Header/Banner:** Ein klarer Hinweis oder ein Banner am oberen Rand des Dashboards kennzeichnet den Admin-Bereich.
+
+- **Benutzer-Dashboard:**
+  - **Farbe:** Ein neutraler oder standardmäßiger Farbton wird verwendet, der von der Admin-Kennzeichnung abweicht.
+  - **Header/Banner:** Ein einfacher Header ohne spezielle Kennzeichnung.
+
+### Benutzeroberfläche
+
+- **Icons und Labels:**
+  - **Admin:** Verwende ein Schild oder eine Krone neben den Benutzernamen in der Benutzerverwaltung, um Administratoren zu kennzeichnen.
+  - **Benutzer:** Normale Icons oder Text für reguläre Benutzer.
+
+- **Dropdown-Menü:**
+  - Im Dropdown-Menü oder in der Sidebar wird neben dem Benutzernamen ein Label wie „Admin“ oder „User“ angezeigt.
+
+### Farbcodierung
+
+- **Admin:**
+  - Verwende Farben wie Rot oder Blau, um die Admin-Bereiche hervorzuheben und sofortige Sichtbarkeit zu gewährleisten.
+
+- **User:**
+  - Verwende Farben wie Grün oder Grau, die sich von den Admin-Farben abheben.
+
+### Tooltips
+
+- **Hover-Effekte:**
+  - Beim Überfahren mit der Maus werden zusätzliche Informationen über den Benutzerstatus angezeigt, z.B. „Administrator“ oder „Normaler Benutzer“.
+
+### Designbeispiele
+
+- **Admin-Bereich:**
+  - Ein Dashboard mit großen Buttons und klaren, prägnanten Icons für Verwaltungsaufgaben.
+
+- **Benutzer-Bereich:**
+  - Ein einfaches Layout mit grundlegenden Funktionen und weniger Verwaltungsoptionen.
+
+Durch diese visuelle Unterscheidung können Benutzer schnell erkennen, welche Funktionen ihnen zur Verfügung stehen und ob sie sich im Admin- oder Benutzerbereich befinden. Dies verbessert die Benutzerfreundlichkeit und sorgt für ein klareres Navigationsschema.
 
 # UI Design für V FORD FIESTA EVENTS
 
