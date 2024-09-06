@@ -258,7 +258,7 @@ Das sieht nach einer soliden Dokumentation der API-Endpunkte aus. Hier sind eini
   - **Erforderliche Felder:** `status`
   - **Antwort:** Bestätigt die Statusaktualisierung.
 
-### Dashboard
+#### Dashboard
 - **GET** `/api/admin/dashboard`: Abrufen von Dashboard-Daten.
   - **Antwort:** Übersichtsdaten wie Anzahl der Benutzer, Events, Verstöße.
 
