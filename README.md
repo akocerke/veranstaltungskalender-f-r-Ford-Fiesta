@@ -228,8 +228,6 @@ Das sieht nach einer soliden Dokumentation der API-Endpunkte aus. Hier sind eini
   - **Parameter:** `:id` - ID des Events
   - **Antwort:** Liste aller Bewertungen zu dem Event.
 
-
-
 ## Admin API-Endpunkte
 
 #### Events
@@ -246,6 +244,10 @@ Das sieht nach einer soliden Dokumentation der API-Endpunkte aus. Hier sind eini
 - **DELETE** `/api/admin/users/:id`: Löschen eines Benutzers.
   - **Parameter:** `:id` - ID des zu löschenden Benutzers
   - **Antwort:** Bestätigt das Löschen des Benutzers.
+- **PUT** `/api/admin/users/:id/role`: Aktualisieren der Rolle eines Benutzers.
+  - **Parameter:** `:id` - ID des Benutzers
+  - **Erforderliche Felder:** `role` (z.B. "admin" oder "user")
+  - **Antwort:** Bestätigt die Aktualisierung der Benutzerrolle.
 
 #### Verstoßmeldungen
 - **GET** `/api/admin/violations`: Abrufen aller gemeldeten Verstöße.
