@@ -46,10 +46,10 @@ const Contact = () => {
       <Row className="justify-content-md-center p-5">
         <Col xs={12} md={6}>
           <h1 className="text-center mb-5 headline">Kontakt</h1>
-          
+
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formName">
-              <Form.Label className='text-color'>Name</Form.Label>
+              <Form.Label className="text-color">Name</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Ihr Name"
@@ -60,7 +60,7 @@ const Contact = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formEmail">
-              <Form.Label className='text-color'>Email</Form.Label>
+              <Form.Label className="text-color">Email</Form.Label>
               <Form.Control
                 type="email"
                 placeholder="Ihre Email-Adresse"
@@ -71,7 +71,7 @@ const Contact = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formSubject">
-              <Form.Label className='text-color'>Betreff</Form.Label>
+              <Form.Label className="text-color">Betreff</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Betreff"
@@ -82,7 +82,7 @@ const Contact = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formMessage">
-              <Form.Label className='text-color'>Nachricht</Form.Label>
+              <Form.Label className="text-color">Nachricht</Form.Label>
               <Form.Control
                 as="textarea"
                 rows={5}
@@ -94,10 +94,8 @@ const Contact = () => {
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label className='text-color mb-2'>Captcha</Form.Label>
-              <LoadCanvasTemplate 
-                className="mt-3"
-              />
+              <Form.Label className="text-color mb-2">Captcha</Form.Label>
+              <LoadCanvasTemplate className="mt-3" />
 
               <Form.Control
                 type="text"
@@ -105,13 +103,19 @@ const Contact = () => {
                 value={captchaInput}
                 onChange={(e) => setCaptchaInput(e.target.value)}
                 required
-                className='mt-3'
+                className="mt-3"
               />
             </Form.Group>
             {submitted && (
-            <Alert variant="success" className='mt-4'>Nachricht erfolgreich gesendet!</Alert>
-          )}
-          {error && <Alert variant="danger" className='mt-4'>{error}</Alert>}
+              <Alert variant="success" className="mt-4">
+                Nachricht erfolgreich gesendet!
+              </Alert>
+            )}
+            {error && (
+              <Alert variant="danger" className="mt-4">
+                {error}
+              </Alert>
+            )}
             <Button type="submit" className="w-100 primary mt-3">
               Absenden
             </Button>

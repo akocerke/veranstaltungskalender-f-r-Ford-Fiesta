@@ -1,20 +1,35 @@
 // src/components/Navbar.js
 import React, { useState } from 'react'
 import { Navbar, Nav, Container } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom' // Stelle sicher, dass useNavigate hier importiert wird
 import logo from '../images/logo.png'
 import LoginModal from '../pages/Login/LoginPage'
 import SignupModal from '../pages/Signup/SignupMordal'
+import { logout } from '../api/auth'
 
 const NavigationBar = () => {
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [showSignupModal, setShowSignupModal] = useState(false)
+  const navigate = useNavigate() // Verwende useNavigate hier
 
   const handleLoginShow = () => setShowLoginModal(true)
   const handleLoginClose = () => setShowLoginModal(false)
 
   const handleSignupShow = () => setShowSignupModal(true)
   const handleSignupClose = () => setShowSignupModal(false)
+
+  const handleLogout = async () => {
+    try {
+      await logout(); // Aufruf der logout-Funktion
+      // Optional: Token aus dem LocalStorage entfernen
+      localStorage.removeItem('token');
+      navigate('/'); // Weiterleitung nach dem Logout
+    } catch (error) {
+      console.error('Fehler beim Logout:', error);
+    }
+  };
+  
+
 
   return (
     <>
@@ -49,7 +64,7 @@ const NavigationBar = () => {
               <Nav.Link as="button" onClick={handleSignupShow}>
                 <i className="bi bi-person-plus p-1"></i>Register
               </Nav.Link>
-              <Nav.Link as={Link} to="#">
+              <Nav.Link as="button" onClick={handleLogout}>
                 <i className="bi bi-box-arrow-in-right p-1"></i>Logout
               </Nav.Link>
             </Nav>

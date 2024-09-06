@@ -1,6 +1,14 @@
 // src/pages/Calendar/Calendar.js
 import React, { useState, useEffect } from 'react'
-import { Container, Modal, Button, Form, ListGroup, InputGroup, FormControl } from 'react-bootstrap'
+import {
+  Container,
+  Modal,
+  Button,
+  Form,
+  ListGroup,
+  InputGroup,
+  FormControl,
+} from 'react-bootstrap'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
@@ -48,9 +56,9 @@ const CalendarPage = () => {
         description: 'Beschreibung 2',
         imageUrl: 'https://via.placeholder.com/150',
         ownerId: 2,
-        rating: 3
-    },
-    {
+        rating: 3,
+      },
+      {
         id: 3,
         title: 'Event 3',
         start: new Date('2024-08-15T14:00:00'),
@@ -59,9 +67,9 @@ const CalendarPage = () => {
         description: 'Beschreibung 3',
         imageUrl: 'https://via.placeholder.com/150',
         ownerId: 3,
-        rating: 4
-    },
-    {
+        rating: 4,
+      },
+      {
         id: 4,
         title: 'Event 4',
         start: new Date('2024-09-01T10:00:00'),
@@ -70,9 +78,9 @@ const CalendarPage = () => {
         description: 'Beschreibung 4',
         imageUrl: 'https://via.placeholder.com/150',
         ownerId: 4,
-        rating: 5
-    },
-    {
+        rating: 5,
+      },
+      {
         id: 5,
         title: 'Event 5',
         start: new Date('2024-09-15T09:00:00'),
@@ -81,9 +89,9 @@ const CalendarPage = () => {
         description: 'Beschreibung 5',
         imageUrl: 'https://via.placeholder.com/150',
         ownerId: 5,
-        rating: 2
-    },
-    {
+        rating: 2,
+      },
+      {
         id: 6,
         title: 'Event 6',
         start: new Date('2024-10-01T11:00:00'),
@@ -92,9 +100,9 @@ const CalendarPage = () => {
         description: 'Beschreibung 6',
         imageUrl: 'https://via.placeholder.com/150',
         ownerId: 6,
-        rating: 3
-    },
-    {
+        rating: 3,
+      },
+      {
         id: 7,
         title: 'Event 7',
         start: new Date('2024-10-15T14:00:00'),
@@ -103,9 +111,9 @@ const CalendarPage = () => {
         description: 'Beschreibung 7',
         imageUrl: 'https://via.placeholder.com/150',
         ownerId: 7,
-        rating: 4
-    },
-    {
+        rating: 4,
+      },
+      {
         id: 8,
         title: 'Event 8',
         start: new Date('2024-11-01T10:00:00'),
@@ -114,9 +122,9 @@ const CalendarPage = () => {
         description: 'Beschreibung 8',
         imageUrl: 'https://via.placeholder.com/150',
         ownerId: 8,
-        rating: 5
-    },
-    {
+        rating: 5,
+      },
+      {
         id: 9,
         title: 'Event 9',
         start: new Date('2024-11-15T09:00:00'),
@@ -125,9 +133,9 @@ const CalendarPage = () => {
         description: 'Beschreibung 9',
         imageUrl: 'https://via.placeholder.com/150',
         ownerId: 9,
-        rating: 2
-    },
-    {
+        rating: 2,
+      },
+      {
         id: 10,
         title: 'Event 10',
         start: new Date('2024-12-01T11:00:00'),
@@ -136,9 +144,9 @@ const CalendarPage = () => {
         description: 'Beschreibung 10',
         imageUrl: 'https://via.placeholder.com/150',
         ownerId: 10,
-        rating: 3
-    },
-    {
+        rating: 3,
+      },
+      {
         id: 11,
         title: 'Event 11',
         start: new Date('2024-12-15T14:00:00'),
@@ -147,8 +155,8 @@ const CalendarPage = () => {
         description: 'Beschreibung 11',
         imageUrl: 'https://via.placeholder.com/150',
         ownerId: 11,
-        rating: 4
-    },
+        rating: 4,
+      },
     ]
     setEvents(fetchedEvents)
     setFilteredEvents(fetchedEvents)
@@ -163,9 +171,11 @@ const CalendarPage = () => {
     if (searchTerm === '') {
       setFilteredEvents(events)
     } else {
-      setFilteredEvents(events.filter(event =>
-        event.title.toLowerCase().includes(searchTerm.toLowerCase())
-      ))
+      setFilteredEvents(
+        events.filter((event) =>
+          event.title.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      )
     }
   }, [searchTerm, events])
 
@@ -209,12 +219,12 @@ const CalendarPage = () => {
   }
 
   const handleAddComment = () => {
-    if (!comment.trim()) return;
-    setComments(prev => ({
+    if (!comment.trim()) return
+    setComments((prev) => ({
       ...prev,
-      [selectedEvent.id]: [...(prev[selectedEvent.id] || []), comment]
-    }));
-    setComment('');
+      [selectedEvent.id]: [...(prev[selectedEvent.id] || []), comment],
+    }))
+    setComment('')
   }
 
   return (
@@ -241,7 +251,9 @@ const CalendarPage = () => {
       {selectedEvent && (
         <Modal show={true} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title className='text-color'>{selectedEvent.title}</Modal.Title>
+            <Modal.Title className="text-color">
+              {selectedEvent.title}
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <img
@@ -249,17 +261,20 @@ const CalendarPage = () => {
               alt={selectedEvent.title}
               className="img-fluid mb-3"
             />
-            <p className='text-color'>
+            <p className="text-color">
               <strong>Datum:</strong>
-              <span className='span'> {moment(selectedEvent.start).format('LL')}</span>
+              <span className="span">
+                {' '}
+                {moment(selectedEvent.start).format('LL')}
+              </span>
             </p>
-            <p className='text-color'>
-              <strong>Ort:</strong> 
-              <span className='span'> {selectedEvent.location}</span>
+            <p className="text-color">
+              <strong>Ort:</strong>
+              <span className="span"> {selectedEvent.location}</span>
             </p>
-            <p className='text-color'>
-              <strong>Beschreibung:</strong> 
-              <span className='span'> {selectedEvent.description}</span>
+            <p className="text-color">
+              <strong>Beschreibung:</strong>
+              <span className="span"> {selectedEvent.description}</span>
             </p>
 
             <div className="mb-3">
@@ -283,7 +298,9 @@ const CalendarPage = () => {
 
             <div className="mb-3">
               <Form.Group>
-                <Form.Label className='text-color fw-bold'>Kommentar hinzufügen</Form.Label>
+                <Form.Label className="text-color fw-bold">
+                  Kommentar hinzufügen
+                </Form.Label>
                 <Form.Control
                   as="textarea"
                   rows={3}
@@ -298,9 +315,11 @@ const CalendarPage = () => {
                   Kommentar hinzufügen
                 </Button>
               </Form.Group>
-              <ListGroup className="mt-3 mb-3"> <span className='text-color fw-bold mb-2'>User Komentare</span>
+              <ListGroup className="mt-3 mb-3">
+                {' '}
+                <span className="text-color fw-bold mb-2">User Komentare</span>
                 {comments[selectedEvent.id]?.map((c, index) => (
-                  <ListGroup.Item key={index}>@user  {c}</ListGroup.Item>
+                  <ListGroup.Item key={index}>@user {c}</ListGroup.Item>
                 ))}
               </ListGroup>
             </div>
@@ -355,7 +374,9 @@ const CalendarPage = () => {
                   />
                 </Form.Group>
                 <Form.Group controlId="formDescription">
-                  <Form.Label className="fw-bold text-color">Beschreibung</Form.Label>
+                  <Form.Label className="fw-bold text-color">
+                    Beschreibung
+                  </Form.Label>
                   <Form.Control
                     type="text"
                     value={editedEvent.description}
@@ -387,7 +408,7 @@ const CalendarPage = () => {
             </Button>
           </Modal.Body>
           <Modal.Footer>
-            <Button className='primary' onClick={handleClose}>
+            <Button className="primary" onClick={handleClose}>
               Schließen
             </Button>
           </Modal.Footer>

@@ -6,8 +6,10 @@ import reportWebVitals from './reportWebVitals'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
 import './styles/globalVars.css' // globale style Variabeln
+import { setUpAxiosInterceptor } from './api/config/setUpAxiosInterceptor';
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
+setUpAxiosInterceptor();
 root.render(
   <React.StrictMode>
     <App />
