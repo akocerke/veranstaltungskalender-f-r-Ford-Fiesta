@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom' // Stelle sicher, dass useN
 import logo from '../images/logo.png'
 import LoginModal from '../pages/Login/LoginPage'
 import SignupModal from '../pages/Signup/SignupMordal'
-import { logout } from '../api/auth' // Importiere die Logout-Funktion
+import { logout } from '../api/auth'
 
 const NavigationBar = () => {
   const [showLoginModal, setShowLoginModal] = useState(false)
@@ -20,12 +20,16 @@ const NavigationBar = () => {
 
   const handleLogout = async () => {
     try {
-      await logout()
-      navigate('/') // Navigiere nach dem Logout zur Startseite oder einer anderen Seite
+      await logout(); // Aufruf der logout-Funktion
+      // Optional: Token aus dem LocalStorage entfernen
+      localStorage.removeItem('token');
+      navigate('/'); // Weiterleitung nach dem Logout
     } catch (error) {
-      console.error('Fehler beim Logout:', error)
+      console.error('Fehler beim Logout:', error);
     }
-  }
+  };
+  
+
 
   return (
     <>

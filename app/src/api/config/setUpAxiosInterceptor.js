@@ -1,36 +1,43 @@
 // setUpAxiosInterceptor.js
 import axios from 'axios';
 
+// Funktion zur Einrichtung der Interceptors
 export const setUpAxiosInterceptor = () => {
   // Anfrage-Interceptor
-  axios.interceptors.request.use(config => {
-    // Authentifizierungstoken, falls vorhanden, zu jeder Anfrage hinzufügen
-    const token = localStorage.getItem('token');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-      console.log('Token vorhanden, Header gesetzt.');
-    } else {
-      console.log('Kein Token vorhanden.');
+  axios.interceptors.request.use(
+    (config) => {
+      // Token aus dem LocalStorage abrufen
+      const token = localStorage.getItem('token');
+      
+      // Wenn ein Token vorhanden ist, füge es zu den Headern der Anfrage hinzu
+      if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`;
+      }
+      
+      return config;
+    },
+    (error) => {
+      // Fehlerbehandlung für die Anfrage
+      return Promise.reject(error);
     }
-    return config;
-  }, error => {
-    console.log('Fehler bei der Anfrage:', error);
-    return Promise.reject(error);
-  });
+  );
 
   // Antwort-Interceptor
-  axios.interceptors.response.use(response => {
-    // Verarbeite die Antwort
-    console.log('Antwort erhalten:', response);
-    return response;
-  }, error => {
-    // Beispiel: Fehlerbehandlung
-    if (error.response && error.response.status === 401) {
-      // Token abgelaufen oder Benutzer nicht autorisiert
-      console.log('Token abgelaufen oder Benutzer nicht autorisiert. Sie müssen sich erneut anmelden.');
-    } else {
-      console.log('Fehler bei der Antwort:', error);
+  axios.interceptors.response.use(
+    (response) => {
+      // Erfolgreiche Antwort
+      return response;
+    },
+    (error) => {
+      // Fehlerbehandlung für die Antwort
+      // Hier kannst du zum Beispiel den Benutzer abmelden, wenn der Token abgelaufen ist
+      if (error.response && error.response.status === 401) {
+        // Token möglicherweise abgelaufen, führe eine Abmeldung oder eine Token-Aktualisierung durch
+        // localStorage.removeItem('token');
+        // Optionale Umleitung zur Anmeldeseite
+      }
+      
+      return Promise.reject(error);
     }
-    return Promise.reject(error);
-  });
+  );
 };
