@@ -237,37 +237,51 @@ Das sieht nach einer soliden Dokumentation der API-Endpunkte aus. Hier sind eini
 
 ## Admin API-Endpunkte
 
-#### Events
-- **DELETE** `/api/admin/events/:id`: Löschen eines Events (unabhängig vom Ersteller).
-  - **Parameter:** `:id` - ID des zu löschenden Events
-  - **Antwort:** Bestätigt das Löschen des Events.
-
-#### Kommentare
-- **DELETE** `/api/admin/comments/:id`: Löschen eines Kommentars (unabhängig vom Ersteller).
-  - **Parameter:** `:id` - ID des zu löschenden Kommentars
-  - **Antwort:** Bestätigt das Löschen des Kommentars.
-
-#### Benutzer
-- **DELETE** `/api/admin/users/:id`: Löschen eines Benutzers.
-  - **Parameter:** `:id` - ID des zu löschenden Benutzers
-  - **Antwort:** Bestätigt das Löschen des Benutzers.
-- **PUT** `/api/admin/users/:id/role`: Aktualisieren der Rolle eines Benutzers.
-  - **Parameter:** `:id` - ID des Benutzers
-  - **Erforderliche Felder:** `role` (z.B. "admin" oder "user")
-  - **Antwort:** Bestätigt die Aktualisierung der Benutzerrolle.
-
-#### Verstoßmeldungen
-- **GET** `/api/admin/violations`: Abrufen aller gemeldeten Verstöße.
-  - **Antwort:** Liste aller gemeldeten Verstöße.
-
-- **PUT** `/api/admin/violations/:id/status`: Aktualisieren des Status eines Verstoßes.
-  - **Parameter:** `:id` - ID der Verstoßmeldung
-  - **Erforderliche Felder:** `status`
-  - **Antwort:** Bestätigt die Statusaktualisierung.
-
 #### Dashboard
 - **GET** `/api/admin/dashboard`: Abrufen von Dashboard-Daten.
-  - **Antwort:** Übersichtsdaten wie Anzahl der Benutzer, Events, Verstöße.
+  - **Antwort**: Übersichtsdaten wie Anzahl der Benutzer, Events, Verstöße.
+
+#### Events
+
+- **GET** `/api/admin/events`: Abrufen aller Events.
+  - **Antwort**: Liste aller Events.
+
+- **DELETE** `/api/admin/events/delete`: Löschen eines Events (unabhängig vom Ersteller).
+  - **Parameter**: :id - ID des zu löschenden Events
+  - **Antwort**: Bestätigt das Löschen des Events.
+
+#### Kommentare
+
+- **GET** `/api/admin/comments`: Abrufen aller Kommentare.
+  - **Antwort**: Liste aller Kommentare.
+
+- **DELETE** `/api/admin/comments/delete`: Löschen eines Kommentars (unabhängig vom Ersteller).
+  - **Parameter**: :id - ID des zu löschenden Kommentars
+  - **Antwort**: Bestätigt das Löschen des Kommentars.
+
+#### Benutzer
+
+- **GET** `/api/admin/users`: Abrufen aller Benutzer.
+  - **Antwort**: Liste aller Benutzer.
+
+- **DELETE** `/api/admin/users/delete`: Löschen eines Benutzers.
+  - **Parameter**: :id - ID des zu löschenden Benutzers
+  - **Antwort**: Bestätigt das Löschen des Benutzers.
+
+- **PUT** `/api/admin/users/role`: Aktualisieren der Rolle eines Benutzers.
+  - **Parameter**: :id - ID des Benutzers
+  - **Erforderliche Felder**: role (z.B. 'admin' oder 'user')
+  - **Antwort**: Bestätigt die Aktualisierung der Benutzerrolle.
+
+#### Verstoßmeldungen
+
+- **GET `/api/admin/violations`**: Abrufen aller gemeldeten Verstöße.
+  - **Antwort**: Liste aller gemeldeten Verstöße.
+
+- **PUT `/api/admin/violations/status`**: Aktualisieren des Status eines Verstoßes.
+  - **Parameter**: :id - ID der Verstoßmeldung
+  - **Erforderliche Felder**: status (z.B.'pending' oder 'resolved')
+  - **Antwort**: Bestätigt die Statusaktualisierung.
 
 ## Visuelle Kennzeichnung für Admins und Benutzer
 
