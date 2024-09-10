@@ -209,29 +209,29 @@ Das sieht nach einer soliden Dokumentation der API-Endpunkte aus. Hier sind eini
   - **Erforderliche Felder:** `title`, `description`, `date`, `image`
   - **Antwort:** Gibt die ID des erstellten Events zurück.
 
-- **PUT** `/api/user/events/update/:id`: Bearbeiten eines Events, das der Benutzer erstellt hat.
+- **PUT** `/api/user/events/update/`: Bearbeiten eines Events, das der Benutzer erstellt hat.
   - **Parameter:** `:id` - ID des zu bearbeitenden Events
   - **Parameter:** `UserId` - Prüfen ob der Benutzer das Event erstellt hat.
   - **Erforderliche Felder:** Je nach Update, z.B. `title`, `description`, `date`
   - **Antwort:** Bestätigt die Aktualisierung des Events.
 
-- **DELETE** `/api/user/events/:id`: Löschen eines Events, das der Benutzer erstellt hat.
+- **DELETE** `/api/user/events/delete`: Löschen eines Events, das der Benutzer erstellt hat.
   - **Parameter:** `:id` - ID des zu löschenden Events
   - **Parameter:** `UserId` - Prüfen ob der Benutzer das Event erstellt hat.
   - **Antwort:** Bestätigt das Löschen des Events.
 
 #### Bewertungen & Kommentare
-- **POST** `/api/user/events/:id/rate`: Hinzufügen einer Bewertung zu einem Event.
+- **POST** `/api/user/events/rate`: Hinzufügen einer Bewertung zu einem Event.
   - **Parameter:** `:id` - ID des Events
   - **Erforderliche Felder:** `rating` (1-5)
   - **Antwort:** Bestätigt die Hinzufügung der Bewertung.
 
-- **POST** `/api/user/events/:id/comment`: Hinzufügen eines Kommentars zu einem Event.
+- **POST** `/api/user/events/comment`: Hinzufügen eines Kommentars zu einem Event.
   - **Parameter:** `:id` - ID des Events
   - **Erforderliche Felder:** `comment`
   - **Antwort:** Bestätigt die Hinzufügung des Kommentars.
 
-- **GET** `/api/user/events/:id/ratings`: Abrufen aller Bewertungen eines Events.
+- **GET** `/api/user/events/event-feedback`: Abrufen aller Bewertungen eines Events.
   - **Parameter:** `:id` - ID des Events
   - **Antwort:** Liste aller Bewertungen zu dem Event.
 
