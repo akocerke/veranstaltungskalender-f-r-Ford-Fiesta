@@ -193,9 +193,12 @@ Das sieht nach einer soliden Dokumentation der API-Endpunkte aus. Hier sind eini
   - **Antwort:** Gibt die Profilinformationen des angemeldeten Benutzers zurück.
 
 - **PUT** `/api/user/profile/update`: Aktualisieren der Benutzerdaten.
+  - **Geplant für zukünftige Implementierung**
   - **Header:** `Authorization: Bearer <token>`
   - **Erforderliche Felder:** Je nach Update, z.B. `email`, `password`
   - **Antwort:** Bestätigt die Aktualisierung der Daten.
+
+  **Hinweis:** Die Implementierung wird später hinzugefügt. Sicherheitsüberlegungen, einschließlich Passwortverifizierung und E-Mail-Verifizierung, werden berücksichtigt.
 
 #### Events
 - **POST** `/api/user/events/create`: Erstellen eines neuen Events durch den Benutzer.
