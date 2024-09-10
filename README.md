@@ -201,6 +201,10 @@ Das sieht nach einer soliden Dokumentation der API-Endpunkte aus. Hier sind eini
   **Hinweis:** Die Implementierung wird später hinzugefügt. Sicherheitsüberlegungen, einschließlich Passwortverifizierung und E-Mail-Verifizierung, werden berücksichtigt.
 
 #### Events
+- **GET** `/api/user/events`: Abrufen aller Events eines Benutzers.
+  - Header: Authorization: Bearer <token>
+  - Antwort: Gibt eine Liste aller Events des angemeldeten Benutzers zurück.
+  
 - **POST** `/api/user/events/create`: Erstellen eines neuen Events durch den Benutzer.
   - **Erforderliche Felder:** `title`, `description`, `date`, `image`
   - **Antwort:** Gibt die ID des erstellten Events zurück.
