@@ -4,7 +4,7 @@ import { Card } from 'react-bootstrap';
 
 const ProfilePlaceholder = () => {
   return (
-    <Card>
+    <Card className='mt-3'>
       <Card.Body>
         <Card.Title>Mein Profil</Card.Title>
         <Card.Text>

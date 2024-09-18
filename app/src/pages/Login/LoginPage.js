@@ -16,31 +16,35 @@ const LoginModal = ({ show, handleClose }) => {
     try {
       const response = await login(email, password);
       console.log('Login erfolgreich:', response);
-
+  
       // Die Rolle und den Token aus der Antwort abrufen
       const { token, user } = response;
       const { role } = user;
-
+  
       console.log('Erhaltener Token:', token);
       console.log('User Role:', role);
-
+  
+      // Speichere den Token im Local Storage
+      localStorage.setItem('accessToken', token);
+  
       // Weiterleitung basierend auf der Benutzerrolle
       if (role === 'admin') {
         navigate('/admin/dashboard'); // Weiterleitung zum Admin-Dashboard
       } else if (role === 'user') {
         navigate('/users/dashboard'); // Weiterleitung zum User-Dashboard
       }
-
+  
       // Eingabefelder zurücksetzen
       setEmail('');
       setPassword('');
-
+  
       handleClose(); // Schließe das Modal bei erfolgreichem Login
     } catch (error) {
       console.error('Fehler beim Login:', error);
       setErrorMessage('Login fehlgeschlagen. Bitte überprüfen Sie Ihre Anmeldedaten.');
     }
   };
+  
 
   return (
     <Modal show={show} onHide={handleClose} centered className="bg-mordal">

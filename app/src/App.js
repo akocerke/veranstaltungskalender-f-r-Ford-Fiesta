@@ -15,8 +15,8 @@ import AdminComments from './pages/Admin/Comments'
 import Events from './pages/Events/Events'
 import Contact from './pages/Contact/contact'
 import UserDashboard from './pages/User/Dashboard'
+import UserEvents from './pages/User/UserEvents'
 import ProfilePlaceholder from './pages/User/ProfilePlaceholder'
-import EventsPlaceholder from './pages/User/EventsPlaceholder'
 function App() {
   return (
     <Router>
@@ -83,7 +83,7 @@ function App() {
               {/* User-Bereich */}
               <Route path="/users/dashboard" element={<UserDashboard />}>
               <Route path="profile" element={<ProfilePlaceholder />} />
-              <Route path="events" element={<EventsPlaceholder />} />
+              <Route path="events" element={<UserEvents />} />
             </Route>
             {/* Events */}
             <Route path="/events" element={<Events />} />

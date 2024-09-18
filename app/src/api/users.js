@@ -1,22 +1,28 @@
 // src/api/users.js
 import api from './api';
 
-export const getUsers = async () => {
+export const getEventsByUser = async () => {
   try {
-    const response = await api.get('/users');
-    return response.data;
-  } catch (error) {
-    console.error('Fehler beim Abrufen der Benutzer:', error);
-    throw error;
-  }
-};
+    // Lese den Token aus dem Local Storage
+    const token = localStorage.getItem('accessToken');
+    console.log('Token aus LocalStorage:', token); // Debugging-Ausgabe
 
-export const getUserById = async (id) => {
-  try {
-    const response = await api.get(`/users/${id}`);
+    if (!token) {
+      throw new Error('Kein Token gefunden, bitte anmelden.');
+    }
+
+    // API-Anfrage
+    const response = await api.get('/users/events', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log('Events-Antwort:', response.data); // Debugging-Ausgabe
+
     return response.data;
   } catch (error) {
-    console.error(`Fehler beim Abrufen des Benutzers mit ID ${id}:`, error);
+    console.error('Fehler beim Abrufen der Events:', error.response ? error.response.data : error.message);
     throw error;
   }
 };
