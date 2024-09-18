@@ -1,0 +1,32 @@
+/* src/pages/User/Dashboard.module.css */
+
+.board {
+    min-height: 100vh;
+    overflow: hidden;
+    border-radius: 5px;
+}  
+
+.board a {
+  color: #b6b5b5 !important;
+}
+.board a:hover {
+  color: #ffffff !important;
+}
+
+.board .myNav{
+  background-color: black !important;
+}
+/* Responsives Design */
+@media (max-width: 768px) {
+    .sidebar {
+        height: auto;
+        position: static; /* Sidebar wird nicht fixiert */
+        padding: 0.5rem;
+        overflow: auto;
+    }
+
+    .sidebar a {
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+}

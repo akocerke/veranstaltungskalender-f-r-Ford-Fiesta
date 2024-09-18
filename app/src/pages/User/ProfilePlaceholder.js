@@ -1,3 +1,4 @@
+// src/pages/User/ProfilePlaceholder.js
 import React from 'react';
 import { Card } from 'react-bootstrap';
 
