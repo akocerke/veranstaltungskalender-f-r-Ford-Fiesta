@@ -9,7 +9,7 @@ const Dashboard = () => {
         <Col>
           <Card>
             <Card.Body>
-              <Card.Title className="headline">Dashboard Übersicht</Card.Title>
+              <Card.Title className="headline">Admin Dashboard Übersicht</Card.Title>
               <Card.Text>
                 Hier finden Sie eine Übersicht der wichtigsten Statistiken.
               </Card.Text>

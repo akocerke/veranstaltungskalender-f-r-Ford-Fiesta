@@ -14,7 +14,7 @@ import AdminViolations from './pages/Admin/Validation'
 import AdminComments from './pages/Admin/Comments'
 import Events from './pages/Events/Events'
 import Contact from './pages/Contact/contact'
-
+import UserDashboard from './pages/User/Dashboard'
 function App() {
   return (
     <Router>
@@ -78,10 +78,12 @@ function App() {
             <Route path="/admin/violations" element={<AdminViolations />} />
             <Route path="/admin/comments" element={<AdminComments />} />
 
+              {/* User-Bereich */}
+              <Route path="/users/dashboard" element={<UserDashboard />}/>
             {/* Events */}
             <Route path="/events" element={<Events />} />
 
-            {/* Navbar */}
+            
           </Routes>
         </Container>
         <Footer />
