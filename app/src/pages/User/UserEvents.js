@@ -44,7 +44,7 @@ const UserEvents = () => {
     <div className={`mt-3 ${styles.eventsContainer}`}>
       <h3 className={`headline2 text-info text-center mt-3 ms-2`}>Meine Events</h3>
       {events.length === 0 ? (
-        <Alert variant="info">Keine Events gefunden.</Alert>
+        <Alert variant="info" className='mt-5'>Keine Events gefunden.</Alert>
       ) : (
         <div className={styles.eventsGrid}>
           {events.map(event => (

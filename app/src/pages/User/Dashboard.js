@@ -13,7 +13,7 @@ const Dashboard = () => {
 
   return (
     <Container fluid className={`mt-5 mb-5 ${styles.board}`}>
-      <h1 className="headline mb-5 mt-3">User Dashboard Übersicht</h1>
+      <h4 className="headline mb-5 mt-3">User Dashboard</h4>
       <Row>
         {/* Sidebar für größere Bildschirme */}
         <Col md={2} className={`d-none d-md-block bg-dark`}>
