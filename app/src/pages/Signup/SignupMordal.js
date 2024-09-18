@@ -30,9 +30,6 @@ const SignupModal = ({ show, handleClose }) => {
       setUsername('');
       setEmail('');
       setPassword('');
-
-      // Optional: Hier kannst du den Benutzer zur Login-Seite umleiten oder eine andere Aktion ausführen
-      // handleClose(); // Schließe das Modal nach erfolgreicher Registrierung
     } catch (error) {
       console.error('Fehler bei der Registrierung:', error);
       if (error.response && error.response.data.message) {
