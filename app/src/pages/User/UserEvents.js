@@ -42,22 +42,24 @@ const UserEvents = () => {
 
   return (
     <div className={`mt-3 ${styles.eventsContainer}`}>
-      <h3 className={`headline2 text-info text-shadow mt-3 ms-2`}>Meine Events</h3>
+      <h3 className={`headline2 text-info text-center mt-3 ms-2`}>Meine Events</h3>
       {events.length === 0 ? (
         <Alert variant="info">Keine Events gefunden.</Alert>
       ) : (
-        events.map(event => (
-          <Card key={event.id} className={`mb-4 shadow ${styles.eventCard}`} style={{ width: '18rem' }}>
-            {event.image && (
-              <Card.Img variant="top" src={event.image} alt={event.title} className={styles.eventImage} />
-            )}
-            <Card.Body>
-              <Card.Title className={styles.eventTitle}>{event.title}</Card.Title>
-              <Card.Text className={styles.eventDescription}>{event.description}</Card.Text>
-              <Card.Text className={styles.eventDate}>{new Date(event.date).toLocaleDateString()}</Card.Text>
-            </Card.Body>
-          </Card>
-        ))
+        <div className={styles.eventsGrid}>
+          {events.map(event => (
+            <Card key={event.id} className={`mb-4 shadow ${styles.eventCard}`} style={{ width: '18rem' }}>
+              {event.image && (
+                <Card.Img variant="top" src={event.image} alt={event.title} className={styles.eventImage} />
+              )}
+              <Card.Body>
+                <Card.Title className={styles.eventTitle}>{event.title}</Card.Title>
+                <Card.Text className={styles.eventDescription}>{event.description}</Card.Text>
+                <Card.Text className={styles.eventDate}>{new Date(event.date).toLocaleDateString()}</Card.Text>
+              </Card.Body>
+            </Card>
+          ))}
+        </div>
       )}
     </div>
   );

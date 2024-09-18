@@ -1,5 +1,22 @@
 /* UserEvents.module.css */
-
+/* Container für das Grid-Layout */
+.eventsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: 16px;
+    padding: 16px;
+  }
+  
+  /* Styling für die Event-Karten */
+  .eventCard {
+    width: 100%; /* Breite der Karten auf 100% setzen, um den Grid-Spalten zu entsprechen */
+  }
+  
+  /* Optional: Styling für Bilder */
+  .eventImage {
+    height: 200px; /* Mindesthöhe für Bilder */
+    object-fit: cover; /* Bild skaliert, ohne das Seitenverhältnis zu verlieren */
+  }
 .cardBody {
     background-color: #888;
     color: #ffffff !important;
