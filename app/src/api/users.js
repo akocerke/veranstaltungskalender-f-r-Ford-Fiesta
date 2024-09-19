@@ -102,14 +102,30 @@ export const updateUserProfile = async (updatedData) => {
 };
 
 // Funktion zum Aktualisieren eines Events
+// Funktion zum Aktualisieren eines Events
 export const updateEvent = async (eventData) => {
   try {
-    const response = await api.put('users/events/update', eventData);
+    // Token aus dem Local Storage holen
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      throw new Error('Kein Token gefunden, bitte anmelden.');
+    }
+
+    // Füge den Authentifizierungsheader zur Anfrage hinzu
+    const response = await api.put('users/events/update', eventData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
     return response.data;
   } catch (error) {
+    console.error('Fehler beim Aktualisieren des Events:', error.response ? error.response.data : error.message);
     throw new Error(error.response ? error.response.data.message : 'Server Error');
   }
 };
+
+
 
 // Funktion zum Löschen eines Events
 export const deleteEvent = async (eventId) => {

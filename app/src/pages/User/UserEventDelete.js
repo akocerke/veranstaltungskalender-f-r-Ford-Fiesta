@@ -56,10 +56,10 @@ const UserEventDelete = ({ show, handleClose, event, onDelete }) => {
           Bist du sicher, dass du das Event <strong> {event.title} </strong> löschen möchtest?
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose} disabled={isDeleting}>
+          <Button variant="outline-secondary" onClick={handleClose} disabled={isDeleting}>
             Abbrechen
           </Button>
-          <Button variant="danger" onClick={handleDelete} disabled={isDeleting}>
+          <Button variant='outline-danger' onClick={handleDelete} disabled={isDeleting}>
             {isDeleting ? <Spinner as="span" animation="border" size="sm" /> : 'Löschen'}
           </Button>
         </Modal.Footer>
