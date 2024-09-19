@@ -53,3 +53,27 @@ export const getUserDashboard = async () => {
     throw error;
   }
 };
+
+
+// Funktion, um die Profil-Daten des Benutzers abzurufen
+export const getUserProfile = async () => {
+  try {
+    // Lese den Token aus dem Local Storage
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      throw new Error('Kein Token gefunden, bitte anmelden.');
+    }
+
+    // API-Anfrage
+    const response = await api.get('/users/profile', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Profil-Daten:', error.response ? error.response.data : error.message);
+    throw error;
+  }
+};
