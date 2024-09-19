@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   Row,
@@ -7,48 +7,48 @@ import {
   Button,
   Collapse,
   Badge,
-} from 'react-bootstrap'
-import { Outlet, Link } from 'react-router-dom'
-import { getUserDashboard } from '../../api/users' // Importiere die Funktion
-import styles from './Dashboard.module.css'
+} from 'react-bootstrap';
+import { Outlet, Link } from 'react-router-dom';
+import { getUserDashboard } from '../../api/users';
+import styles from './Dashboard.module.css';
 
 const Dashboard = () => {
-  const [open, setOpen] = useState(false)
-  const [dashboardData, setDashboardData] = useState(null) // Zustand für die Dashboard-Daten
-  const [error, setError] = useState(null) // Zustand für Fehlerbehandlung
+  const [open, setOpen] = useState(false);
+  const [dashboardData, setDashboardData] = useState(null);
+  const [error, setError] = useState(null);
 
-  // Effekt zum Abrufen der Dashboard-Daten
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const data = await getUserDashboard()
-        setDashboardData(data)
+        const data = await getUserDashboard();
+        setDashboardData(data);
       } catch (error) {
-        console.error('Fehler beim Abrufen der Dashboard-Daten:', error)
-        setError('Fehler beim Laden der Dashboard-Daten.')
+        console.error('Fehler beim Abrufen der Dashboard-Daten:', error);
+        setError('Fehler beim Laden der Dashboard-Daten.');
       }
-    }
+    };
 
-    fetchDashboardData()
-  }, [])
+    fetchDashboardData();
+  }, []);
 
-  // Funktion zum Schließen des Menüs
   const handleLinkClick = () => {
-    setOpen(false)
-  }
+    setOpen(false);
+  };
 
   return (
     <Container fluid className={`mt-5 mb-5 ${styles.board}`}>
-      <h1 className="headline2 text-info text-lg-center mb-3 mt-3">User Dashboard</h1>
+      <h1 className="headline2 text-info text-lg-center mb-3 mt-3">
+        User Dashboard
+      </h1>
       <Row>
         {/* Sidebar für größere Bildschirme */}
-        <Col md={2} className={`d-none d-md-block bg-dark`}>
-          <Nav className={`flex-column`}>
-            <Nav.Link as={Link} to="profile" onClick={handleLinkClick}>
-              Mein Profil
+        <Col md={2} className="d-none d-md-block bg-dark">
+          <Nav className="flex-column">
+            <Nav.Link as={Link} to="profile" onClick={handleLinkClick} className={styles.navLink}>
+              <i className={`bi bi-gear ${styles.sidebarIcon}`}></i> Mein Profil
             </Nav.Link>
-            <Nav.Link as={Link} to="events" onClick={handleLinkClick}>
-              Meine Events
+            <Nav.Link as={Link} to="events" onClick={handleLinkClick} className={styles.navLink}>
+              <i className={`bi bi-calendar ${styles.sidebarIcon}`}></i> Meine Events
             </Nav.Link>
           </Nav>
         </Col>
@@ -67,11 +67,11 @@ const Dashboard = () => {
           <Collapse in={open}>
             <div id="sidebar-collapse" className="mt-2 rounded">
               <Nav className="flex-column">
-                <Nav.Link as={Link} to="profile" onClick={handleLinkClick}>
-                  Mein Profil
+                <Nav.Link as={Link} to="profile" onClick={handleLinkClick} className={`mt-2 ${styles.navLink}`}>
+                  <i className={`bi bi-gear ${styles.sidebarIcon}`}></i> Mein Profil
                 </Nav.Link>
-                <Nav.Link as={Link} to="events" onClick={handleLinkClick}>
-                  Meine Events
+                <Nav.Link as={Link} to="events" onClick={handleLinkClick} className={styles.navLink}>
+                  <i className={`bi bi-calendar ${styles.sidebarIcon}`}></i> Meine Events
                 </Nav.Link>
               </Nav>
             </div>
@@ -80,7 +80,6 @@ const Dashboard = () => {
 
         {/* Hauptinhalt */}
         <Col md={10} className="mb-3">
-          {/* Dezent zentrierte Übersicht - Fester Bestandteil des Dashboards */}
           {error && <div className="alert alert-danger">{error}</div>}
           {dashboardData && (
             <div className={`mb-4 p-3 ${styles.overviewContainer}`}>
@@ -100,13 +99,11 @@ const Dashboard = () => {
               </div>
             </div>
           )}
-
-          {/* Hier wird der Inhalt der Unterrouten angezeigt */}
           <Outlet />
         </Col>
       </Row>
     </Container>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

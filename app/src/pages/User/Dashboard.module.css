@@ -16,6 +16,28 @@
 .board .myNav{
   background-color: black !important;
 }
+
+/* Dashboard.module.css */
+.sidebarIcon {
+  margin-right: 8px; /* Abstand zwischen Icon und Text */
+  color: #b6b5b5; /* Standardfarbe der Icons */
+}
+
+.sidebarIcon:hover {
+  color: #ffffff; /* Farbe der Icons beim Hover */
+}
+
+.navLink {
+  color: #b6b5b5; /* Standardfarbe der Links */
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.navLink:hover {
+  color: #ffffff; /* Farbe der Links beim Hover */
+}
+
 /* Responsives Design */
 @media (max-width: 768px) {
     .sidebar {

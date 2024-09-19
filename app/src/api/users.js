@@ -77,3 +77,26 @@ export const getUserProfile = async () => {
     throw error;
   }
 };
+
+export const updateUserProfile = async (updatedData) => {
+  try {
+    // Lese den Token aus dem Local Storage
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      throw new Error('Kein Token gefunden, bitte anmelden.');
+    }
+
+    // API-Anfrage zum Aktualisieren der Profil-Daten
+    const response = await api.put('/users/profile', updatedData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Fehler beim Aktualisieren der Profil-Daten:', error.response ? error.response.data : error.message);
+    throw error;
+  }
+};
