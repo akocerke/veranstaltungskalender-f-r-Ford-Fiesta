@@ -132,10 +132,10 @@ const UserProfile = () => {
                     </Col>
                   </Row>
                   <Row className="mt-4">
-                    <Col>
+                    <Col md={12}>
                       <Button
                         variant="warning"
-                        className="me-2"
+                        className="me-3 mt-3"
                         onClick={() => {
                           setNewUsername(profileData.username);
                           setNewEmail(profileData.email);
@@ -147,6 +147,7 @@ const UserProfile = () => {
                       <Button
                         variant="danger"
                         onClick={() => setShowPasswordModal(true)}
+                        className='mt-3'
                       >
                         <i className="bi bi-lock"></i> Passwort ändern
                       </Button>
@@ -163,7 +164,7 @@ const UserProfile = () => {
       <Modal
         show={showEditModal}
         onHide={() => setShowEditModal(false)}
-        className="bg-modal"
+        className="bg-mordal"
       >
         <Modal.Header closeButton>
           <Modal.Title className="text-color headline">
@@ -205,7 +206,7 @@ const UserProfile = () => {
       <Modal
         show={showPasswordModal}
         onHide={() => setShowPasswordModal(false)}
-        className="bg-modal"
+        className="bg-mordal"
       >
         <Modal.Header closeButton>
           <Modal.Title className="text-color headline">
