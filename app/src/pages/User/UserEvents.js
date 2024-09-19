@@ -42,7 +42,7 @@ const UserEvents = () => {
 
   return (
     <div className={`mt-3 ${styles.eventsContainer}`}>
-      <h3 className={`headline2 text-info text-center mt-3 ms-2`}>Meine Events</h3>
+      <h4 className={`headline2 text-info mt-3 ms-4`}>Meine Events</h4>
       {events.length === 0 ? (
         <Alert variant="info" className='mt-5'>Keine Events gefunden.</Alert>
       ) : (

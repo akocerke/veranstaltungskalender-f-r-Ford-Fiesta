@@ -30,3 +30,7 @@
         margin-bottom: 0.5rem;
     }
 }
+
+.overviewContainer{
+  border: none !important;
+}
