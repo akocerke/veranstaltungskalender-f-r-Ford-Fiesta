@@ -102,7 +102,6 @@ export const updateUserProfile = async (updatedData) => {
 };
 
 // Funktion zum Aktualisieren eines Events
-// Funktion zum Aktualisieren eines Events
 export const updateEvent = async (eventData) => {
   try {
     // Token aus dem Local Storage holen
@@ -124,7 +123,6 @@ export const updateEvent = async (eventData) => {
     throw new Error(error.response ? error.response.data.message : 'Server Error');
   }
 };
-
 
 
 // Funktion zum Löschen eines Events
@@ -171,3 +169,30 @@ export const changeUserPassword = async (userId, oldPassword, newPassword) => {
     throw new Error(error.response?.data?.message || 'Fehler beim Ändern des Passworts');
   }
 };
+
+
+// POST /users/events/rate - angemeldete Benutzer kann ein Event bewerten
+export const changeRate = async (eventId, rating) => {
+  const token = localStorage.getItem('token');
+  
+  if (!token) {
+    console.error('User is not authenticated');
+    return;
+  }
+
+  try {
+    const response = await api.post('/users/events/rate', {
+      eventId,
+      rating,
+    }, {
+      headers: {
+        'Authorization': `Bearer ${token}` // Füge den Token zur Authentifizierung hinzu
+      }
+    });
+
+    console.log(response.data.message); // Erfolgreiche Rückmeldung
+  } catch (error) {
+    console.error('Error submitting rating:', error.response?.data.message || error.message);
+  }
+};
+
