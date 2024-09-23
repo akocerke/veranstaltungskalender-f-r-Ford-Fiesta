@@ -10,7 +10,7 @@ import {
   Modal,
   Form
 } from 'react-bootstrap';
-import { getUserProfile, updateUserProfile } from '../../api/users';
+import { getUserProfile, updateUserProfile, changeUserPassword } from '../../api/users';
 import { useLocation } from 'react-router-dom';
 
 const UserProfile = () => {
@@ -39,22 +39,17 @@ const UserProfile = () => {
     };
 
     fetchProfileData();
-    // Setze die Erfolgsmeldung zurück, wenn die Seite geladen wird
     setSuccess(null);
-  }, [location]); // Abhängigkeit von location hinzufügen
+  }, [location]);
 
   const handleEditProfile = async () => {
     try {
       await updateUserProfile({ username: newUsername, email: newEmail });
-      // Lade die Profil-Daten nach dem Update neu
       const updatedProfile = await getUserProfile();
       setProfileData(updatedProfile);
       setSuccess('Profil erfolgreich aktualisiert.');
       setError(null);
-
-      // Setze die Erfolgsmeldung nach 5 Sekunden zurück
       setTimeout(() => setSuccess(null), 5000);
-
       setShowEditModal(false);
     } catch (error) {
       setError('Fehler beim Aktualisieren des Profils.');
@@ -64,17 +59,15 @@ const UserProfile = () => {
 
   const handleChangePassword = async () => {
     try {
-      // Implementiere die API-Aufruf zur Passwortänderung
-      // await changeUserPassword({ currentPassword, newPassword });
+      await changeUserPassword(profileData.id, currentPassword, newPassword); // userId aus profileData
       setSuccess('Passwort erfolgreich geändert.');
       setError(null);
-
-      // Setze die Erfolgsmeldung nach 5 Sekunden zurück
       setTimeout(() => setSuccess(null), 5000);
-
       setShowPasswordModal(false);
+      setCurrentPassword('');
+      setNewPassword('');
     } catch (error) {
-      setError('Fehler beim Ändern des Passworts.');
+      setError('Fehler beim Ändern des Passworts: ' + error.message);
       setSuccess(null);
     }
   };
@@ -102,53 +95,31 @@ const UserProfile = () => {
               <Card className="p-4 shadow-sm">
                 <Card.Body>
                   <Row className="mb-2">
-                    <Col xs={4} className="fw-bold">
-                      Benutzername:
-                    </Col>
-                    <Col xs={8}>
-                      {profileData.username}
-                    </Col>
+                    <Col xs={4} className="fw-bold">Benutzername:</Col>
+                    <Col xs={8}>{profileData.username}</Col>
                   </Row>
                   <Row className="mb-2">
-                    <Col xs={4} className="fw-bold">
-                      Email:
-                    </Col>
-                    <Col xs={8}>
-                      {profileData.email}
-                    </Col>
+                    <Col xs={4} className="fw-bold">Email:</Col>
+                    <Col xs={8}>{profileData.email}</Col>
                   </Row>
                   <Row className="mb-2">
-                    <Col xs={4} className="fw-bold">
-                      Rolle:
-                    </Col>
+                    <Col xs={4} className="fw-bold">Rolle:</Col>
                     <Col xs={8}>{profileData.role}</Col>
                   </Row>
                   <Row>
-                    <Col xs={4} className="fw-bold">
-                      Registriert am:
-                    </Col>
-                    <Col xs={8}>
-                      {new Date(profileData.createdAt).toLocaleDateString()}
-                    </Col>
+                    <Col xs={4} className="fw-bold">Registriert am:</Col>
+                    <Col xs={8}>{new Date(profileData.createdAt).toLocaleDateString()}</Col>
                   </Row>
                   <Row className="mt-4">
                     <Col md={12}>
-                      <Button
-                        variant="warning"
-                        className="me-3 mt-3"
-                        onClick={() => {
-                          setNewUsername(profileData.username);
-                          setNewEmail(profileData.email);
-                          setShowEditModal(true);
-                        }}
-                      >
+                      <Button variant="warning" className="me-3 mt-3" onClick={() => {
+                        setNewUsername(profileData.username);
+                        setNewEmail(profileData.email);
+                        setShowEditModal(true);
+                      }}>
                         <i className="bi bi-pencil"></i> Benutzername & Email ändern
                       </Button>
-                      <Button
-                        variant="danger"
-                        onClick={() => setShowPasswordModal(true)}
-                        className='mt-3'
-                      >
+                      <Button variant="danger" onClick={() => setShowPasswordModal(true)} className='mt-3'>
                         <i className="bi bi-lock"></i> Passwort ändern
                       </Button>
                     </Col>
@@ -161,22 +132,14 @@ const UserProfile = () => {
       </Row>
 
       {/* Modal für Profilbearbeitung */}
-      <Modal
-        show={showEditModal}
-        onHide={() => setShowEditModal(false)}
-        className="bg-mordal"
-      >
+      <Modal show={showEditModal} onHide={() => setShowEditModal(false)} className="bg-mordal">
         <Modal.Header closeButton>
-          <Modal.Title className="text-color headline">
-            Profil bearbeiten
-          </Modal.Title>
+          <Modal.Title className="text-color headline">Profil bearbeiten</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="formUsername">
-              <Form.Label className="fw-bold text-color">
-                Benutzername
-              </Form.Label>
+              <Form.Label className="fw-bold text-color">Benutzername</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Neuen Benutzernamen eingeben"
@@ -185,9 +148,7 @@ const UserProfile = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formEmail">
-              <Form.Label className="fw-bold text-color">
-                Email-Adresse
-              </Form.Label>
+              <Form.Label className="fw-bold text-color">Email-Adresse</Form.Label>
               <Form.Control
                 type="email"
                 placeholder="Neue Email-Adresse eingeben"
@@ -203,22 +164,14 @@ const UserProfile = () => {
       </Modal>
 
       {/* Modal für Passwortänderung */}
-      <Modal
-        show={showPasswordModal}
-        onHide={() => setShowPasswordModal(false)}
-        className="bg-mordal"
-      >
+      <Modal show={showPasswordModal} onHide={() => setShowPasswordModal(false)} className="bg-mordal">
         <Modal.Header closeButton>
-          <Modal.Title className="text-color headline">
-            Passwort ändern
-          </Modal.Title>
+          <Modal.Title className="text-color headline">Passwort ändern</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="formCurrentPassword">
-              <Form.Label className="fw-bold text-color">
-                Aktuelles Passwort
-              </Form.Label>
+              <Form.Label className="fw-bold text-color">Aktuelles Passwort</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Aktuelles Passwort eingeben"
@@ -227,9 +180,7 @@ const UserProfile = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formNewPassword">
-              <Form.Label className="fw-bold text-color">
-                Neues Passwort
-              </Form.Label>
+              <Form.Label className="fw-bold text-color">Neues Passwort</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Neues Passwort eingeben"

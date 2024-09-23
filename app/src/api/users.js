@@ -150,3 +150,24 @@ export const deleteEvent = async (eventId) => {
     throw new Error(error.response ? error.response.data.message : 'Server Error');
   }
 };
+
+// Funktion um das Passwort des angemeldeten Benutzers zu ändern
+export const changeUserPassword = async (userId, oldPassword, newPassword) => {
+  const token = localStorage.getItem('accessToken');
+
+  try {
+    const response = await api.post('users/password', {
+      oldPassword,
+      newPassword,
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data.message; // Erfolgsnachricht zurückgeben
+  } catch (error) {
+    // Fehlerbehandlung
+    throw new Error(error.response?.data?.message || 'Fehler beim Ändern des Passworts');
+  }
+};
