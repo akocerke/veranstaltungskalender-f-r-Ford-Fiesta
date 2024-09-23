@@ -31,6 +31,7 @@ const CalendarUserAdmin = () => {
   const [comment, setComment] = useState('');
   const [message, setMessage] = useState('');
 
+  // Backend-Daten abrufen
   const fetchData = async () => {
     try {
       const fetchedEvents = await getAllEvents();
@@ -76,6 +77,7 @@ const CalendarUserAdmin = () => {
     fetchData();
   }, []);
 
+  // Filterfunktion für Events basierend auf Suchbegriffen
   useEffect(() => {
     if (searchTerm === '') {
       setFilteredEvents(events);
@@ -88,18 +90,12 @@ const CalendarUserAdmin = () => {
     }
   }, [searchTerm, events]);
 
+  // Event-Auswahl und Zurücksetzen von Rating und Kommentar
   const handleEventClick = (event) => {
     setSelectedEvent(event);
     setRating(0);
     setComment('');
     setMessage('');
-    
-    const userId = 13; // Hier sollte die User-ID dynamisch gesetzt werden
-    const alreadyRated = event.ratings.some(r => r.userId === userId);
-    const alreadyCommented = event.comments.some(c => c.username === `User${userId}`);
-    
-    setHasRated(alreadyRated);
-    setHasCommented(alreadyCommented);
   };
 
   const handleClose = () => {
@@ -109,6 +105,7 @@ const CalendarUserAdmin = () => {
     setHasCommented(false);
   };
 
+  // Bewertungssterne anzeigen
   const renderStars = (currentRating) => {
     return Array.from({ length: 5 }, (_, index) => (
       <span
@@ -121,27 +118,29 @@ const CalendarUserAdmin = () => {
     ));
   };
 
+  // Bewertung absenden und Rückmeldung anzeigen
   const handleRatingSubmit = async () => {
     if (rating > 0 && !hasRated) {
       try {
         const response = await changeRate(selectedEvent.id, rating);
         setHasRated(true);
-        setMessage(response.message); // Rückmeldung anzeigen
+        setMessage(response.message); // Rückmeldung von der API
         setRating(0);
         await fetchData(); // Daten neu laden
       } catch (error) {
-        setMessage('Fehler beim Einreichen der Bewertung: ' + error.message);
+        setMessage((error.response?.data.message));
       }
     }
   };
 
+  // Kommentar absenden und Rückmeldung anzeigen
   const handleCommentSubmit = async () => {
     if (comment.trim()) {
       if (hasCommented) {
         setMessage('Du hast bereits einen Kommentar zu diesem Event abgegeben.');
         return;
       }
-  
+
       try {
         const response = await changeComment(selectedEvent.id, comment);
         setHasCommented(true);
@@ -149,7 +148,7 @@ const CalendarUserAdmin = () => {
         setComment(''); // Kommentar zurücksetzen
         await fetchData(); // Daten neu laden
       } catch (error) {
-        setMessage((error.response?.data.message || error.message));
+        setMessage((error.response?.data.message));
       }
     } else {
       setMessage('Bitte gib einen Kommentar ein.');
