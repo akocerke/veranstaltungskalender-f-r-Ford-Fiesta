@@ -13,7 +13,7 @@ import 'moment-timezone';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'moment/locale/de';
 import { getAllEvents } from '../../api/events';
-import { changeRate } from '../../api/users';
+import { changeRate, changeComment } from '../../api/users';
 
 moment.tz.setDefault('Europe/Berlin');
 
@@ -27,6 +27,8 @@ const CalendarUserAdmin = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [rating, setRating] = useState(0);
   const [hasRated, setHasRated] = useState(false);
+  const [hasCommented, setHasCommented] = useState(false);
+  const [comment, setComment] = useState('');
   const [message, setMessage] = useState('');
 
   const fetchData = async () => {
@@ -89,15 +91,22 @@ const CalendarUserAdmin = () => {
   const handleEventClick = (event) => {
     setSelectedEvent(event);
     setRating(0);
+    setComment('');
+    setMessage('');
     
-    // Überprüfen, ob der Benutzer bereits bewertet hat
-    const alreadyRated = event.ratings.some(r => r.userId === 13); // Beispiel: UserID prüfen
+    const userId = 13; // Hier sollte die User-ID dynamisch gesetzt werden
+    const alreadyRated = event.ratings.some(r => r.userId === userId);
+    const alreadyCommented = event.comments.some(c => c.username === `User${userId}`);
+    
     setHasRated(alreadyRated);
-    setMessage(alreadyRated ? 'Du hast das Event schon bewertet.' : '');
+    setHasCommented(alreadyCommented);
   };
 
   const handleClose = () => {
     setSelectedEvent(null);
+    setMessage('');
+    setHasRated(false);
+    setHasCommented(false);
   };
 
   const renderStars = (currentRating) => {
@@ -115,16 +124,35 @@ const CalendarUserAdmin = () => {
   const handleRatingSubmit = async () => {
     if (rating > 0 && !hasRated) {
       try {
-        await changeRate(selectedEvent.id, rating);
+        const response = await changeRate(selectedEvent.id, rating);
         setHasRated(true);
-        setMessage('Danke für deine Bewertung!'); // Erfolgsmeldung
+        setMessage(response.message); // Rückmeldung anzeigen
         setRating(0);
-        
-        // Neu laden der Events, um die aktualisierten Bewertungen zu erhalten
-        await fetchData();
+        await fetchData(); // Daten neu laden
       } catch (error) {
-        console.error('Fehler beim Einreichen der Bewertung:', error);
+        setMessage('Fehler beim Einreichen der Bewertung: ' + error.message);
       }
+    }
+  };
+
+  const handleCommentSubmit = async () => {
+    if (comment.trim()) {
+      if (hasCommented) {
+        setMessage('Du hast bereits einen Kommentar zu diesem Event abgegeben.');
+        return;
+      }
+  
+      try {
+        const response = await changeComment(selectedEvent.id, comment);
+        setHasCommented(true);
+        setMessage(response.message); // Rückmeldung vom Backend anzeigen
+        setComment(''); // Kommentar zurücksetzen
+        await fetchData(); // Daten neu laden
+      } catch (error) {
+        setMessage((error.response?.data.message || error.message));
+      }
+    } else {
+      setMessage('Bitte gib einen Kommentar ein.');
     }
   };
 
@@ -149,9 +177,7 @@ const CalendarUserAdmin = () => {
         views={['month', 'week', 'day']}
         culture="de"
         components={{
-          event: ({ event }) => (
-            <span>{event.title}</span>
-          ),
+          event: ({ event }) => <span>{event.title}</span>,
         }}
       />
 
@@ -210,10 +236,22 @@ const CalendarUserAdmin = () => {
             {!hasRated && (
               <div className="mt-3">
                 <strong className="text-color">Deine Bewertung:</strong>
-                <div>
-                  {renderStars(rating)}
-                </div>
+                <div>{renderStars(rating)}</div>
                 <Button onClick={handleRatingSubmit} className="mt-2 primary">Bewertung abgeben</Button>
+              </div>
+            )}
+            {/* Kommentar hinzufügen */}
+            {!hasCommented && (
+              <div className="mt-3">
+                <strong className="text-color">Dein Kommentar:</strong>
+                <FormControl
+                  as="textarea"
+                  rows={3}
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  className="mt-2"
+                />
+                <Button onClick={handleCommentSubmit} className="mt-2 primary">Kommentar abgeben</Button>
               </div>
             )}
             {message && <Alert variant="info" className="mt-3">{message}</Alert>}

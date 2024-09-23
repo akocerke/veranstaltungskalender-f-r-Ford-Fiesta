@@ -190,9 +190,42 @@ export const changeRate = async (eventId, rating) => {
       }
     });
 
-    console.log(response.data.message); // Erfolgreiche Rückmeldung
+    return response.data; // Stelle sicher, dass die Daten zurückgegeben werden
   } catch (error) {
     console.error('Error submitting rating:', error.response?.data.message || error.message);
+    throw error; // Fehler weitergeben
   }
 };
 
+
+// POST /users/events/comment - angemeldete Benutzer kann ein Kommentar abgeben
+export const changeComment = async (eventId, comment) => {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    console.error('User is not authenticated');
+    return;
+  }
+
+  try {
+    const response = await api.post('/users/events/comment', 
+      { eventId, comment }, 
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    // Überprüfen, ob die Antwort den Status 201 hat (Erstellung erfolgreich)
+    if (response.status === 201) {
+      return response.data; // Rückgabe der Daten bei Erfolg
+    } else {
+      throw new Error('Fehler beim Hinzufügen des Kommentars');
+    }
+  } catch (error) {
+    console.error('Error adding comment:', error.response?.data.message || error.message);
+    throw error; // Fehler weitergeben
+  }
+};
