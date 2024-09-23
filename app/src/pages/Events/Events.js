@@ -1,24 +1,17 @@
 // src/pages/Event.js
-import React from 'react'
-import CalendarPage from '../Calendar/Calendar'
-import CalendarUserAdminPage from '../Calendar/CalendarUserAdmin'
-import { Container } from 'react-bootstrap'
+import React from 'react';
+import CalendarPage from '../Calendar/Calendar';
+import CalendarUserAdminPage from '../Calendar/CalendarUserAdmin';
+import { Container } from 'react-bootstrap';
+import { isAuthenticated } from '../../api/users';
 
 const Event = () => {
-  // Benutzerrolle aus dem localStorage abrufen
-  const token = localStorage.getItem('token');
-  let userRole = null;
-
-  if (token) {
-    // Angenommen, das Token enthält die Rolle als Payload
-    const decodedToken = JSON.parse(atob(token.split('.')[1]));
-    userRole = decodedToken.role; // Beispiel: Rolle aus dem Token holen
-  }
+  const isUserAuthenticated = isAuthenticated(); // Prüfen, ob Benutzer angemeldet ist
 
   return (
     <Container className="mt-5 mb-5">
       <h1 className="headline">Alle Events</h1>
-      {userRole ? <CalendarUserAdminPage /> : <CalendarPage />}
+      {isUserAuthenticated ? <CalendarUserAdminPage /> : <CalendarPage />}
     </Container>
   );
 };

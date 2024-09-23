@@ -229,3 +229,23 @@ export const changeComment = async (eventId, comment) => {
     throw error; // Fehler weitergeben
   }
 };
+
+// Funktion zur Überprüfung ob der Benutzer angemeldet ist
+export const isAuthenticated = () => {
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    try {
+      // Versuche das Token zu entschlüsseln und überprüfe, ob es gültig ist
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+
+      // Optional: Du könntest hier noch die Gültigkeit des Tokens prüfen (z.B. ob es abgelaufen ist)
+      return !!decodedToken; // Benutzer ist authentifiziert, wenn es ein Token gibt
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return false;
+    }
+  }
+
+  return false; // Kein Token, also nicht authentifiziert
+};
