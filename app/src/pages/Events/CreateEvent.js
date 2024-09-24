@@ -117,7 +117,7 @@ const CreateEvent = () => {
                 required
               />
             </Form.Group>
-            {alertMessage && <Alert variant={alertVariant} className='mt-3'>{alertMessage}</Alert>}
+            {alertMessage && <Alert variant={alertVariant} className='mt-4'>{alertMessage}</Alert>}
             <Button className="primary mt-4" type="submit">
               Event erstellen
             </Button>
