@@ -7,14 +7,13 @@ import {
 } from 'react-bootstrap';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
-import 'moment-timezone'; // Moment-Timezone importieren
+import 'moment-timezone';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import 'moment/locale/de'; // Importiere die deutsche Locale
-import { getAllEvents } from '../../api/events';
+import 'moment/locale/de';
+import { getAllEvents, fetchImageUrl } from '../../api/events'; // Importiere die API-Funktionen
 
 // Setze die Standardzeitzone
 moment.tz.setDefault('Europe/Berlin');
-
 const localizer = momentLocalizer(moment);
 moment.locale('de');
 
@@ -28,52 +27,52 @@ const CalendarPage = () => {
     const fetchData = async () => {
       try {
         const fetchedEvents = await getAllEvents(); // Alle Events abrufen
-
-        const formattedEvents = fetchedEvents.map((event) => {
+  
+        const eventsWithImageUrls = await Promise.all(fetchedEvents.map(async (event) => {
           const originalDate = moment.tz(event.date, 'Europe/Berlin').toDate();
-
-          // Prüfen, ob das Event nur ein Datum ohne Uhrzeit hat
+  
           const isAllDay = event.date.split(' ').length === 1;
-
+  
           let startDate;
           let endDate;
-
+  
           if (isAllDay) {
-            // Für ganztägige Events: Setze die Zeit von 00:00 bis 23:59:59
             startDate = moment.tz(originalDate, 'Europe/Berlin').startOf('day').toDate();
             endDate = moment.tz(originalDate, 'Europe/Berlin').endOf('day').toDate();
           } else {
-            // Falls das Event eine Zeitangabe hat, behalte die Originalzeit bei
             startDate = originalDate;
             endDate = new Date(originalDate.getTime() + 60 * 60 * 1000); // 1 Stunde nach Startzeit
           }
-
+  
+          // Hole die Bild-URL, indem du den Dateinamen verwendest
+          const imageUrl = await fetchImageUrl(event.image); // event.image enthält den Dateinamen
+  
           return {
             id: event.id,
             title: event.title,
-            start: startDate,  // Startdatum mit oder ohne Zeit
-            end: endDate,  // Enddatum mit oder ohne Zeit
-            allDay: isAllDay,  // Setze allDay auf true, wenn nur Datum vorhanden ist
+            start: startDate,
+            end: endDate,
+            allDay: isAllDay,
             description: event.description,
-            imageUrl: event.image,
+            imageUrl, // Verwende die abgerufene URL hier
             comments: event.comments.map((c) => ({
               comment: c.comment,
               username: c.username || 'Unbekannt',
             })),
             ratings: event.ratings,
           };
-        });
-
-        setEvents(formattedEvents);
-        setFilteredEvents(formattedEvents);
+        }));
+  
+        setEvents(eventsWithImageUrls); // Setze die Events mit den Bild-URLs
+        setFilteredEvents(eventsWithImageUrls);
       } catch (error) {
         console.error('Fehler beim Abrufen der Daten:', error);
       }
     };
-
+  
     fetchData();
   }, []);
-
+  
   useEffect(() => {
     if (searchTerm === '') {
       setFilteredEvents(events);
@@ -117,7 +116,7 @@ const CalendarPage = () => {
         events={filteredEvents}
         startAccessor="start"
         endAccessor="end"
-        allDayAccessor="allDay" // Kalender weiß jetzt, dass es Ganztagsevents gibt
+        allDayAccessor="allDay"
         onSelectEvent={handleEventClick}
         style={{ height: 600 }}
         views={['month', 'week', 'day']}
@@ -125,7 +124,7 @@ const CalendarPage = () => {
         components={{
           event: ({ event }) => (
             <span>{event.title}</span>
-          ), // Nur Titel anzeigen
+          ),
         }}
       />
 
@@ -136,7 +135,7 @@ const CalendarPage = () => {
           </Modal.Header>
           <Modal.Body>
             <img
-              src={selectedEvent.imageUrl}
+              src={selectedEvent.imageUrl} // Verwende hier die Bild-URL
               alt={selectedEvent.title}
               className="img-fluid mb-2"
             />

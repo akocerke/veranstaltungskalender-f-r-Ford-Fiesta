@@ -1,4 +1,4 @@
-// src/pages/Event.js
+// src/pages/Events/Event.js
 import React from 'react';
 import CalendarPage from '../Calendar/Calendar';
 import CalendarUserAdminPage from '../Calendar/CalendarUserAdmin';

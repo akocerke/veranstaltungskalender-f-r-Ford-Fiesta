@@ -13,6 +13,7 @@ import AdminUsers from './pages/Admin/Users'
 import AdminViolations from './pages/Admin/Validation'
 import AdminComments from './pages/Admin/Comments'
 import Events from './pages/Events/Events'
+import CreateEvent from './pages/Events/CreateEvent'
 import Contact from './pages/Contact/contact'
 import UserDashboard from './pages/User/Dashboard'
 import UserEvents from './pages/User/UserEvents'
@@ -87,6 +88,7 @@ function App() {
             </Route>
             {/* Events */}
             <Route path="/events" element={<Events />} />
+            <Route path="/create-event" element={<CreateEvent />} />
           </Routes>
         </Container>
         <Footer />

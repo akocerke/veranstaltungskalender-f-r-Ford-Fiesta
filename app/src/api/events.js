@@ -10,3 +10,15 @@ export const getAllEvents = async () => {
     throw error;
   }
 };
+
+// Funktion zum Abrufen der Bild-URL
+export const fetchImageUrl = async (fileName) => {
+  try {
+    // Sende den fileName im Body der POST-Anfrage
+    const response = await api.post('/events/get-url', { fileName });
+    return response.data.url; // Gibt die URL zurück
+  } catch (error) {
+    console.error('Error fetching image URL:', error.response?.data.message || error.message);
+    throw new Error('Error fetching image URL'); // Wirf einen Fehler, wenn etwas schiefgeht
+  }
+};

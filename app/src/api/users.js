@@ -249,3 +249,67 @@ export const isAuthenticated = () => {
 
   return false; // Kein Token, also nicht authentifiziert
 };
+
+// POST /users/events/create - Erstellen eines neuen Events durch den Benutzer
+export const createEvent = async (eventDetails, imageFile) => {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    console.error('User is not authenticated');
+    return null; // Wenn der Benutzer nicht authentifiziert ist, gebe null zurück
+  }
+
+  try {
+    // Event erstellen und Upload-URL erhalten
+    const response = await api.post('users/events/create', {
+      title: eventDetails.title,
+      description: eventDetails.description,
+      date: eventDetails.date,
+      imageFileName: imageFile.name,
+      imageFileType: imageFile.type,
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}` // Token im Header mitschicken
+      }
+    });
+
+    const data = response.data; // Zugriff auf die Antwortdaten
+
+    if (data.success) {
+      // Erfolgreiche Antwort vom Backend
+      const uploadResponse = await api.put(data.uploadUrl, imageFile, {
+        headers: {
+          'Content-Type': imageFile.type,
+        },
+      });
+
+      // Überprüfen, ob der Bild-Upload erfolgreich war
+      if (uploadResponse.status === 200) {
+        return {
+          success: true,
+          message: data.message || 'Event and image uploaded successfully!', // Verwende die Nachricht vom Backend
+          eventId: data.eventId,
+          uploadUrl: data.uploadUrl,
+        };
+      } else {
+        return {
+          success: false,
+          message: 'Image upload failed, but event was created.',
+        };
+      }
+    } else {
+      // Falls success == false
+      return {
+        success: false,
+        message: data.message, // Hier wird die API-Message verwendet
+      };
+    }
+  } catch (error) {
+    console.error('Error creating event:', error);
+    return {
+      success: false,
+      message: error.response?.data?.message || 'Error: Unable to create event or upload image.', // Hier wird die API-Fehlermeldung verwendet
+    };
+  }
+};
+
