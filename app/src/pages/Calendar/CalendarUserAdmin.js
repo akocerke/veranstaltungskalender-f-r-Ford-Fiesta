@@ -12,7 +12,7 @@ import moment from 'moment';
 import 'moment-timezone';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'moment/locale/de';
-import { getAllEvents } from '../../api/events';
+import { getAllEvents, fetchImageUrl } from '../../api/events'; // Import von fetchImageUrl hinzugefügt
 import { changeRate, changeComment } from '../../api/users';
 
 moment.tz.setDefault('Europe/Berlin');
@@ -35,7 +35,7 @@ const CalendarUserAdmin = () => {
   const fetchData = async () => {
     try {
       const fetchedEvents = await getAllEvents();
-      const formattedEvents = fetchedEvents.map((event) => {
+      const formattedEvents = await Promise.all(fetchedEvents.map(async (event) => {
         const originalDate = moment.tz(event.date, 'Europe/Berlin').toDate();
         const isAllDay = event.date.split(' ').length === 1;
 
@@ -50,6 +50,9 @@ const CalendarUserAdmin = () => {
           endDate = new Date(originalDate.getTime() + 60 * 60 * 1000);
         }
 
+        // Bild-URL abrufen
+        const imageUrl = await fetchImageUrl(event.image);
+
         return {
           id: event.id,
           title: event.title,
@@ -57,14 +60,14 @@ const CalendarUserAdmin = () => {
           end: endDate,
           allDay: isAllDay,
           description: event.description,
-          imageUrl: event.image,
+          imageUrl, // Bild-URL hier einsetzen
           comments: event.comments.map((c) => ({
             comment: c.comment,
             username: c.username || 'Unbekannt',
           })),
           ratings: event.ratings,
         };
-      });
+      }));
 
       setEvents(formattedEvents);
       setFilteredEvents(formattedEvents);
