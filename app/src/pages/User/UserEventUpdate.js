@@ -7,7 +7,7 @@ const UserEventUpdate = ({ show, handleClose, event, onUpdate, refreshEvents }) 
   const [title, setTitle] = useState(event.title);
   const [description, setDescription] = useState(event.description);
   const [date, setDate] = useState(new Date(event.date).toISOString().split('T')[0]);
-  const [image, setImage] = useState(event.image);
+  const [imageFile, setImageFile] = useState(null); // Neuer State für die Bilddatei
 
   // State für Toast
   const [showToast, setShowToast] = useState(false);
@@ -16,11 +16,14 @@ const UserEventUpdate = ({ show, handleClose, event, onUpdate, refreshEvents }) 
 
   const handleSubmit = async () => {
     try {
-      const updatedEvent = await updateEvent({ id: event.id, title, description, date, image });
+      const updatedEvent = await updateEvent(
+        { id: event.id, title, description, date }, // Bildname wird nicht übergeben, weil es nicht mehr benötigt wird
+        imageFile // Bilddatei übergeben
+      );
       onUpdate(updatedEvent);
       refreshEvents(); // Rufe die Funktion auf, um die Events zu aktualisieren
       handleClose();
-      
+
       // Erfolgsmeldung anzeigen
       setToastMessage('Event erfolgreich aktualisiert!');
       setToastVariant('success');
@@ -32,6 +35,8 @@ const UserEventUpdate = ({ show, handleClose, event, onUpdate, refreshEvents }) 
       setShowToast(true);
     }
   };
+
+
 
   return (
     <>
@@ -70,10 +75,10 @@ const UserEventUpdate = ({ show, handleClose, event, onUpdate, refreshEvents }) 
             <Form.Group className="mb-3" controlId="formImage">
               <Form.Label className="text-color fw-bold">Bild</Form.Label>
               <Form.Control
-                type="text"
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
+                type="file" // Ändere den Typ auf "file"
+                onChange={(e) => setImageFile(e.target.files[0])} // Setze die Bilddatei
               />
+              
             </Form.Group>
           </Form>
         </Modal.Body>
