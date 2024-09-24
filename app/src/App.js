@@ -13,8 +13,11 @@ import AdminUsers from './pages/Admin/Users'
 import AdminViolations from './pages/Admin/Validation'
 import AdminComments from './pages/Admin/Comments'
 import Events from './pages/Events/Events'
+import CreateEvent from './pages/Events/CreateEvent'
 import Contact from './pages/Contact/contact'
-
+import UserDashboard from './pages/User/Dashboard'
+import UserEvents from './pages/User/UserEvents'
+import UserProfile from './pages/User/UserProfile '
 function App() {
   return (
     <Router>
@@ -78,10 +81,14 @@ function App() {
             <Route path="/admin/violations" element={<AdminViolations />} />
             <Route path="/admin/comments" element={<AdminComments />} />
 
+            {/* User-Bereich */}
+            <Route path="/users/dashboard" element={<UserDashboard />}>
+              <Route path="profile" element={<UserProfile />} />
+              <Route path="events" element={<UserEvents />} />
+            </Route>
             {/* Events */}
             <Route path="/events" element={<Events />} />
-
-            {/* Navbar */}
+            <Route path="/create-event" element={<CreateEvent />} />
           </Routes>
         </Container>
         <Footer />

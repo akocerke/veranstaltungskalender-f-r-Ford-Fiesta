@@ -1,4 +1,3 @@
-// src/components/SignupModal.js
 import React, { useState } from 'react';
 import { Modal, Button, Form, Container, Row, Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
@@ -15,19 +14,22 @@ const SignupModal = ({ show, handleClose }) => {
     event.preventDefault();
     setError(null); // Fehler zurücksetzen
     setSuccessMessage(''); // Erfolgsmeldung zurücksetzen
-  
+
+    // Validierung: Überprüfen, ob alle Felder ausgefüllt sind
+    if (!username || !email || !password) {
+      setError('Bitte fülle alle Felder aus.'); // Setze eine Fehlermeldung
+      return; // Bricht die Funktion ab, wenn die Validierung fehlschlägt
+    }
+
     try {
       const response = await signup(username, email, password);
       console.log('Signup erfolgreich:', response);
       setSuccessMessage('Registrierung erfolgreich! Bitte melde dich an.'); // Erfolgsmeldung setzen
-      
+
       // Eingabefelder zurücksetzen
       setUsername('');
       setEmail('');
       setPassword('');
-  
-      // Optional: Hier kannst du den Benutzer zur Login-Seite umleiten oder eine andere Aktion ausführen
-      // handleClose(); // Schließe das Modal nach erfolgreicher Registrierung
     } catch (error) {
       console.error('Fehler bei der Registrierung:', error);
       if (error.response && error.response.data.message) {

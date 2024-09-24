@@ -1,0 +1,58 @@
+/* src/pages/User/Dashboard.module.css */
+
+.board {
+    min-height: 100vh;
+    overflow: hidden;
+    border-radius: 5px;
+}  
+
+.board a {
+  color: #b6b5b5 !important;
+}
+.board a:hover {
+  color: #ffffff !important;
+}
+
+.board .myNav{
+  background-color: black !important;
+}
+
+/* Dashboard.module.css */
+.sidebarIcon {
+  margin-right: 8px; /* Abstand zwischen Icon und Text */
+  color: #b6b5b5; /* Standardfarbe der Icons */
+}
+
+.sidebarIcon:hover {
+  color: #ffffff; /* Farbe der Icons beim Hover */
+}
+
+.navLink {
+  color: #b6b5b5; /* Standardfarbe der Links */
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.navLink:hover {
+  color: #ffffff; /* Farbe der Links beim Hover */
+}
+
+/* Responsives Design */
+@media (max-width: 768px) {
+    .sidebar {
+        height: auto;
+        position: static; /* Sidebar wird nicht fixiert */
+        padding: 0.5rem;
+        overflow: auto;
+    }
+
+    .sidebar a {
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+}
+
+.overviewContainer{
+  border: none !important;
+}

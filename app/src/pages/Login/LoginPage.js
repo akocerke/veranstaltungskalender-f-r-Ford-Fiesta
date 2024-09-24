@@ -1,32 +1,50 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form, Container, Row, Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { login } from '../../api/auth'; // Importiere deine Login-API
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+import { login } from '../../api/auth'; // Import your login API
 
 const LoginModal = ({ show, handleClose }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  
+  const navigate = useNavigate(); // Use the useNavigate hook for navigation
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const response = await login(email, password);
       console.log('Login erfolgreich:', response);
-
-      // Hier wird der Token von der API zurückgegeben
-      const token = response.token;
+  
+      // Die Rolle und den Token aus der Antwort abrufen
+      const { token, user } = response;
+      const { role } = user;
+  
       console.log('Erhaltener Token:', token);
-
-      // Hier kannst du den Token z.B. im App-Kontext oder Zustand speichern
-      // und für weitere Anfragen verwenden, ohne ihn in localStorage zu speichern
-
+      console.log('User Role:', role);
+  
+      // Speichere den Token im Local Storage
+      localStorage.setItem('accessToken', token);
+  
+      // Weiterleitung basierend auf der Benutzerrolle
+      if (role === 'admin') {
+        navigate('/admin/dashboard'); // Weiterleitung zum Admin-Dashboard
+      } else if (role === 'user') {
+        navigate('/users/dashboard'); // Weiterleitung zum User-Dashboard
+      }
+  
+      // Eingabefelder zurücksetzen
+      setEmail('');
+      setPassword('');
+  
       handleClose(); // Schließe das Modal bei erfolgreichem Login
     } catch (error) {
       console.error('Fehler beim Login:', error);
       setErrorMessage('Login fehlgeschlagen. Bitte überprüfen Sie Ihre Anmeldedaten.');
     }
   };
+  
 
   return (
     <Modal show={show} onHide={handleClose} centered className="bg-mordal">
