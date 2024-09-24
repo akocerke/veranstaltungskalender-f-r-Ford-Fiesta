@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Spinner, Alert, Row, Col, Button } from 'react-bootstrap';
-import { getEventsByUser } from '../../api/users';
+import { getEventsByUser } from '../../api/users'; 
 import UserEventUpdate from './UserEventUpdate';
 import UserEventDelete from './UserEventDelete';
 import styles from './UserEvents.module.css';
+import { fetchImageUrl } from '../../api/events'; // Stelle sicher, dass die Funktion importiert wird
 
 const UserEvents = () => {
   const [events, setEvents] = useState([]);
@@ -19,8 +20,15 @@ const UserEvents = () => {
 
   const fetchEvents = async () => {
     try {
-      const data = await getEventsByUser();
-      setEvents(data);
+      const data = await getEventsByUser(); // Events von der API abrufen
+      const eventsWithImages = await Promise.all(data.map(async (event) => {
+        const imageUrl = await fetchImageUrl(event.image); // Pre-URL abrufen
+        return {
+          ...event,
+          image: imageUrl, // Bild-URL setzen
+        };
+      }));
+      setEvents(eventsWithImages);
     } catch (error) {
       setError('Fehler beim Abrufen der Events.');
     } finally {
