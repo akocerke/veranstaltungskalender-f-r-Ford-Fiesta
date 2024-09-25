@@ -1,39 +1,84 @@
 // src/pages/Admin/Events.js
-import React, { useState, useEffect } from 'react'
-import { Container, Table, Button, Form, Alert } from 'react-bootstrap'
-import { getAdminEvents } from '../../api/admins' // Stelle sicher, dass die Funktion korrekt importiert ist
+import React, { useState, useEffect } from 'react';
+import { Container, Table, Button, Form, Alert, Spinner } from 'react-bootstrap';
+import { getAdminEvents } from '../../api/admins'; // Importiere die Funktion
+import { useLocation } from 'react-router-dom'; // Importiere useLocation
+import UserEventDelete from './UserEventDelete'; // Importiere das Löschmodul
 
 const Events = () => {
-  const [events, setEvents] = useState([]) // State für die Event-Daten
-  const [error, setError] = useState(null) // State für Fehlermeldungen
-  const [searchId, setSearchId] = useState('') // State für die Suche
+  const [events, setEvents] = useState([]); // State für die Event-Daten
+  const [filteredEvents, setFilteredEvents] = useState([]); // State für gefilterte Event-Daten
+  const [error, setError] = useState(null); // State für Fehlermeldungen
+  const [searchId, setSearchId] = useState(''); // State für die Suche
+  const [loading, setLoading] = useState(true); // State für das Laden
+  const [selectedEvent, setSelectedEvent] = useState(null); // State für das ausgewählte Event
+  const [showDeleteModal, setShowDeleteModal] = useState(false); // Modal anzeigen
+  const location = useLocation(); // Holen der aktuellen Location
 
   // Funktion, um die Events abzurufen
   const fetchEvents = async () => {
     try {
-      const data = await getAdminEvents() // Rufe die Events von der API ab
-      setEvents(data) // Setze die Event-Daten in den State
+      const data = await getAdminEvents(); // Rufe die Events von der API ab
+      setEvents(data); // Setze die Event-Daten in den State
+      setFilteredEvents(data); // Setze die gefilterten Events gleich den originalen Events
+      setLoading(false); // Setze das Laden auf false
     } catch (error) {
-      setError(error.message) // Fehler behandeln
+      setError(error.message); // Fehler behandeln
+      setLoading(false); // Setze das Laden auf false, auch bei Fehler
     }
-  }
+  };
 
   useEffect(() => {
-    fetchEvents() // Events abrufen, wenn die Komponente geladen wird
-  }, [])
+    fetchEvents(); // Events abrufen, wenn die Komponente geladen wird oder sich die Route ändert
+  }, [location]); // Abhängigkeit von der aktuellen Location
 
   // Such-Handler
   const handleSearch = () => {
-    // Filtere die Events nach der eingegebenen ID (wenn vorhanden)
     if (searchId) {
-      const filteredEvents = events.filter(
+      // Filtere die Events nach der eingegebenen ID
+      const filtered = events.filter(
         (event) => event.id.toString() === searchId
-      )
-      setEvents(filteredEvents)
+      );
+      setFilteredEvents(filtered); // Setze die gefilterten Events
     } else {
-      // Wenn keine Such-ID eingegeben ist, alle Events abrufen
-      fetchEvents()
+      // Wenn keine Such-ID eingegeben ist, alle Events zurücksetzen
+      setFilteredEvents(events); // Setze alle Events zurück
     }
+  };
+
+  // Event delete
+  const handleDeleteClick = (event) => {
+    setSelectedEvent(event); // Setze das ausgewählte Event
+    setShowDeleteModal(true); // Zeige das Modal
+  };
+
+  const handleDeleteClose = () => setShowDeleteModal(false); // Schließe das Modal
+  const handleEventDelete = (eventId) => {
+    setEvents((prevEvents) =>
+      prevEvents.filter((event) => event.id !== eventId)
+    );
+    setFilteredEvents((prevFilteredEvents) =>
+      prevFilteredEvents.filter((event) => event.id !== eventId)
+    );
+  };
+
+  // Spinner während des Ladens
+  if (loading) {
+    return (
+      <div style={{ textAlign: 'center', marginTop: '20px' }}>
+        <Spinner animation="border" />
+        <p>Lade Events...</p>
+      </div>
+    );
+  }
+
+  // Fehleranzeige
+  if (error) {
+    return (
+      <div className="alert">
+        <Alert variant="danger">{error}</Alert>
+      </div>
+    );
   }
 
   return (
@@ -41,9 +86,6 @@ const Events = () => {
       <h5 className="headline text-success mt-3 mb-3 text-lg-start">
         Events verwalten
       </h5>
-
-      {/* Fehleranzeige */}
-      {error && <Alert variant="danger">{error}</Alert>}
 
       {/* Suchfeld und Button */}
       <Form className="mb-3">
@@ -76,8 +118,8 @@ const Events = () => {
           </tr>
         </thead>
         <tbody>
-          {events.length > 0 ? (
-            events.map((event) => (
+          {filteredEvents.length > 0 ? (
+            filteredEvents.map((event) => (
               <tr key={event.id}>
                 <td>{event.id}</td>
                 <td>{event.userId}</td>
@@ -93,12 +135,15 @@ const Events = () => {
                     hour: '2-digit',
                     minute: '2-digit',
                     second: '2-digit',
-                    hour12: false, // 12-Stunden-Format (AM/PM) deaktivieren, falls gewünscht
+                    hour12: false,
                   })}
                 </td>
-
                 <td>
-                  <Button variant="danger" className="ms-2">
+                  <Button
+                    className="ms-2"
+                    variant="outline-danger"
+                    onClick={() => handleDeleteClick(event)}
+                  >
                     Löschen
                   </Button>
                 </td>
@@ -113,8 +158,14 @@ const Events = () => {
           )}
         </tbody>
       </Table>
+      <UserEventDelete
+        show={showDeleteModal}
+        handleClose={handleDeleteClose}
+        event={selectedEvent}
+        onDelete={handleEventDelete}
+      />
     </Container>
-  )
-}
+  );
+};
 
-export default Events
+export default Events;

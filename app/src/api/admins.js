@@ -76,3 +76,26 @@ export const getAdminEvents = async () => {
     throw error;
   }
 };
+
+// DELETE /admin/events/delete - Löschen eines Events
+export const deleteAdminEvent = async (eventId) => {
+  try {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      throw new Error('Kein Token gefunden, bitte anmelden.');
+    }
+
+    // Füge die Event-ID in die URL ein
+    const response = await api.delete(`/admins/events/delete`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: { id: eventId }, // Die ID kann hier im Body, wird aber normalerweise nicht verwendet
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Fehler beim Löschen des Events:', error.response ? error.response.data : error.message);
+    throw new Error(error.response ? error.response.data.message : 'Server Error');
+  }
+};
