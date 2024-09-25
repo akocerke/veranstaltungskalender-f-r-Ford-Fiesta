@@ -81,7 +81,7 @@ function App() {
             <Route path="/admin/dashboard" element={<AdminDashboard />}>
               {/* Verschachtelte Admin-Routen */}
               <Route path='meine-events' element={<AdminSeineEvents/>}/>
-              <Route path='meine-profil' element={<AdminProfile/>}/>
+              <Route path='mein-profil' element={<AdminProfile/>}/>
               <Route path="users" element={<AdminUsers />} />
               <Route path="violations" element={<AdminViolations />} />
               <Route path="comments" element={<AdminComments />} />

@@ -40,50 +40,14 @@ const Dashboard = () => {
   return (
     <Container fluid className={`mt-5 mb-5 ${styles.board}`}>
       <h1 className="headline2 text-info text-lg-center mb-3 mt-3">User Dashboard</h1>
-      <Row>
-        {/* Sidebar für größere Bildschirme */}
-        <Col md={2} className="d-none d-md-block bg-dark">
-          <Nav className="flex-column">
-            <Nav.Link as={Link} to="profile" onClick={handleLinkClick} className={styles.navLink}>
-              <i className={`bi bi-gear ${styles.sidebarIcon}`}></i> Mein Profil
-            </Nav.Link>
-            <Nav.Link as={Link} to="events" onClick={handleLinkClick} className={styles.navLink}>
-              <i className={`bi bi-calendar ${styles.sidebarIcon}`}></i> Meine Events
-            </Nav.Link>
-          </Nav>
-        </Col>
-
-        {/* Sidebar für mobile Geräte */}
-        <Col md={2} className="d-md-none">
-          <Button
-            variant="outline-secondary"
-            className="mt-2"
-            onClick={() => setOpen(!open)}
-            aria-controls="sidebar-collapse"
-            aria-expanded={open}
-          >
-            Menü
-          </Button>
-          <Collapse in={open}>
-            <div id="sidebar-collapse" className="mt-2 rounded">
-              <Nav className="flex-column">
-                <Nav.Link as={Link} to="profile" onClick={handleLinkClick} className={`mt-2 ${styles.navLink}`}>
-                  <i className={`bi bi-gear ${styles.sidebarIcon}`}></i> Mein Profil
-                </Nav.Link>
-                <Nav.Link as={Link} to="events" onClick={handleLinkClick} className={styles.navLink}>
-                  <i className={`bi bi-calendar ${styles.sidebarIcon}`}></i> Meine Events
-                </Nav.Link>
-              </Nav>
-            </div>
-          </Collapse>
-        </Col>
-
-        {/* Hauptinhalt */}
-        <Col md={10} className="mb-3">
+      
+      {/* Statistiken oben anzeigen */}
+      <Row className="mb-4">
+        <Col>
           {error && <div className="alert alert-danger">{error}</div>}
           {dashboardData && (
-            <div className={`mb-4 p-3 ${styles.overviewContainer}`}>
-              <div className="d-flex flex-wrap align-items-center mb-2">
+            <div className={`p-3 ${styles.overviewContainer}`}>
+              <div className="d-flex flex-wrap align-items-center mb-2 justify-content-center">
                 <Badge bg="primary" className="me-2 bg-opacity-50">
                   Events: {dashboardData.events.length}
                 </Badge>
@@ -111,6 +75,50 @@ const Dashboard = () => {
               </div>
             </div>
           )}
+        </Col>
+      </Row>
+
+      <Row>
+        {/* Sidebar für größere Bildschirme */}
+        <Col md={3} className="d-none d-md-block">
+        <h5 className="mt-4 text-info">User Bereich</h5>
+          <Nav className="flex-column">
+            <Nav.Link as={Link} to="profile" onClick={handleLinkClick} className={styles.navLink}>
+              <i className={`bi bi-gear ${styles.sidebarIcon}`}></i> Mein Profil
+            </Nav.Link>
+            <Nav.Link as={Link} to="events" onClick={handleLinkClick} className={styles.navLink}>
+              <i className={`bi bi-calendar ${styles.sidebarIcon}`}></i> Meine Events
+            </Nav.Link>
+          </Nav>
+        </Col>
+
+        {/* Sidebar für mobile Geräte */}
+        <Col md={3} className="d-md-none">
+          <Button
+            variant="outline-secondary"
+            className="mt-2"
+            onClick={() => setOpen(!open)}
+            aria-controls="sidebar-collapse"
+            aria-expanded={open}
+          >
+            Menü
+          </Button>
+          <Collapse in={open}>
+            <div id="sidebar-collapse" className="mt-2 rounded">
+              <Nav className="flex-column">
+                <Nav.Link as={Link} to="profile" onClick={handleLinkClick} className={`mt-2 ${styles.navLink}`}>
+                  <i className={`bi bi-gear ${styles.sidebarIcon}`}></i> Mein Profil
+                </Nav.Link>
+                <Nav.Link as={Link} to="events" onClick={handleLinkClick} className={styles.navLink}>
+                  <i className={`bi bi-calendar ${styles.sidebarIcon}`}></i> Meine Events
+                </Nav.Link>
+              </Nav>
+            </div>
+          </Collapse>
+        </Col>
+
+        {/* Hauptinhalt für Profil und Events */}
+        <Col md={9} className="mb-3">
           <Outlet />
         </Col>
       </Row>
