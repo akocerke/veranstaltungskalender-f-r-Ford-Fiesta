@@ -14,11 +14,14 @@ const Dashboard = () => {
           {/* Admin-spezifische Kategorien */}
           <h5 className="mt-4 text-color">Admin Bereich</h5>
           <Nav className="flex-column mb-4">
+          <Nav.Link as={Link} to="statistic">
+              Statistik
+            </Nav.Link>
             <Nav.Link as={Link} to="events">
               Events
             </Nav.Link>
             <Nav.Link as={Link} to="users">
-              Benutzerverwaltung
+              Benutzer
             </Nav.Link>
             <Nav.Link as={Link} to="violations">
               Verstöße

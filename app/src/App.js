@@ -9,6 +9,8 @@ import Imprint from './pages/imprint'
 import Policys from './pages/policys'
 import Forumguidelines from './pages/forumguidelines'
 import AdminDashboard from './pages/Admin/Dashboard'
+import AdminStatistic from './pages/Admin/Statistic'
+import AdminEvents from './pages/Admin/Events'
 import AdminUsers from './pages/Admin/Users'
 import AdminViolations from './pages/Admin/Validation'
 import AdminComments from './pages/Admin/Comments'
@@ -82,9 +84,11 @@ function App() {
               {/* Verschachtelte Admin-Routen */}
               <Route path='meine-events' element={<AdminSeineEvents/>}/>
               <Route path='mein-profil' element={<AdminProfile/>}/>
+              <Route path='events' element={<AdminEvents/>}/>
               <Route path="users" element={<AdminUsers />} />
               <Route path="violations" element={<AdminViolations />} />
               <Route path="comments" element={<AdminComments />} />
+              <Route path="statistic" element={<AdminStatistic />} />
             </Route>
             
             {/* User-Bereich */}

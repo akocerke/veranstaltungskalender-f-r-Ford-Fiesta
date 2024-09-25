@@ -26,7 +26,7 @@ const Comments = () => {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Benutzername</th>
+            <th>EVENT ID</th>
             <th>Kommentar</th>
             <th>Datum</th>
             <th>Aktionen</th>
@@ -36,11 +36,11 @@ const Comments = () => {
           {/* Beispielhafte Daten */}
           <tr>
             <td>1</td>
-            <td>Max Mustermann</td>
+            <td>6</td>
             <td>Das ist ein Beispielkommentar.</td>
             <td>2024-08-07</td>
             <td>
-              <Button variant="danger">Löschen</Button>
+            <Button variant="danger" className='ms-2'>Löschen</Button>
             </td>
           </tr>
           {/* Weitere Beispiel-Daten können hier hinzugefügt werden */}
