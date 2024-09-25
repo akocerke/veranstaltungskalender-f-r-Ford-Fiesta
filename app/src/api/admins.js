@@ -49,3 +49,30 @@ export const getAdminDashboard = async () => {
     throw error;
   }
 };
+
+// GET /admin/events - Alle Events abrufen
+export const getAdminEvents = async () => {
+  try {
+    // Lese den Token aus dem Local Storage
+    const token = localStorage.getItem('accessToken');
+    console.log('Token aus LocalStorage:', token); // Debugging-Ausgabe
+
+    if (!token) {
+      throw new Error('Kein Token gefunden, bitte anmelden.');
+    }
+
+    // API-Anfrage mit Authentifizierungs-Header
+    const response = await api.get('/admins/events', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log('Events-Antwort:', response.data); // Debugging-Ausgabe
+
+    return response.data;
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Event-Daten:', error.response ? error.response.data : error.message);
+    throw error;
+  }
+};
