@@ -5,7 +5,7 @@ import { Container, Table, Button, Form } from 'react-bootstrap'
 const Comments = () => {
   return (
     <Container className="mt-5 mb-5">
-      <h1 className="headline">Kommentare verwalten</h1>
+      <h5 className='headline text-success mt-3 mb-3 text-lg-start'>Kommentare verwalten</h5>
 
       {/* Suchfeld und Button */}
       <Form className="mb-3">

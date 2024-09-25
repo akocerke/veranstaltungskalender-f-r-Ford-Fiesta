@@ -5,7 +5,7 @@ import { Container, Table, Button, Form } from 'react-bootstrap'
 const Users = () => {
   return (
     <Container className="mt-5 mb-5">
-      <h1 className="headline">Benutzerverwaltung</h1>
+      <h5 className='headline text-success mt-3 mb-3 text-lg-start'>Benutzerverwaltung</h5>
 
       {/* Suchfeld und Button */}
       <Form className="mb-3">

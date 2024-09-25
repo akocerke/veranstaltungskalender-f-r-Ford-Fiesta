@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Nav, Button, Collapse, Badge } from 'react-bootstrap';
 import { Outlet, Link } from 'react-router-dom';
-import { getUserDashboard } from '../../api/users'; // Stelle sicher, dass der Pfad korrekt ist
+import { getUserDashboard } from '../../api/users';
 import styles from './Dashboard.module.css';
 
 const Dashboard = () => {

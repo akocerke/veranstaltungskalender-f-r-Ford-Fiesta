@@ -4,8 +4,8 @@ import { Container, Table, Button } from 'react-bootstrap'
 
 const Violations = () => {
   return (
-    <Container className="mt-5">
-      <h1>Verstoßverwaltung</h1>
+    <Container className="mt-5 mb-5">
+      <h5 className='headline text-success mt-3 mb-3 text-lg-start'>Verstoßverwaltung</h5>
       <Table striped bordered hover>
         <thead>
           <tr>

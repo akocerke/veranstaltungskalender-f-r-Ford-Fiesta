@@ -18,7 +18,7 @@ export const getEventsByUser = async () => {
       },
     });
 
-    console.log('Events-Antwort:', response.data); // Debugging-Ausgabe
+    console.log('Events-Antwort:', response.data);
 
     return response.data;
   } catch (error) {
