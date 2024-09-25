@@ -99,3 +99,27 @@ export const deleteAdminEvent = async (eventId) => {
     throw new Error(error.response ? error.response.data.message : 'Server Error');
   }
 };
+
+// GET /admin/comments - Alle Kommentare abrufen
+export const getAdminComments = async () =>{
+  try {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      throw new Error('Kein Token gefunden, bitte anmelden.');
+    }
+
+    // Füge die Event-ID in die URL ein
+    const response = await api.get(`/admins/comments`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log('Comments-Antwort:', response.data); // Debugging-Ausgabe
+
+    return response.data;
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Comment-Daten:', error.response ? error.response.data : error.message);
+    throw error;
+  }
+};
