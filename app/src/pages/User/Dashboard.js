@@ -25,7 +25,7 @@ const Dashboard = () => {
       <Row>
         {/* Sidebar für alle Bildschirmgrößen sichtbar */}
         <Col md={3}>
-          <h5 className="mt-4 text-info">User Bereich</h5>
+          <h5 className="mt-4 text-color">User Bereich</h5>
           <Nav className="flex-column">
             <Nav.Link as={Link} to="#" className={styles.navLink} onClick={fetchUserDashboardData}>
               <i className={`bi bi-graph-up-arrow ${styles.sidebarIcon}`}></i> Meine Statistiken
