@@ -101,13 +101,13 @@ const UserEvents = () => {
                     className='me-3'
                     onClick={() => handleUpdateClick(event)}
                   >
-                    Bearbeiten
+                    <i className="bi bi-pencil"></i> Bearbeiten
                   </Button>
                   <Button
                     variant='outline-danger'
                     onClick={() => handleDeleteClick(event)}
-                  >
-                    Löschen
+                  > 
+                    <i className="bi bi-trash3"></i> Löschen
                   </Button>
                 </Col>
               </Row>

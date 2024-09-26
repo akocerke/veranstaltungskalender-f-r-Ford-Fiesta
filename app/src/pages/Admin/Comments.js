@@ -1,63 +1,63 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Table, Button, Form, Alert, Spinner } from 'react-bootstrap';
-import { getAdminComments } from '../../api/admins';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
+import { Container, Table, Button, Form, Alert, Spinner } from 'react-bootstrap'
+import { getAdminComments } from '../../api/admins'
+import { useLocation } from 'react-router-dom'
 
 const Comments = () => {
-  const [comments, setComments] = useState([]); // State für die Kommentare
-  const [error, setError] = useState(null); // State für Fehlermeldungen
-  const [searchId, setSearchId] = useState(''); // State für die Suche
-  const [loading, setLoading] = useState(true); // Zustand für das Laden
-  const location = useLocation(); // Holen der aktuellen Location
+  const [comments, setComments] = useState([]) // State für die Kommentare
+  const [error, setError] = useState(null) // State für Fehlermeldungen
+  const [searchId, setSearchId] = useState('') // State für die Suche
+  const [loading, setLoading] = useState(true) // Zustand für das Laden
+  const location = useLocation() // Holen der aktuellen Location
 
   // Funktion, um die Kommentare abzurufen
   const fetchComments = async () => {
-    setLoading(true); // Ladezustand aktivieren
+    setLoading(true) // Ladezustand aktivieren
     try {
-      const data = await getAdminComments(); // Rufe die Kommentare von der API ab
-      setComments(data); // Setze die Kommentare im State
-      setError(null); // Setze den Fehlerzustand zurück, falls vorher ein Fehler aufgetreten ist
+      const data = await getAdminComments() // Rufe die Kommentare von der API ab
+      setComments(data) // Setze die Kommentare im State
+      setError(null) // Setze den Fehlerzustand zurück, falls vorher ein Fehler aufgetreten ist
     } catch (error) {
-      setError(error.message); // Fehlerbehandlung
+      setError(error.message) // Fehlerbehandlung
     } finally {
-      setLoading(false); // Ladezustand deaktivieren
+      setLoading(false) // Ladezustand deaktivieren
     }
-  };
+  }
 
   // Kommentare abrufen, wenn die Komponente geladen wird oder sich die Route ändert
   useEffect(() => {
-    fetchComments();
-  }, [location]); // Hier auf location reagieren
+    fetchComments()
+  }, [location]) // Hier auf location reagieren
 
   // Such-Handler
   const handleSearch = (e) => {
-    e.preventDefault(); // Verhindert das Standard-Formularverhalten
+    e.preventDefault() // Verhindert das Standard-Formularverhalten
     if (searchId) {
       // Filtere die Kommentare nach der eingegebenen ID
       const filteredComments = comments.filter(
         (comment) => comment.id.toString() === searchId
-      );
-      setComments(filteredComments); // Setze die gefilterten Kommentare
+      )
+      setComments(filteredComments) // Setze die gefilterten Kommentare
     } else {
-      fetchComments(); // Wenn keine Such-ID eingegeben, alle Kommentare abrufen
+      fetchComments() // Wenn keine Such-ID eingegeben, alle Kommentare abrufen
     }
-  };
+  }
 
   // Funktion zum Löschen eines Kommentars
   const handleDelete = async (commentId) => {
     if (window.confirm('Möchten Sie diesen Kommentar wirklich löschen?')) {
       try {
         // Hier kann die Löschfunktionalität implementiert werden
-        console.log('Kommentar löschen:', commentId);
+        console.log('Kommentar löschen:', commentId)
         // Füge hier den API-Aufruf zum Löschen des Kommentars hinzu
 
         // Nach dem Löschen die Kommentare erneut abrufen
-        await fetchComments();
+        await fetchComments()
       } catch (error) {
-        setError('Fehler beim Löschen des Kommentars.'); // Fehlerbehandlung
+        setError('Fehler beim Löschen des Kommentars.') // Fehlerbehandlung
       }
     }
-  };
+  }
 
   // Ladeanzeige
   if (loading) {
@@ -66,7 +66,7 @@ const Comments = () => {
         <Spinner animation="border" />
         <p>Lade Kommentare...</p>
       </div>
-    );
+    )
   }
 
   // Fehleranzeige
@@ -75,17 +75,19 @@ const Comments = () => {
       <Container className="mt-5 mb-5">
         <Alert variant="danger">{error}</Alert>
       </Container>
-    );
+    )
   }
 
   return (
     <Container className="mt-5 mb-5">
-      <h5 className='headline text-success mt-3 mb-3 text-lg-start'>Kommentare verwalten</h5>
+      <h5 className="headline text-success mt-3 mb-3 text-lg-start">
+        Kommentare verwalten
+      </h5>
 
       {/* Suchfeld und Button */}
       <Form className="mb-3" onSubmit={handleSearch}>
         <Form.Group controlId="searchId">
-          <Form.Label>Kommentar ID suchen</Form.Label>
+          <Form.Label className='text-color fw-bold'>Kommentar ID suchen</Form.Label>
           <Form.Control
             type="text"
             placeholder="Geben Sie die Kommentar-ID ein"
@@ -93,8 +95,8 @@ const Comments = () => {
             onChange={(e) => setSearchId(e.target.value)} // Suchfeld mit dem State verknüpfen
           />
         </Form.Group>
-        <Button variant="primary" className="mt-2" type="submit">
-          Suchen
+        <Button variant="outline-primary" className="mt-3" type="submit">
+          <i className="bi bi-search"></i> Suchen
         </Button>
       </Form>
 
@@ -120,8 +122,12 @@ const Comments = () => {
                 <td>{comment.comment}</td>
                 <td>{new Date(comment.created_at).toLocaleDateString()}</td>
                 <td>
-                  <Button variant="danger" className='ms-2' onClick={() => handleDelete(comment.id)}>
-                    Löschen
+                  <Button
+                    variant="outline-danger"
+                    className="ms-2"
+                    onClick={() => handleDelete(comment.id)}
+                  >
+                    <i className="bi bi-trash3"></i>
                   </Button>
                 </td>
               </tr>
@@ -136,7 +142,7 @@ const Comments = () => {
         </tbody>
       </Table>
     </Container>
-  );
-};
+  )
+}
 
-export default Comments;
+export default Comments

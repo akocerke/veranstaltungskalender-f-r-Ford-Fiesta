@@ -1,36 +1,36 @@
 // src/pages/Admin/Events.js
-import React, { useState, useEffect } from 'react';
-import { Container, Table, Button, Form, Alert, Spinner } from 'react-bootstrap';
-import { getAdminEvents } from '../../api/admins'; // Importiere die Funktion
-import { useLocation } from 'react-router-dom'; // Importiere useLocation
-import UserEventDelete from './UserEventDelete'; // Importiere das Löschmodul
+import React, { useState, useEffect } from 'react'
+import { Container, Table, Button, Form, Alert, Spinner } from 'react-bootstrap'
+import { getAdminEvents } from '../../api/admins' // Importiere die Funktion
+import { useLocation } from 'react-router-dom' // Importiere useLocation
+import UserEventDelete from './UserEventDelete' // Importiere das Löschmodul
 
 const Events = () => {
-  const [events, setEvents] = useState([]); // State für die Event-Daten
-  const [filteredEvents, setFilteredEvents] = useState([]); // State für gefilterte Event-Daten
-  const [error, setError] = useState(null); // State für Fehlermeldungen
-  const [searchId, setSearchId] = useState(''); // State für die Suche
-  const [loading, setLoading] = useState(true); // State für das Laden
-  const [selectedEvent, setSelectedEvent] = useState(null); // State für das ausgewählte Event
-  const [showDeleteModal, setShowDeleteModal] = useState(false); // Modal anzeigen
-  const location = useLocation(); // Holen der aktuellen Location
+  const [events, setEvents] = useState([]) // State für die Event-Daten
+  const [filteredEvents, setFilteredEvents] = useState([]) // State für gefilterte Event-Daten
+  const [error, setError] = useState(null) // State für Fehlermeldungen
+  const [searchId, setSearchId] = useState('') // State für die Suche
+  const [loading, setLoading] = useState(true) // State für das Laden
+  const [selectedEvent, setSelectedEvent] = useState(null) // State für das ausgewählte Event
+  const [showDeleteModal, setShowDeleteModal] = useState(false) // Modal anzeigen
+  const location = useLocation() // Holen der aktuellen Location
 
   // Funktion, um die Events abzurufen
   const fetchEvents = async () => {
     try {
-      const data = await getAdminEvents(); // Rufe die Events von der API ab
-      setEvents(data); // Setze die Event-Daten in den State
-      setFilteredEvents(data); // Setze die gefilterten Events gleich den originalen Events
-      setLoading(false); // Setze das Laden auf false
+      const data = await getAdminEvents() // Rufe die Events von der API ab
+      setEvents(data) // Setze die Event-Daten in den State
+      setFilteredEvents(data) // Setze die gefilterten Events gleich den originalen Events
+      setLoading(false) // Setze das Laden auf false
     } catch (error) {
-      setError(error.message); // Fehler behandeln
-      setLoading(false); // Setze das Laden auf false, auch bei Fehler
+      setError(error.message) // Fehler behandeln
+      setLoading(false) // Setze das Laden auf false, auch bei Fehler
     }
-  };
+  }
 
   useEffect(() => {
-    fetchEvents(); // Events abrufen, wenn die Komponente geladen wird oder sich die Route ändert
-  }, [location]); // Abhängigkeit von der aktuellen Location
+    fetchEvents() // Events abrufen, wenn die Komponente geladen wird oder sich die Route ändert
+  }, [location]) // Abhängigkeit von der aktuellen Location
 
   // Such-Handler
   const handleSearch = () => {
@@ -38,29 +38,29 @@ const Events = () => {
       // Filtere die Events nach der eingegebenen ID
       const filtered = events.filter(
         (event) => event.id.toString() === searchId
-      );
-      setFilteredEvents(filtered); // Setze die gefilterten Events
+      )
+      setFilteredEvents(filtered) // Setze die gefilterten Events
     } else {
       // Wenn keine Such-ID eingegeben ist, alle Events zurücksetzen
-      setFilteredEvents(events); // Setze alle Events zurück
+      setFilteredEvents(events) // Setze alle Events zurück
     }
-  };
+  }
 
   // Event delete
   const handleDeleteClick = (event) => {
-    setSelectedEvent(event); // Setze das ausgewählte Event
-    setShowDeleteModal(true); // Zeige das Modal
-  };
+    setSelectedEvent(event) // Setze das ausgewählte Event
+    setShowDeleteModal(true) // Zeige das Modal
+  }
 
-  const handleDeleteClose = () => setShowDeleteModal(false); // Schließe das Modal
+  const handleDeleteClose = () => setShowDeleteModal(false) // Schließe das Modal
   const handleEventDelete = (eventId) => {
     setEvents((prevEvents) =>
       prevEvents.filter((event) => event.id !== eventId)
-    );
+    )
     setFilteredEvents((prevFilteredEvents) =>
       prevFilteredEvents.filter((event) => event.id !== eventId)
-    );
-  };
+    )
+  }
 
   // Spinner während des Ladens
   if (loading) {
@@ -69,7 +69,7 @@ const Events = () => {
         <Spinner animation="border" />
         <p>Lade Events...</p>
       </div>
-    );
+    )
   }
 
   // Fehleranzeige
@@ -78,7 +78,7 @@ const Events = () => {
       <div className="alert">
         <Alert variant="danger">{error}</Alert>
       </div>
-    );
+    )
   }
 
   return (
@@ -90,7 +90,7 @@ const Events = () => {
       {/* Suchfeld und Button */}
       <Form className="mb-3">
         <Form.Group controlId="searchId">
-          <Form.Label>Event ID suchen</Form.Label>
+          <Form.Label className='text-color fw-bold'>Event ID suchen</Form.Label>
           <Form.Control
             type="text"
             placeholder="Geben Sie die Event-ID ein"
@@ -98,8 +98,12 @@ const Events = () => {
             onChange={(e) => setSearchId(e.target.value)} // Suchfeld mit dem State verknüpfen
           />
         </Form.Group>
-        <Button variant="primary" className="mt-2" onClick={handleSearch}>
-          Suchen
+        <Button
+          variant="outline-primary"
+          className="mt-3"
+          onClick={handleSearch}
+        >
+          <i className="bi bi-search"></i> Suchen
         </Button>
       </Form>
 
@@ -144,7 +148,7 @@ const Events = () => {
                     variant="outline-danger"
                     onClick={() => handleDeleteClick(event)}
                   >
-                    Löschen
+                    <i className="bi bi-trash3"></i>
                   </Button>
                 </td>
               </tr>
@@ -165,7 +169,7 @@ const Events = () => {
         onDelete={handleEventDelete}
       />
     </Container>
-  );
-};
+  )
+}
 
-export default Events;
+export default Events

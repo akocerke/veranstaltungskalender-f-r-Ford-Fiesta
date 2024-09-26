@@ -73,7 +73,7 @@ const UserProfile = () => {
   };
 
   return (
-    <Container>
+    <Container className='mt-3 mb-3'>
       <Row className="mb-4">
         <Col>
           <h4 className="headline2 text-info">Mein Profil</h4>
@@ -112,14 +112,14 @@ const UserProfile = () => {
                   </Row>
                   <Row className="mt-4">
                     <Col md={12}>
-                      <Button variant="warning" className="me-3 mt-3" onClick={() => {
+                      <Button variant="outline-primary" className="me-3 mt-3" onClick={() => {
                         setNewUsername(profileData.username);
                         setNewEmail(profileData.email);
                         setShowEditModal(true);
                       }}>
                         <i className="bi bi-pencil"></i> Benutzername & Email ändern
                       </Button>
-                      <Button variant="danger" onClick={() => setShowPasswordModal(true)} className='mt-3'>
+                      <Button variant="outline-danger" onClick={() => setShowPasswordModal(true)} className='mt-3'>
                         <i className="bi bi-lock"></i> Passwort ändern
                       </Button>
                     </Col>
