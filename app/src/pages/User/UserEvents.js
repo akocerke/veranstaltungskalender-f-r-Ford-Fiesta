@@ -84,7 +84,7 @@ const UserEvents = () => {
       ) : (
         <div className={styles.eventsGrid}>
           {events.map((event) => (
-            <Card key={event.id} className={`mb-4 shadow ${styles.eventCard}`} style={{ width: '18rem' }}>
+            <Card key={event.id} className={`mb-4 shadow-lg ${styles.eventCard}`} style={{ width: '18rem' }}>
               {event.image && (
                 <Card.Img variant="top" src={event.image} alt={`Bild: ${event.title}`} className={styles.eventImage} />
               )}

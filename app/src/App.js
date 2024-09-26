@@ -22,6 +22,7 @@ import Contact from './pages/Contact/contact'
 import UserDashboard from './pages/User/Dashboard'
 import UserEvents from './pages/User/UserEvents'
 import UserProfile from './pages/User/UserProfile '
+import UserStatistic from './pages/User/Statistic'
 
 function App() {
   return (
@@ -93,6 +94,7 @@ function App() {
             
             {/* User-Bereich */}
             <Route path="/users/dashboard" element={<UserDashboard />}>
+              <Route path="statistics" element={<UserStatistic/>} />
               <Route path="profile" element={<UserProfile />} />
               <Route path="events" element={<UserEvents />} />
             </Route>

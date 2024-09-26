@@ -27,7 +27,7 @@ export const getEventsByUser = async () => {
   }
 };
 
-// Funktion, um die Dashboard-Daten des Users zu holen
+// GET /users/dashboard - Gibt eine Übersicht von Events, Ratings, Comments und Violations des angemeldeten Benutzers zurück
 export const getUserDashboard = async () => {
   try {
     // Lese den Token aus dem Local Storage
@@ -47,13 +47,25 @@ export const getUserDashboard = async () => {
 
     console.log('Dashboard-Antwort:', response.data); // Debugging-Ausgabe
 
-    return response.data;
+    // Verarbeite die Rückgabewerte, um sie für die UI zugänglich zu machen
+    const { 
+      events, 
+      ratings, 
+      comments, 
+      violations 
+    } = response.data;
+
+    return {
+      events,
+      ratings,
+      comments,
+      violations, // Hier erhältst du jetzt die vollständigen Informationen zu den Verstöße, einschließlich pending und resolved
+    };
   } catch (error) {
     console.error('Fehler beim Abrufen der Dashboard-Daten:', error.response ? error.response.data : error.message);
     throw error;
   }
 };
-
 
 // Funktion, um die Profil-Daten des Benutzers abzurufen
 export const getUserProfile = async () => {
