@@ -372,3 +372,33 @@ export const updateEvent = async (eventDetails, imageFile) => {
     };
   }
 };
+
+// POST /users/violations - Verstoß melden
+export const createViolation = async (eventId, reason, details) => {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    console.error('User is not authenticated');
+    return null; // Wenn der Benutzer nicht authentifiziert ist, gebe null zurück
+  }
+
+  try {
+    // Verwendung der API-Instanz zum Senden der POST-Anfrage
+    const response = await api.post('users/violations', {
+      eventId,   // Event ID
+      reason,    // Grund für den Verstoß
+      details,   // Weitere Details (optional)
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}` // Token im Header mitschicken
+      }
+    });
+
+    // Die gesamte Antwort von der API zurückgeben
+    return response.data; // Die Antwort der API wird direkt zurückgegeben
+  } catch (error) {
+    console.error('Error reporting violation:', error.message);
+    return null; // Bei einem Fehler null zurückgeben
+  }
+};
+

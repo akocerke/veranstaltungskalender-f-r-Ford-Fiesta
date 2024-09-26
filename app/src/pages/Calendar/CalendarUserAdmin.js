@@ -12,8 +12,9 @@ import moment from 'moment';
 import 'moment-timezone';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import 'moment/locale/de';
-import { getAllEvents, fetchImageUrl } from '../../api/events'; // Import von fetchImageUrl hinzugefügt
+import { getAllEvents, fetchImageUrl } from '../../api/events'; 
 import { changeRate, changeComment } from '../../api/users';
+import { useNavigate } from 'react-router-dom'; // Import von useNavigate
 
 moment.tz.setDefault('Europe/Berlin');
 
@@ -21,6 +22,7 @@ const localizer = momentLocalizer(moment);
 moment.locale('de');
 
 const CalendarUserAdmin = () => {
+  const navigate = useNavigate(); // useNavigate hook verwenden
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -158,6 +160,13 @@ const CalendarUserAdmin = () => {
     }
   };
 
+  // Navigiere zur Verstoß melden-Seite
+  const handleReportViolation = () => {
+    if (selectedEvent) {
+      navigate(`/violations/${selectedEvent.id}`); // Navigiere zur Verstoß-Melden-Seite mit der Event-ID
+    }
+  };
+
   return (
     <Container className="mt-5 mb-5">
       <p className="headline">Kalender</p>
@@ -257,6 +266,11 @@ const CalendarUserAdmin = () => {
               </div>
             )}
             {message && <Alert variant="info" className="mt-3">{message}</Alert>}
+
+            {/* Verstoß melden Button */}
+            <Button onClick={handleReportViolation} className='mt-2 primary'>
+              Verstoß melden
+            </Button>
           </Modal.Body>
         </Modal>
       )}

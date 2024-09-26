@@ -23,6 +23,7 @@ import UserDashboard from './pages/User/Dashboard'
 import UserEvents from './pages/User/UserEvents'
 import UserProfile from './pages/User/UserProfile '
 import UserStatistic from './pages/User/Statistic'
+import Violations from './pages/Violations/Violations'
 
 function App() {
   return (
@@ -101,6 +102,8 @@ function App() {
             {/* Events */}
             <Route path="/events" element={<Events />} />
             <Route path="/create-event" element={<CreateEvent />} />
+            {/* Violations */}
+            <Route path="/violations:eventId" element={<Violations />}/>
           </Routes>
         </Container>
         <Footer />
