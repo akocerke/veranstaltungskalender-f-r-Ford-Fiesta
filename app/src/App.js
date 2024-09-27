@@ -103,7 +103,7 @@ function App() {
             <Route path="/events" element={<Events />} />
             <Route path="/create-event" element={<CreateEvent />} />
             {/* Violations */}
-            <Route path="/violations:eventId" element={<Violations />}/>
+            <Route path="/violations/:eventId" element={<Violations />} />
           </Routes>
         </Container>
         <Footer />

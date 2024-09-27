@@ -2,9 +2,10 @@
 import React, { useState } from 'react';
 import { Container, Form, Button, Alert, Row, Col } from 'react-bootstrap';
 import { createViolation } from '../../api/users'; // Direkter Import
+import { useParams } from 'react-router-dom'; // Importiere useParams
 
 const Violations = () => {
-  const [eventId, setEventId] = useState('');
+  const { eventId } = useParams(); // Hol die Event-ID aus der URL
   const [reason, setReason] = useState('');
   const [details, setDetails] = useState('');
   const [message, setMessage] = useState('');
@@ -27,7 +28,6 @@ const Violations = () => {
     }
 
     // Eingabefelder zurücksetzen
-    setEventId('');
     setReason('');
     setDetails('');
   };
@@ -45,17 +45,6 @@ const Violations = () => {
           )}
           
           <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formEventId">
-              <Form.Label>Event ID</Form.Label>
-              <Form.Control 
-                type="text" 
-                placeholder="Geben Sie die Event-ID ein" 
-                value={eventId} 
-                onChange={(e) => setEventId(e.target.value)} 
-                required 
-              />
-            </Form.Group>
-
             <Form.Group controlId="formReason">
               <Form.Label>Grund</Form.Label>
               <Form.Control 
