@@ -9,15 +9,22 @@ import Imprint from './pages/imprint'
 import Policys from './pages/policys'
 import Forumguidelines from './pages/forumguidelines'
 import AdminDashboard from './pages/Admin/Dashboard'
+import AdminStatistic from './pages/Admin/Statistic'
+import AdminEvents from './pages/Admin/Events'
 import AdminUsers from './pages/Admin/Users'
 import AdminViolations from './pages/Admin/Validation'
 import AdminComments from './pages/Admin/Comments'
+import AdminProfile from './pages/Admin/UserProfile '
+import AdminSeineEvents from './pages/Admin/UserEvents'
 import Events from './pages/Events/Events'
 import CreateEvent from './pages/Events/CreateEvent'
 import Contact from './pages/Contact/contact'
 import UserDashboard from './pages/User/Dashboard'
 import UserEvents from './pages/User/UserEvents'
 import UserProfile from './pages/User/UserProfile '
+import UserStatistic from './pages/User/Statistic'
+import Violations from './pages/Violations/Violations'
+
 function App() {
   return (
     <Router>
@@ -75,20 +82,28 @@ function App() {
             <Route path="/forumguidelines" element={<Forumguidelines />} />
             <Route path="/contact" element={<Contact />} />
 
-            {/* Admin-Bereich */}
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
-            <Route path="/admin/users" element={<AdminUsers />} />
-            <Route path="/admin/violations" element={<AdminViolations />} />
-            <Route path="/admin/comments" element={<AdminComments />} />
-
+            <Route path="/admin/dashboard" element={<AdminDashboard />}>
+              {/* Verschachtelte Admin-Routen */}
+              <Route path='meine-events' element={<AdminSeineEvents/>}/>
+              <Route path='mein-profil' element={<AdminProfile/>}/>
+              <Route path='events' element={<AdminEvents/>}/>
+              <Route path="users" element={<AdminUsers />} />
+              <Route path="violations" element={<AdminViolations />} />
+              <Route path="comments" element={<AdminComments />} />
+              <Route path="statistic" element={<AdminStatistic />} />
+            </Route>
+            
             {/* User-Bereich */}
             <Route path="/users/dashboard" element={<UserDashboard />}>
+              <Route path="statistics" element={<UserStatistic/>} />
               <Route path="profile" element={<UserProfile />} />
               <Route path="events" element={<UserEvents />} />
             </Route>
             {/* Events */}
             <Route path="/events" element={<Events />} />
             <Route path="/create-event" element={<CreateEvent />} />
+            {/* Violations */}
+            <Route path="/violations/:eventId" element={<Violations />} />
           </Routes>
         </Container>
         <Footer />

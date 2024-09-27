@@ -92,7 +92,7 @@ const UserProfile = () => {
             <Alert variant="success">{success}</Alert>
           ) : (
             profileData && (
-              <Card className="p-4 shadow-lg">
+              <Card className="p-4 shadow-sm">
                 <Card.Body>
                   <Row className="mb-2">
                     <Col xs={4} className="fw-bold">Benutzername:</Col>

@@ -3,7 +3,7 @@ import { Card, Spinner, Alert, Row, Col, Button } from 'react-bootstrap';
 import { getEventsByUser } from '../../api/users'; 
 import UserEventUpdate from './UserEventUpdate';
 import UserEventDelete from './UserEventDelete';
-import styles from './UserEvents.module.css';
+import styles from '../User/UserEvents.module.css';
 import { fetchImageUrl } from '../../api/events'; // Stelle sicher, dass die Funktion importiert wird
 
 const UserEvents = () => {
@@ -84,7 +84,7 @@ const UserEvents = () => {
       ) : (
         <div className={styles.eventsGrid}>
           {events.map((event) => (
-            <Card key={event.id} className={`mb-4 shadow-lg ${styles.eventCard}`} style={{ width: '18rem' }}>
+            <Card key={event.id} className={`mb-4 shadow ${styles.eventCard}`} style={{ width: '18rem' }}>
               {event.image && (
                 <Card.Img variant="top" src={event.image} alt={`Bild: ${event.title}`} className={styles.eventImage} />
               )}
@@ -106,7 +106,7 @@ const UserEvents = () => {
                   <Button
                     variant='outline-danger'
                     onClick={() => handleDeleteClick(event)}
-                  > 
+                  >
                     <i className="bi bi-trash3"></i> Löschen
                   </Button>
                 </Col>

@@ -18,7 +18,7 @@ export const getEventsByUser = async () => {
       },
     });
 
-    console.log('Events-Antwort:', response.data); // Debugging-Ausgabe
+    console.log('Events-Antwort:', response.data);
 
     return response.data;
   } catch (error) {
@@ -27,7 +27,7 @@ export const getEventsByUser = async () => {
   }
 };
 
-// Funktion, um die Dashboard-Daten des Users zu holen
+// GET /users/dashboard - Gibt eine Übersicht von Events, Ratings, Comments und Violations des angemeldeten Benutzers zurück
 export const getUserDashboard = async () => {
   try {
     // Lese den Token aus dem Local Storage
@@ -47,13 +47,25 @@ export const getUserDashboard = async () => {
 
     console.log('Dashboard-Antwort:', response.data); // Debugging-Ausgabe
 
-    return response.data;
+    // Verarbeite die Rückgabewerte, um sie für die UI zugänglich zu machen
+    const { 
+      events, 
+      ratings, 
+      comments, 
+      violations 
+    } = response.data;
+
+    return {
+      events,
+      ratings,
+      comments,
+      violations, // Hier erhältst du jetzt die vollständigen Informationen zu den Verstöße, einschließlich pending und resolved
+    };
   } catch (error) {
     console.error('Fehler beim Abrufen der Dashboard-Daten:', error.response ? error.response.data : error.message);
     throw error;
   }
 };
-
 
 // Funktion, um die Profil-Daten des Benutzers abzurufen
 export const getUserProfile = async () => {
@@ -360,3 +372,33 @@ export const updateEvent = async (eventDetails, imageFile) => {
     };
   }
 };
+
+// POST /users/violations - Verstoß melden
+export const createViolation = async (eventId, reason, details) => {
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    console.error('User is not authenticated');
+    return null; // Wenn der Benutzer nicht authentifiziert ist, gebe null zurück
+  }
+
+  try {
+    // Verwendung der API-Instanz zum Senden der POST-Anfrage
+    const response = await api.post('users/violations', {
+      eventId,   // Event ID
+      reason,    // Grund für den Verstoß
+      details,   // Weitere Details (optional)
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}` // Token im Header mitschicken
+      }
+    });
+
+    // Die gesamte Antwort von der API zurückgeben
+    return response.data; // Die Antwort der API wird direkt zurückgegeben
+  } catch (error) {
+    console.error('Error reporting violation:', error.message);
+    return null; // Bei einem Fehler null zurückgeben
+  }
+};
+

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import {
   Container,
   Modal,
@@ -6,107 +6,117 @@ import {
   FormControl,
   Button,
   Alert,
-} from 'react-bootstrap';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
-import moment from 'moment';
-import 'moment-timezone';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
-import 'moment/locale/de';
-import { getAllEvents, fetchImageUrl } from '../../api/events'; // Import von fetchImageUrl hinzugefügt
-import { changeRate, changeComment } from '../../api/users';
+} from 'react-bootstrap'
+import { Calendar, momentLocalizer } from 'react-big-calendar'
+import moment from 'moment'
+import 'moment-timezone'
+import 'react-big-calendar/lib/css/react-big-calendar.css'
+import 'moment/locale/de'
+import { getAllEvents, fetchImageUrl } from '../../api/events'
+import { changeRate, changeComment } from '../../api/users'
+import { useNavigate } from 'react-router-dom' // Import von useNavigate
 
-moment.tz.setDefault('Europe/Berlin');
+moment.tz.setDefault('Europe/Berlin')
 
-const localizer = momentLocalizer(moment);
-moment.locale('de');
+const localizer = momentLocalizer(moment)
+moment.locale('de')
 
 const CalendarUserAdmin = () => {
-  const [events, setEvents] = useState([]);
-  const [filteredEvents, setFilteredEvents] = useState([]);
-  const [selectedEvent, setSelectedEvent] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [rating, setRating] = useState(0);
-  const [hasRated, setHasRated] = useState(false);
-  const [hasCommented, setHasCommented] = useState(false);
-  const [comment, setComment] = useState('');
-  const [message, setMessage] = useState('');
+  const navigate = useNavigate() // useNavigate hook verwenden
+  const [events, setEvents] = useState([])
+  const [filteredEvents, setFilteredEvents] = useState([])
+  const [selectedEvent, setSelectedEvent] = useState(null)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [rating, setRating] = useState(0)
+  const [hasRated, setHasRated] = useState(false)
+  const [hasCommented, setHasCommented] = useState(false)
+  const [comment, setComment] = useState('')
+  const [message, setMessage] = useState('')
 
   // Backend-Daten abrufen
   const fetchData = async () => {
     try {
-      const fetchedEvents = await getAllEvents();
-      const formattedEvents = await Promise.all(fetchedEvents.map(async (event) => {
-        const originalDate = moment.tz(event.date, 'Europe/Berlin').toDate();
-        const isAllDay = event.date.split(' ').length === 1;
+      const fetchedEvents = await getAllEvents()
+      const formattedEvents = await Promise.all(
+        fetchedEvents.map(async (event) => {
+          const originalDate = moment.tz(event.date, 'Europe/Berlin').toDate()
+          const isAllDay = event.date.split(' ').length === 1
 
-        let startDate;
-        let endDate;
+          let startDate
+          let endDate
 
-        if (isAllDay) {
-          startDate = moment.tz(originalDate, 'Europe/Berlin').startOf('day').toDate();
-          endDate = moment.tz(originalDate, 'Europe/Berlin').endOf('day').toDate();
-        } else {
-          startDate = originalDate;
-          endDate = new Date(originalDate.getTime() + 60 * 60 * 1000);
-        }
+          if (isAllDay) {
+            startDate = moment
+              .tz(originalDate, 'Europe/Berlin')
+              .startOf('day')
+              .toDate()
+            endDate = moment
+              .tz(originalDate, 'Europe/Berlin')
+              .endOf('day')
+              .toDate()
+          } else {
+            startDate = originalDate
+            endDate = new Date(originalDate.getTime() + 60 * 60 * 1000)
+          }
 
-        // Bild-URL abrufen
-        const imageUrl = await fetchImageUrl(event.image);
+          // Bild-URL abrufen
+          const imageUrl = await fetchImageUrl(event.image)
 
-        return {
-          id: event.id,
-          title: event.title,
-          start: startDate,
-          end: endDate,
-          allDay: isAllDay,
-          description: event.description,
-          imageUrl, // Bild-URL hier einsetzen
-          comments: event.comments.map((c) => ({
-            comment: c.comment,
-            username: c.username || 'Unbekannt',
-          })),
-          ratings: event.ratings,
-        };
-      }));
+          return {
+            id: event.id,
+            title: event.title,
+            start: startDate,
+            end: endDate,
+            allDay: isAllDay,
+            description: event.description,
+            imageUrl, // Bild-URL hier einsetzen
+            comments: event.comments.map((c) => ({
+              comment: c.comment,
+              username: c.username || 'Unbekannt',
+            })),
+            ratings: event.ratings,
+          }
+        })
+      )
 
-      setEvents(formattedEvents);
-      setFilteredEvents(formattedEvents);
+      setEvents(formattedEvents)
+      setFilteredEvents(formattedEvents)
     } catch (error) {
-      console.error('Fehler beim Abrufen der Daten:', error);
+      console.error('Fehler beim Abrufen der Daten:', error)
     }
-  };
+  }
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData()
+  }, [])
 
   // Filterfunktion für Events basierend auf Suchbegriffen
   useEffect(() => {
     if (searchTerm === '') {
-      setFilteredEvents(events);
+      setFilteredEvents(events)
     } else {
       setFilteredEvents(
         events.filter((event) =>
           event.title.toLowerCase().includes(searchTerm.toLowerCase())
         )
-      );
+      )
     }
-  }, [searchTerm, events]);
+  }, [searchTerm, events])
 
   // Event-Auswahl und Zurücksetzen von Rating und Kommentar
   const handleEventClick = (event) => {
-    setSelectedEvent(event);
-    setRating(0);
-    setComment('');
-    setMessage('');
-  };
+    setSelectedEvent(event)
+    setRating(0)
+    setComment('')
+    setMessage('')
+  }
 
   const handleClose = () => {
-    setSelectedEvent(null);
-    setMessage('');
-    setHasRated(false);
-    setHasCommented(false);
-  };
+    setSelectedEvent(null)
+    setMessage('')
+    setHasRated(false)
+    setHasCommented(false)
+  }
 
   // Bewertungssterne anzeigen
   const renderStars = (currentRating) => {
@@ -114,49 +124,59 @@ const CalendarUserAdmin = () => {
       <span
         key={index}
         onClick={() => !hasRated && setRating(index + 1)}
-        style={{ cursor: 'pointer', color: index < currentRating ? 'gold' : 'gray' }}
+        style={{
+          cursor: 'pointer',
+          color: index < currentRating ? 'gold' : 'gray',
+        }}
       >
         {index < currentRating ? '★' : '☆'}
       </span>
-    ));
-  };
+    ))
+  }
 
   // Bewertung absenden und Rückmeldung anzeigen
   const handleRatingSubmit = async () => {
     if (rating > 0 && !hasRated) {
       try {
-        const response = await changeRate(selectedEvent.id, rating);
-        setHasRated(true);
-        setMessage(response.message); // Rückmeldung von der API
-        setRating(0);
-        await fetchData(); // Daten neu laden
+        const response = await changeRate(selectedEvent.id, rating)
+        setHasRated(true)
+        setMessage(response.message) // Rückmeldung von der API
+        setRating(0)
+        await fetchData() // Daten neu laden
       } catch (error) {
-        setMessage((error.response?.data.message));
+        setMessage(error.response?.data.message)
       }
     }
-  };
+  }
 
   // Kommentar absenden und Rückmeldung anzeigen
   const handleCommentSubmit = async () => {
     if (comment.trim()) {
       if (hasCommented) {
-        setMessage('Du hast bereits einen Kommentar zu diesem Event abgegeben.');
-        return;
+        setMessage('Du hast bereits einen Kommentar zu diesem Event abgegeben.')
+        return
       }
 
       try {
-        const response = await changeComment(selectedEvent.id, comment);
-        setHasCommented(true);
-        setMessage(response.message); // Rückmeldung vom Backend anzeigen
-        setComment(''); // Kommentar zurücksetzen
-        await fetchData(); // Daten neu laden
+        const response = await changeComment(selectedEvent.id, comment)
+        setHasCommented(true)
+        setMessage(response.message) // Rückmeldung vom Backend anzeigen
+        setComment('') // Kommentar zurücksetzen
+        await fetchData() // Daten neu laden
       } catch (error) {
-        setMessage((error.response?.data.message));
+        setMessage(error.response?.data.message)
       }
     } else {
-      setMessage('Bitte gib einen Kommentar ein.');
+      setMessage('Bitte gib einen Kommentar ein.')
     }
-  };
+  }
+
+  // Navigiere zur Verstoß melden-Seite
+  const handleReportViolation = () => {
+    if (selectedEvent) {
+      navigate(`/violations/${selectedEvent.id}`) // Navigiere zur Verstoß-Melden-Seite mit der Event-ID
+    }
+  }
 
   return (
     <Container className="mt-5 mb-5">
@@ -186,7 +206,9 @@ const CalendarUserAdmin = () => {
       {selectedEvent && (
         <Modal show={true} onHide={handleClose} className="bg-mordal">
           <Modal.Header closeButton>
-            <Modal.Title className="text-color">{selectedEvent.title}</Modal.Title>
+            <Modal.Title className="text-color">
+              {selectedEvent.title}
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <img
@@ -197,7 +219,9 @@ const CalendarUserAdmin = () => {
             <p>
               <strong className="text-color">Datum:</strong>
               <br />
-              <span className="span">{moment(selectedEvent.start).format('LL')}</span>
+              <span className="span">
+                {moment(selectedEvent.start).format('LL')}
+              </span>
             </p>
             <p>
               <strong className="text-color">Beschreibung:</strong>
@@ -218,10 +242,10 @@ const CalendarUserAdmin = () => {
                 <p>Keine Kommentare vorhanden.</p>
               )}
             </div>
-            <p className='mt-3'>
+            <p className="mt-3">
               <strong className="text-color">Bewertungen:</strong>
             </p>
-            <div className='mt-0'>
+            <div className="mt-0">
               {selectedEvent.ratings.length > 0 ? (
                 selectedEvent.ratings.map((r, index) => (
                   <div key={index} className="d-flex align-items-center">
@@ -239,7 +263,9 @@ const CalendarUserAdmin = () => {
               <div className="mt-3">
                 <strong className="text-color">Deine Bewertung:</strong>
                 <div>{renderStars(rating)}</div>
-                <Button onClick={handleRatingSubmit} className="mt-2 primary">Bewertung abgeben</Button>
+                <Button onClick={handleRatingSubmit} className="mt-2 primary">
+                  Bewertung abgeben
+                </Button>
               </div>
             )}
             {/* Kommentar hinzufügen */}
@@ -253,15 +279,32 @@ const CalendarUserAdmin = () => {
                   onChange={(e) => setComment(e.target.value)}
                   className="mt-2"
                 />
-                <Button onClick={handleCommentSubmit} className="mt-2 primary">Kommentar abgeben</Button>
+                <Button onClick={handleCommentSubmit} className="mt-3 primary">
+                  Kommentar abgeben
+                </Button>
               </div>
             )}
-            {message && <Alert variant="info" className="mt-3">{message}</Alert>}
+            {message && (
+              <Alert variant="info" className="mt-3">
+                {message}
+              </Alert>
+            )}
+
+            {/* Verstoß melden Button */}
+            <div className="d-flex justify-content-end mt-2">
+              <Button
+                onClick={handleReportViolation}
+                className="mt-2 position-end"
+                variant="outline-danger"
+              >
+                <i className="bi bi-exclamation-circle"></i> Verstoß melden
+              </Button>
+            </div>
           </Modal.Body>
         </Modal>
       )}
     </Container>
-  );
-};
+  )
+}
 
-export default CalendarUserAdmin;
+export default CalendarUserAdmin
