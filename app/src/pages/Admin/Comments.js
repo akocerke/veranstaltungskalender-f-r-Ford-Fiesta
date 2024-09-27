@@ -1,65 +1,86 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Table, Button, Form, Alert, Spinner } from 'react-bootstrap'
-import { getAdminComments } from '../../api/admins'
+import {
+  Container,
+  Table,
+  Button,
+  Form,
+  Alert,
+  Spinner,
+  Modal,
+  Toast,
+} from 'react-bootstrap'
+import { getAdminComments, deleteAdminComment } from '../../api/admins'
 import { useLocation } from 'react-router-dom'
 
 const Comments = () => {
-  const [comments, setComments] = useState([]) // State für die Kommentare
-  const [error, setError] = useState(null) // State für Fehlermeldungen
-  const [searchId, setSearchId] = useState('') // State für die Suche
-  const [loading, setLoading] = useState(true) // Zustand für das Laden
-  const location = useLocation() // Holen der aktuellen Location
+  const [comments, setComments] = useState([])
+  const [error, setError] = useState(null)
+  const [searchId, setSearchId] = useState('')
+  const [loading, setLoading] = useState(true)
+  const [showModal, setShowModal] = useState(false)
+  const [currentCommentId, setCurrentCommentId] = useState(null)
+  const [toastMessage, setToastMessage] = useState('')
+  const [toastVariant, setToastVariant] = useState('success')
+  const location = useLocation()
 
-  // Funktion, um die Kommentare abzurufen
   const fetchComments = async () => {
-    setLoading(true) // Ladezustand aktivieren
+    setLoading(true)
     try {
-      const data = await getAdminComments() // Rufe die Kommentare von der API ab
-      setComments(data) // Setze die Kommentare im State
-      setError(null) // Setze den Fehlerzustand zurück, falls vorher ein Fehler aufgetreten ist
+      const data = await getAdminComments()
+      setComments(data)
+      setError(null)
     } catch (error) {
-      setError(error.message) // Fehlerbehandlung
+      setError(error.message)
     } finally {
-      setLoading(false) // Ladezustand deaktivieren
+      setLoading(false)
     }
   }
 
-  // Kommentare abrufen, wenn die Komponente geladen wird oder sich die Route ändert
   useEffect(() => {
     fetchComments()
-  }, [location]) // Hier auf location reagieren
+  }, [location])
 
-  // Such-Handler
   const handleSearch = (e) => {
-    e.preventDefault() // Verhindert das Standard-Formularverhalten
+    e.preventDefault()
     if (searchId) {
-      // Filtere die Kommentare nach der eingegebenen ID
       const filteredComments = comments.filter(
         (comment) => comment.id.toString() === searchId
       )
-      setComments(filteredComments) // Setze die gefilterten Kommentare
+      setComments(filteredComments)
     } else {
-      fetchComments() // Wenn keine Such-ID eingegeben, alle Kommentare abrufen
+      fetchComments()
     }
   }
 
-  // Funktion zum Löschen eines Kommentars
-  const handleDelete = async (commentId) => {
-    if (window.confirm('Möchten Sie diesen Kommentar wirklich löschen?')) {
-      try {
-        // Hier kann die Löschfunktionalität implementiert werden
-        console.log('Kommentar löschen:', commentId)
-        // Füge hier den API-Aufruf zum Löschen des Kommentars hinzu
+  const handleShowModal = (commentId) => {
+    setCurrentCommentId(commentId)
+    setShowModal(true)
+  }
 
-        // Nach dem Löschen die Kommentare erneut abrufen
+  const handleCloseModal = () => {
+    setShowModal(false)
+    setCurrentCommentId(null)
+  }
+
+  const handleDelete = async () => {
+    if (currentCommentId) {
+      try {
+        const response = await deleteAdminComment(currentCommentId)
+        setToastMessage(response.message)
+        setToastVariant('success')
         await fetchComments()
       } catch (error) {
-        setError('Fehler beim Löschen des Kommentars.') // Fehlerbehandlung
+        setToastMessage(error.message)
+        setToastVariant('danger')
       }
+      handleCloseModal()
     }
   }
 
-  // Ladeanzeige
+  const handleToastClose = () => {
+    setToastMessage('')
+  }
+
   if (loading) {
     return (
       <div className="text-center mt-5">
@@ -69,7 +90,6 @@ const Comments = () => {
     )
   }
 
-  // Fehleranzeige
   if (error) {
     return (
       <Container className="mt-5 mb-5">
@@ -84,15 +104,16 @@ const Comments = () => {
         Kommentare verwalten
       </h5>
 
-      {/* Suchfeld und Button */}
       <Form className="mb-3" onSubmit={handleSearch}>
         <Form.Group controlId="searchId">
-          <Form.Label className='text-color fw-bold'>Kommentar ID suchen</Form.Label>
+          <Form.Label className="text-color fw-bold">
+            Kommentar ID suchen
+          </Form.Label>
           <Form.Control
             type="text"
             placeholder="Geben Sie die Kommentar-ID ein"
             value={searchId}
-            onChange={(e) => setSearchId(e.target.value)} // Suchfeld mit dem State verknüpfen
+            onChange={(e) => setSearchId(e.target.value)}
           />
         </Form.Group>
         <Button variant="outline-primary" className="mt-3" type="submit">
@@ -100,7 +121,6 @@ const Comments = () => {
         </Button>
       </Form>
 
-      {/* Tabelle */}
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -125,7 +145,7 @@ const Comments = () => {
                   <Button
                     variant="outline-danger"
                     className="ms-2"
-                    onClick={() => handleDelete(comment.id)}
+                    onClick={() => handleShowModal(comment.id)}
                   >
                     <i className="bi bi-trash3"></i>
                   </Button>
@@ -141,6 +161,40 @@ const Comments = () => {
           )}
         </tbody>
       </Table>
+
+      <Modal show={showModal} onHide={handleCloseModal} className="bg-mordal">
+        <Modal.Header closeButton>
+          <Modal.Title className="text-color headline2">Kommentar löschen</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Möchten Sie den Kommentar mit der{' '}
+          <span className="fw-bold">ID {currentCommentId}</span> wirklich
+          löschen?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="outline-secondary" onClick={handleCloseModal}>
+            Abbrechen
+          </Button>
+          <Button variant="outline-danger" onClick={handleDelete}>
+            Löschen
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Toast-Benachrichtigung */}
+      <Toast
+        onClose={handleToastClose}
+        show={!!toastMessage}
+        delay={3000}
+        autohide
+        className={`position-fixed bottom-50 start-50 translate-middle-x m-3 bg-${toastVariant}`}
+        style={{ zIndex: 1050 }}
+      >
+        <Toast.Header>
+          <strong className="me-auto">Benachrichtigung</strong>
+        </Toast.Header>
+        <Toast.Body className="text-white">{toastMessage}</Toast.Body>
+      </Toast>
     </Container>
   )
 }

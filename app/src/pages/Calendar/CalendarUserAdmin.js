@@ -279,7 +279,7 @@ const CalendarUserAdmin = () => {
                   onChange={(e) => setComment(e.target.value)}
                   className="mt-2"
                 />
-                <Button onClick={handleCommentSubmit} className="mt-2 primary">
+                <Button onClick={handleCommentSubmit} className="mt-3 primary">
                   Kommentar abgeben
                 </Button>
               </div>
