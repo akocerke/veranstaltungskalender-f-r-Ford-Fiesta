@@ -43,7 +43,6 @@ const Violations = () => {
       <h1 className="headline mb-5">Verstoß melden</h1>
       <Row className='justify-content-center'>
         <Col xs={6} className='text-center'>
-        <p className="headline2">Event Name: </p>
         <p className="headline2">
           {' '}
           Event ID: <span className="text-secondary"> {eventId}</span>
