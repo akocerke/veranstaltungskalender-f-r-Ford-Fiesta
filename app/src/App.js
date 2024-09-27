@@ -24,7 +24,9 @@ import UserEvents from './pages/User/UserEvents'
 import UserProfile from './pages/User/UserProfile '
 import UserStatistic from './pages/User/Statistic'
 import Violations from './pages/Violations/Violations'
-
+import AdminProtectedRoute from './context/AdminProtectedRoute'
+import AuthProtectedRoute from './context/AuthProtectedRoute'
+import NotFound from './pages/NotFound/NotFound'
 function App() {
   return (
     <Router>
@@ -82,29 +84,129 @@ function App() {
             <Route path="/forumguidelines" element={<Forumguidelines />} />
             <Route path="/contact" element={<Contact />} />
 
-            <Route path="/admin/dashboard" element={<AdminDashboard />}>
-              {/* Verschachtelte Admin-Routen */}
-              <Route path='meine-events' element={<AdminSeineEvents/>}/>
-              <Route path='mein-profil' element={<AdminProfile/>}/>
-              <Route path='events' element={<AdminEvents/>}/>
-              <Route path="users" element={<AdminUsers />} />
-              <Route path="violations" element={<AdminViolations />} />
-              <Route path="comments" element={<AdminComments />} />
-              <Route path="statistic" element={<AdminStatistic />} />
+            <Route
+              path="/admin/dashboard"
+              element={
+                <AdminProtectedRoute>
+                  <AdminDashboard />
+                </AdminProtectedRoute>
+              }
+            >
+              <Route
+                path="meine-events"
+                element={
+                  <AdminProtectedRoute>
+                    <AdminSeineEvents />
+                  </AdminProtectedRoute>
+                }
+              />
+              <Route
+                path="mein-profil"
+                element={
+                  <AdminProtectedRoute>
+                    <AdminProfile />
+                  </AdminProtectedRoute>
+                }
+              />
+              <Route
+                path="events"
+                element={
+                  <AdminProtectedRoute>
+                    <AdminEvents />
+                  </AdminProtectedRoute>
+                }
+              />
+              <Route
+                path="users"
+                element={
+                  <AdminProtectedRoute>
+                    <AdminUsers />
+                  </AdminProtectedRoute>
+                }
+              />
+              <Route
+                path="violations"
+                element={
+                  <AdminProtectedRoute>
+                    <AdminViolations />
+                  </AdminProtectedRoute>
+                }
+              />
+              <Route
+                path="comments"
+                element={
+                  <AdminProtectedRoute>
+                    <AdminComments />
+                  </AdminProtectedRoute>
+                }
+              />
+              <Route
+                path="statistic"
+                element={
+                  <AdminProtectedRoute>
+                    <AdminStatistic />
+                  </AdminProtectedRoute>
+                }
+              />
             </Route>
-            
+
             {/* User-Bereich */}
-            <Route path="/users/dashboard" element={<UserDashboard />}>
-              <Route path="statistics" element={<UserStatistic/>} />
-              <Route path="profile" element={<UserProfile />} />
-              <Route path="events" element={<UserEvents />} />
+            <Route
+              path="/users/dashboard"
+              element={
+                <AuthProtectedRoute allowedRoles={['user']}>
+                  <UserDashboard />
+                </AuthProtectedRoute>
+              }
+            >
+              <Route
+                path="statistics"
+                element={
+                  <AuthProtectedRoute allowedRoles={['user']}>
+                    <UserStatistic />
+                  </AuthProtectedRoute>
+                }
+              />
+              <Route
+                path="profile"
+                element={
+                  <AuthProtectedRoute allowedRoles={['user']}>
+                    <UserProfile />
+                  </AuthProtectedRoute>
+                }
+              />
+              <Route
+                path="events"
+                element={
+                  <AuthProtectedRoute>
+                    <UserEvents />
+                  </AuthProtectedRoute>
+                }
+              />
             </Route>
             {/* Events */}
             <Route path="/events" element={<Events />} />
-            <Route path="/create-event" element={<CreateEvent />} />
+            <Route
+              path="/create-event"
+              element={
+                <AuthProtectedRoute allowedRoles={['admin', 'user']}>
+                  <CreateEvent />
+                </AuthProtectedRoute>
+              }
+            />
             {/* Violations */}
-            <Route path="/violations/:eventId" element={<Violations />} />
+            <Route
+              path="/violations/:eventId"
+              element={
+                <AuthProtectedRoute allowedRoles={['admin', 'user']}>
+                  <Violations />
+                </AuthProtectedRoute>
+              }
+            />
+            {/* 404-Seite */}
+          <Route path="*" element={<NotFound />} />
           </Routes>
+          
         </Container>
         <Footer />
       </div>

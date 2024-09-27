@@ -129,7 +129,7 @@ const CalendarPage = () => {
       />
 
       {selectedEvent && (
-        <Modal show={true} onHide={handleClose}>
+        <Modal show={true} onHide={handleClose} className='bg-mordal'>
           <Modal.Header closeButton>
             <Modal.Title className="text-color">{selectedEvent.title}</Modal.Title>
           </Modal.Header>

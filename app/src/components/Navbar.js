@@ -43,7 +43,8 @@ const NavigationBar = () => {
   const handleLogout = async () => {
     try {
       await logout() // Aufruf der logout-Funktion
-      localStorage.removeItem('token') // Entferne den Token aus dem LocalStorage
+      localStorage.removeItem('token')
+      localStorage.removeItem('accessToken') // Entferne den Token aus dem LocalStorage
       navigate('/') // Weiterleitung nach dem Logout
       setIsNavExpanded(false) // Schließe die Navbar
     } catch (error) {
