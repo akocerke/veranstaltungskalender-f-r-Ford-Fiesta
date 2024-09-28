@@ -1,50 +1,51 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form, Container, Row, Col } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
-import { login } from '../../api/auth'; // Import your login API
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext'; // AuthContext importieren
+import { login } from '../../api/auth'; // Deine Login-API bleibt unverändert
 
 const LoginModal = ({ show, handleClose }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  
-  const navigate = useNavigate(); // Use the useNavigate hook for navigation
+
+  const { login: authLogin } = useAuth(); // login aus dem AuthContext umbenennen, um Namenskonflikte zu vermeiden
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await login(email, password);
+      // API-Login aufrufen
+      const response = await login(email, password); // API-Login bleibt unverändert
       console.log('Login erfolgreich:', response);
-  
-      // Die Rolle und den Token aus der Antwort abrufen
+
+      // Token und Benutzerinformationen aus der API-Antwort abrufen
       const { token, user } = response;
       const { role } = user;
-  
+
       console.log('Erhaltener Token:', token);
       console.log('User Role:', role);
-  
-      // Speichere den Token im Local Storage
-      localStorage.setItem('accessToken', token);
-  
+
+      // Token und Benutzerinformationen im AuthContext setzen
+      authLogin(token); // Verwende hier den AuthContext
+
       // Weiterleitung basierend auf der Benutzerrolle
       if (role === 'admin') {
-        navigate('/admin/dashboard'); // Weiterleitung zum Admin-Dashboard
+        navigate('/admin/dashboard');
       } else if (role === 'user') {
-        navigate('/users/dashboard'); // Weiterleitung zum User-Dashboard
+        navigate('/users/dashboard');
       }
-  
-      // Eingabefelder zurücksetzen
+
+      // Eingabefelder zurücksetzen und Modal schließen
       setEmail('');
       setPassword('');
-  
-      handleClose(); // Schließe das Modal bei erfolgreichem Login
+      handleClose();
     } catch (error) {
       console.error('Fehler beim Login:', error);
       setErrorMessage('Login fehlgeschlagen. Bitte überprüfen Sie Ihre Anmeldedaten.');
     }
   };
-  
 
   return (
     <Modal show={show} onHide={handleClose} centered className="bg-mordal">
