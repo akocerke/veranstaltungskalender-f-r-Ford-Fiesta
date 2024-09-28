@@ -180,12 +180,12 @@ Das sieht nach einer soliden Dokumentation der API-Endpunkte aus. Hier sind eini
 ### Benutzer API-Endpunkte
 
 #### Benutzer
-- **POST** `/api/user/register`: Registrierung eines neuen Benutzers.
+- **POST** `/api/auth/register`: Registrierung eines neuen Benutzers.
   - **Erforderliche Felder:** `username`, `password`, `email`
   - **Antwort:** Erfolgreiche Registrierung gibt eine Benutzer-ID zurück.
 
-- **POST** `/api/user/login`: Anmeldung eines Benutzers.
-  - **Erforderliche Felder:** `username`, `password`
+- **POST** `/api/auth/login`: Anmeldung eines Benutzers.
+  - **Erforderliche Felder:** `email`, `password`
   - **Antwort:** Bei Erfolg wird ein Token zurückgegeben.
 
 - **GET** `/api/user/profile`: Abrufen der Benutzerdaten.
