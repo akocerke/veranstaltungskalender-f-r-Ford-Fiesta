@@ -177,8 +177,6 @@ Das sieht nach einer soliden Dokumentation der API-Endpunkte aus. Hier sind eini
 
 # API-Endpunkte
 
-### Benutzer API-Endpunkte
-
 #### Benutzer
 - **POST** `/api/auth/register`: Registrierung eines neuen Benutzers.
   - **Erforderliche Felder:** `username`, `password`, `email`
@@ -187,6 +185,22 @@ Das sieht nach einer soliden Dokumentation der API-Endpunkte aus. Hier sind eini
 - **POST** `/api/auth/login`: Anmeldung eines Benutzers.
   - **Erforderliche Felder:** `email`, `password`
   - **Antwort:** Bei Erfolg wird ein Token zurückgegeben.
+
+- **POST** `/api/auth/logout`: Abmeldung eines Benutzers.
+  - **Header:** Authorization: Bearer <token>
+  - **Antwort:** Bei erfolgreicher Abmeldung wird eine Bestätigung (Logout erfolgreich) zurückgegeben. Das Token wird gelöscht und der Benutzer wird auf die Startseite umgeleitet.
+
+## Benutzer geschütze API-Endpunkte
+
+Die folgenden API-Endpunkte sind für authentifizierte Benutzer zugänglich. Diese Routen sind durch einen Authentifizierungsmechanismus geschützt, und der Benutzer muss angemeldet sein, um darauf zugreifen zu können. Der Zugriff erfolgt über ein gültiges Token, das im Authorization-Header jeder Anfrage übermittelt werden muss.
+
+#### Dashboard
+- **GET** `/api/users/dashboard`: Abrufen von Dashboard-Daten für den User.
+  - **Antwort**: Übersichtsdaten für den Benutzer wie Anzahl:
+    - seiner erstellten Events
+    - seiner abgegebenen Bewertungen 
+    - seiner abgegebenen Kommentare 
+    - seine gemeldete Verstöße[inkl in Bearbeitung, Bearbeitung erledigt]
 
 - **GET** `/api/user/profile`: Abrufen der Benutzerdaten.
   - **Header:** `Authorization: Bearer <token>`
@@ -231,11 +245,9 @@ Das sieht nach einer soliden Dokumentation der API-Endpunkte aus. Hier sind eini
   - **Erforderliche Felder:** `comment`
   - **Antwort:** Bestätigt die Hinzufügung des Kommentars.
 
-- **GET** `/api/user/events/event-feedback`: Abrufen aller Bewertungen eines Events.
-  - **Parameter:** `:id` - ID des Events
-  - **Antwort:** Liste aller Bewertungen zu dem Event.
+## Admin geschütze API-Endpunkte
 
-## Admin API-Endpunkte
+Die folgenden API-Endpunkte sind nur für Benutzer mit Administratorrechten zugänglich. Diese Routen sind durch eine Authentifizierung geschützt und setzen voraus, dass der Benutzer als Administrator eingeloggt ist. Ein Token muss im Authorization-Header jeder Anfrage bereitgestellt werden.
 
 #### Dashboard
 - **GET** `/api/admin/dashboard`: Abrufen von Dashboard-Daten.
