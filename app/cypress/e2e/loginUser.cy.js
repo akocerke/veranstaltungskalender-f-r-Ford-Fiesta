@@ -1,5 +1,5 @@
 /* eslint-disable */
-// cypress/e2e/login.cy.js
+// cypress/e2e/loginUser.cy.js
 describe('Login Modal Test', () => {
     it('sollte das Login im Modal erfolgreich ausfüllen', () => {
         // Besuche die Startseite
