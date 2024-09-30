@@ -5,3 +5,31 @@
   --bg-app: #f8f9fa !important; /* Hellgrau */
   --link-color: #585858 !important;
 }
+/* Styling der gesamten Scrollbar */
+body::-webkit-scrollbar {
+  width: 12px;               /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  background: #dcdcdc;        /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--highlight-color);    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 0.5px solid #ffffff;  /* creates padding around scroll thumb */
+}
+
+/* Styling der modal Scrollbar */
+.modal::-webkit-scrollbar {
+  width: 12px;               /* width of the entire scrollbar */
+}
+
+.modal::-webkit-scrollbar-track {
+  background: #ffffff;        /* color of the tracking area */
+}
+
+.modal::-webkit-scrollbar-thumb {
+  background-color: var(--highlight-color);    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+}
