@@ -4,10 +4,25 @@ import 'cypress-file-upload'; // Importiere das Plugin für Datei-Uploads
 describe('Event Creation Test', () => {
     const email = 'testuser6@example.com'; // Test-E-Mail
     const password = 'Test1234!'; // Test-Passwort
-    const eventTitle = 'Test Event'; // Titel des zu erstellenden Events
-    const eventDescription = 'Dies ist ein Test Event.'; // Beschreibung des Events
-    const eventDate = '2024-10-01'; // Datum des Events
-    const imageFileName = 'image.jpg'; // Name der Bilddatei, die hochgeladen werden soll
+
+    const generateUniqueEventData = () => {
+        const uniqueSuffix = Date.now(); // Einzigartiger Suffix basierend auf der aktuellen Zeit
+        const today = new Date();
+        const maxDate = new Date();
+        maxDate.setFullYear(today.getFullYear() + 1); // Ein Jahr in die Zukunft
+
+        // Generiere ein zufälliges Datum zwischen heute und maxDate
+        const futureDate = new Date(today.getTime() + Math.random() * (maxDate - today));
+        const yyyy = futureDate.getFullYear();
+        const mm = String(futureDate.getMonth() + 1).padStart(2, '0'); // Monat mit führender Null
+        const dd = String(futureDate.getDate()).padStart(2, '0'); // Tag mit führender Null
+
+        return {
+            title: `Test Event-${uniqueSuffix}`, // Dynamischer Titel mit uniqueSuffix
+            description: `Dies ist ein Test Event-${uniqueSuffix}.`, // Dynamische Beschreibung mit uniqueSuffix
+            date: `${yyyy}-${mm}-${dd}` // Generiertes Datum
+        };
+    };
 
     before(() => {
         // Vorab einloggen
@@ -29,16 +44,19 @@ describe('Event Creation Test', () => {
     });
 
     it('sollte ein Event erfolgreich erstellen', () => {
+        // Generiere die Eventdaten vor dem Test
+        const { title, description, date } = generateUniqueEventData();
+
         // Überprüfe, dass die Event-Erstellungsseite geladen ist
         cy.get('h1').should('contain', 'Event erstellen'); // Überprüfe den Seitentitel
 
         // Fülle das Event-Erstellungsformular aus
-        cy.get('input[placeholder="Gib den Titel des Events ein"]').type(eventTitle); // Titel eingeben
-        cy.get('textarea[placeholder="Gib eine Beschreibung des Events ein"]').type(eventDescription); // Beschreibung eingeben
-        cy.get('input[type="date"]').type(eventDate); // Datum eingeben
+        cy.get('input[placeholder="Gib den Titel des Events ein"]').type(title); // Titel eingeben
+        cy.get('textarea[placeholder="Gib eine Beschreibung des Events ein"]').type(description); // Beschreibung eingeben
+        cy.get('input[type="date"]').type(date); // Datum eingeben
 
         // Überprüfe, dass das Input-Feld für Dateien vorhanden ist
-        cy.get('input[type="file"]').should('exist').attachFile(imageFileName); // Bild hochladen
+        cy.get('input[type="file"]').should('exist').attachFile('image.jpg'); // Bild hochladen
 
         // Klicke auf den Button "Event erstellen" im Formular
         cy.get('button.primary[type="submit"]').click(); // Klicke auf "Event erstellen"
