@@ -12,8 +12,8 @@ describe('Login Modal Test', () => {
         cy.get('.modal').should('be.visible'); // Modal sollte sichtbar sein
 
         // E-Mail und Passwort eingeben
-        const email = `testuser8@example.com`;
-        const password = `Test12345!`; 
+        const email = `testuser6@example.com`;
+        const password = `Test1234!`; 
 
         // Fülle das Login im Modal aus
         cy.get('input[placeholder="Email"]').type(email); // E-Mail eingeben
