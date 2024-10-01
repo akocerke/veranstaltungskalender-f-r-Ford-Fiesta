@@ -36,7 +36,7 @@ const ForumGuidelines = () => {
           </ul>
           <p className="headline2 mt-2">Moderation</p>
           <p>
-            Unsere Moderatoren haben das Recht, Beiträge zu bearbeiten oder zu
+            Unsere Moderatoren haben das Recht, Beiträge zu
             löschen, die gegen diese Richtlinien verstoßen. Bei wiederholten
             Verstößen kann es zu einer Sperrung des Accounts kommen.
           </p>

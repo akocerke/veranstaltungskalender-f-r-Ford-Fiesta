@@ -1,0 +1,13 @@
+# Ignoriere die Build-Ordner
+build/
+dist/
+
+# Ignoriere die node_modules
+node_modules/
+
+# Ignoriere spezifische Dateien
+cypress.config.js
+src/App.test.js
+
+# Ignoriere alle Testordner
+**/__tests__/
