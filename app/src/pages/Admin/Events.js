@@ -90,7 +90,9 @@ const Events = () => {
       {/* Suchfeld und Button */}
       <Form className="mb-3">
         <Form.Group controlId="searchId">
-          <Form.Label className='text-color fw-bold'>Event ID suchen</Form.Label>
+          <Form.Label className="text-color fw-bold">
+            Event ID suchen
+          </Form.Label>
           <Form.Control
             type="text"
             placeholder="Geben Sie die Event-ID ein"

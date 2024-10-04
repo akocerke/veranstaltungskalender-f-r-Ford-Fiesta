@@ -1,10 +1,10 @@
-import React from 'react';
-import { Container, Row, Col, Nav } from 'react-bootstrap';
-import { Outlet, Link, useLocation } from 'react-router-dom';
-import styles from './Dashboard.module.css';
+import React from 'react'
+import { Container, Row, Col, Nav } from 'react-bootstrap'
+import { Outlet, Link, useLocation } from 'react-router-dom'
+import styles from './Dashboard.module.css'
 
 const Dashboard = () => {
-  const location = useLocation(); // Aktuellen Pfad abrufen
+  const location = useLocation() // Aktuellen Pfad abrufen
 
   return (
     <Container fluid className={`mt-5 mb-5 ${styles.board}`}>
@@ -51,7 +51,7 @@ const Dashboard = () => {
         </Col>
       </Row>
     </Container>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

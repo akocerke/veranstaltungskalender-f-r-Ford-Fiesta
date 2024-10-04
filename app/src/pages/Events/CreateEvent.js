@@ -63,8 +63,7 @@ const CreateEvent = () => {
       <h1 className="headline">Event erstellen</h1>
 
       <Row className="justify-content-center mt-5 mb-5">
-        <Col md={6} className=' border rounded p-4 shadow bg-light'>
-          
+        <Col md={6} className=" border rounded p-4 shadow bg-light">
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="eventTitle">
               <Form.Label className="text-color fw-bold mb-2 mt-2">
@@ -117,7 +116,11 @@ const CreateEvent = () => {
                 required
               />
             </Form.Group>
-            {alertMessage && <Alert variant={alertVariant} className='mt-4'>{alertMessage}</Alert>}
+            {alertMessage && (
+              <Alert variant={alertVariant} className="mt-4">
+                {alertMessage}
+              </Alert>
+            )}
             <Button className="primary mt-4" type="submit">
               Event erstellen
             </Button>

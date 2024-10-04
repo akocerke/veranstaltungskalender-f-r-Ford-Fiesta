@@ -266,37 +266,43 @@ export const getAdminAllUsers = async () => {
     )
     throw error
   }
-
 }
 
 // PUT /admin/users/role - Ändern der Rolle eines Benutzers
 export const putAdminUserRole = async (userId, role) => {
   try {
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem('accessToken')
     if (!token) {
-      throw new Error('Kein Token gefunden, bitte anmelden.');
+      throw new Error('Kein Token gefunden, bitte anmelden.')
     }
 
-    const response = await api.put('/admins/users/role', { userId, role }, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await api.put(
+      '/admins/users/role',
+      { userId, role },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
 
-    console.log('Role updated:', response.data);
-    return response.data;
+    console.log('Role updated:', response.data)
+    return response.data
   } catch (error) {
-    console.error('Fehler beim Aktualisieren der Benutzerrolle:', error.response ? error.response.data : error.message);
-    throw error;
+    console.error(
+      'Fehler beim Aktualisieren der Benutzerrolle:',
+      error.response ? error.response.data : error.message
+    )
+    throw error
   }
-};
+}
 
 // DELETE /admin/users/delete - Löschen eines Benutzers
 export const deleteAdminUser = async (userId) => {
   try {
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem('accessToken')
     if (!token) {
-      throw new Error('Kein Token gefunden, bitte anmelden.');
+      throw new Error('Kein Token gefunden, bitte anmelden.')
     }
 
     const response = await api.delete('/admins/users/delete', {
@@ -304,14 +310,15 @@ export const deleteAdminUser = async (userId) => {
         Authorization: `Bearer ${token}`,
       },
       data: { id: userId },
-    });
+    })
 
-    console.log('User deleted:', response.data);
-    return response.data;
+    console.log('User deleted:', response.data)
+    return response.data
   } catch (error) {
-    console.error('Fehler beim Löschen des Benutzers:', error.response ? error.response.data : error.message);
-    throw error;
+    console.error(
+      'Fehler beim Löschen des Benutzers:',
+      error.response ? error.response.data : error.message
+    )
+    throw error
   }
-};
-
-
+}

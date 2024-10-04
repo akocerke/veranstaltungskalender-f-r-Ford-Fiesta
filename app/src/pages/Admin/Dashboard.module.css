@@ -1,9 +1,9 @@
 .board {
-    min-height: 100vh;
-    overflow: hidden;
-    border-radius: 5px;
-}  
+  min-height: 100vh;
+  overflow: hidden;
+  border-radius: 5px;
+}
 
-.board a{
+.board a {
   color: var(--link-color);
 }

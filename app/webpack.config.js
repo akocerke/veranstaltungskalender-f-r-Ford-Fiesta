@@ -1,5 +1,5 @@
 // webpack.config.js
-const path = require('path');
+const path = require('path')
 
 module.exports = {
   entry: './src/index.js', // oder der Pfad zu deinem Haupt-JS-Datei
@@ -24,4 +24,4 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
   },
-};
+}

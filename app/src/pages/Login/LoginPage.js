@@ -1,51 +1,53 @@
-import React, { useState } from 'react';
-import { Modal, Button, Form, Container, Row, Col } from 'react-bootstrap';
-import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext'; // AuthContext importieren
-import { login } from '../../api/auth'; // Deine Login-API bleibt unverändert
+import React, { useState } from 'react'
+import { Modal, Button, Form, Container, Row, Col } from 'react-bootstrap'
+import PropTypes from 'prop-types'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext' // AuthContext importieren
+import { login } from '../../api/auth' // Deine Login-API bleibt unverändert
 
 const LoginModal = ({ show, handleClose }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
 
-  const { login: authLogin } = useAuth(); // login aus dem AuthContext umbenennen, um Namenskonflikte zu vermeiden
-  const navigate = useNavigate();
+  const { login: authLogin } = useAuth() // login aus dem AuthContext umbenennen, um Namenskonflikte zu vermeiden
+  const navigate = useNavigate()
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
       // API-Login aufrufen
-      const response = await login(email, password); // API-Login bleibt unverändert
-      console.log('Login erfolgreich:', response);
+      const response = await login(email, password) // API-Login bleibt unverändert
+      console.log('Login erfolgreich:', response)
 
       // Token und Benutzerinformationen aus der API-Antwort abrufen
-      const { token, user } = response;
-      const { role } = user;
+      const { token, user } = response
+      const { role } = user
 
-      console.log('Erhaltener Token:', token);
-      console.log('User Role:', role);
+      console.log('Erhaltener Token:', token)
+      console.log('User Role:', role)
 
       // Token und Benutzerinformationen im AuthContext setzen
-      authLogin(token); // Verwende hier den AuthContext
+      authLogin(token) // Verwende hier den AuthContext
 
       // Weiterleitung basierend auf der Benutzerrolle
       if (role === 'admin') {
-        navigate('/admin/dashboard');
+        navigate('/admin/dashboard')
       } else if (role === 'user') {
-        navigate('/users/dashboard');
+        navigate('/users/dashboard')
       }
 
       // Eingabefelder zurücksetzen und Modal schließen
-      setEmail('');
-      setPassword('');
-      handleClose();
+      setEmail('')
+      setPassword('')
+      handleClose()
     } catch (error) {
-      console.error('Fehler beim Login:', error);
-      setErrorMessage('Login fehlgeschlagen. Bitte überprüfen Sie Ihre Anmeldedaten.');
+      console.error('Fehler beim Login:', error)
+      setErrorMessage(
+        'Login fehlgeschlagen. Bitte überprüfen Sie Ihre Anmeldedaten.'
+      )
     }
-  };
+  }
 
   return (
     <Modal show={show} onHide={handleClose} centered className="bg-mordal">
@@ -68,7 +70,9 @@ const LoginModal = ({ show, handleClose }) => {
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label className="text-color fw-bold">Passwort</Form.Label>
+                  <Form.Label className="text-color fw-bold">
+                    Passwort
+                  </Form.Label>
                   <Form.Control
                     type="password"
                     placeholder="Passwort"
@@ -77,9 +81,7 @@ const LoginModal = ({ show, handleClose }) => {
                   />
                 </Form.Group>
 
-                {errorMessage && (
-                  <p className="text-danger">{errorMessage}</p>
-                )}
+                {errorMessage && <p className="text-danger">{errorMessage}</p>}
 
                 <Button className="primary w-100" type="submit">
                   Login
@@ -95,12 +97,12 @@ const LoginModal = ({ show, handleClose }) => {
         </Button>
       </Modal.Footer>
     </Modal>
-  );
-};
+  )
+}
 
 LoginModal.propTypes = {
   show: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-};
+}
 
-export default LoginModal;
+export default LoginModal

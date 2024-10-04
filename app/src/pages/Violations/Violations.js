@@ -41,14 +41,13 @@ const Violations = () => {
   return (
     <Container className="mt-5 mb-5">
       <h1 className="headline mb-5">Verstoß melden</h1>
-      <Row className='justify-content-center'>
-        <Col xs={6} className='text-center'>
-        <p className="headline2">
-          {' '}
-          Event ID: <span className="text-secondary"> {eventId}</span>
-        </p>
+      <Row className="justify-content-center">
+        <Col xs={6} className="text-center">
+          <p className="headline2">
+            {' '}
+            Event ID: <span className="text-secondary"> {eventId}</span>
+          </p>
         </Col>
-        
       </Row>
       <Row className="justify-content-center mt-3 mb-5">
         <Col md={6} className="border rounded p-4 shadow bg-light">

@@ -204,9 +204,8 @@ function App() {
               }
             />
             {/* 404-Seite */}
-          <Route path="*" element={<NotFound />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
-          
         </Container>
         <Footer />
       </div>

@@ -1,63 +1,69 @@
-import React, { useState, useEffect } from 'react';
-import { Card, Spinner, Alert, Row, Col, Button } from 'react-bootstrap';
-import { getEventsByUser } from '../../api/users'; 
-import UserEventUpdate from './UserEventUpdate';
-import UserEventDelete from './UserEventDelete';
-import styles from '../User/UserEvents.module.css';
-import { fetchImageUrl } from '../../api/events'; // Stelle sicher, dass die Funktion importiert wird
+import React, { useState, useEffect } from 'react'
+import { Card, Spinner, Alert, Row, Col, Button } from 'react-bootstrap'
+import { getEventsByUser } from '../../api/users'
+import UserEventUpdate from './UserEventUpdate'
+import UserEventDelete from './UserEventDelete'
+import styles from '../User/UserEvents.module.css'
+import { fetchImageUrl } from '../../api/events' // Stelle sicher, dass die Funktion importiert wird
 
 const UserEvents = () => {
-  const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [showUpdateModal, setShowUpdateModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [events, setEvents] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [showUpdateModal, setShowUpdateModal] = useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [selectedEvent, setSelectedEvent] = useState(null)
 
   useEffect(() => {
-    fetchEvents();
-  }, []);
+    fetchEvents()
+  }, [])
 
   const fetchEvents = async () => {
     try {
-      const data = await getEventsByUser(); // Events von der API abrufen
-      const eventsWithImages = await Promise.all(data.map(async (event) => {
-        const imageUrl = await fetchImageUrl(event.image); // Pre-URL abrufen
-        return {
-          ...event,
-          image: imageUrl, // Bild-URL setzen
-        };
-      }));
-      setEvents(eventsWithImages);
+      const data = await getEventsByUser() // Events von der API abrufen
+      const eventsWithImages = await Promise.all(
+        data.map(async (event) => {
+          const imageUrl = await fetchImageUrl(event.image) // Pre-URL abrufen
+          return {
+            ...event,
+            image: imageUrl, // Bild-URL setzen
+          }
+        })
+      )
+      setEvents(eventsWithImages)
     } catch (error) {
-      setError('Fehler beim Abrufen der Events.');
+      setError('Fehler beim Abrufen der Events.')
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   const handleUpdateClick = (event) => {
-    setSelectedEvent(event);
-    setShowUpdateModal(true);
-  };
+    setSelectedEvent(event)
+    setShowUpdateModal(true)
+  }
 
   const handleDeleteClick = (event) => {
-    setSelectedEvent(event);
-    setShowDeleteModal(true);
-  };
+    setSelectedEvent(event)
+    setShowDeleteModal(true)
+  }
 
-  const handleUpdateClose = () => setShowUpdateModal(false);
-  const handleDeleteClose = () => setShowDeleteModal(false);
+  const handleUpdateClose = () => setShowUpdateModal(false)
+  const handleDeleteClose = () => setShowDeleteModal(false)
 
   const handleEventUpdate = (updatedEvent) => {
     setEvents((prevEvents) =>
-      prevEvents.map((event) => (event.id === updatedEvent.id ? updatedEvent : event))
-    );
-  };
+      prevEvents.map((event) =>
+        event.id === updatedEvent.id ? updatedEvent : event
+      )
+    )
+  }
 
   const handleEventDelete = (eventId) => {
-    setEvents((prevEvents) => prevEvents.filter((event) => event.id !== eventId));
-  };
+    setEvents((prevEvents) =>
+      prevEvents.filter((event) => event.id !== eventId)
+    )
+  }
 
   if (loading) {
     return (
@@ -65,7 +71,7 @@ const UserEvents = () => {
         <Spinner animation="border" />
         <p>Lade Events...</p>
       </div>
-    );
+    )
   }
 
   if (error) {
@@ -73,38 +79,57 @@ const UserEvents = () => {
       <div className={styles.alert}>
         <Alert variant="danger">{error}</Alert>
       </div>
-    );
+    )
   }
 
   return (
     <div className={`mt-3 ${styles.eventsContainer}`}>
       <h4 className={`headline2 text-info mt-3 ms-4`}>Meine Events</h4>
       {events.length === 0 ? (
-        <Alert variant="info" className="mt-5">Keine Events gefunden.</Alert>
+        <Alert variant="info" className="mt-5">
+          Keine Events gefunden.
+        </Alert>
       ) : (
         <div className={styles.eventsGrid}>
           {events.map((event) => (
-            <Card key={event.id} className={`mb-4 shadow ${styles.eventCard}`} style={{ width: '18rem' }}>
+            <Card
+              key={event.id}
+              className={`mb-4 shadow ${styles.eventCard}`}
+              style={{ width: '18rem' }}
+            >
               {event.image && (
-                <Card.Img variant="top" src={event.image} alt={`Bild: ${event.title}`} className={styles.eventImage} />
+                <Card.Img
+                  variant="top"
+                  src={event.image}
+                  alt={`Bild: ${event.title}`}
+                  className={styles.eventImage}
+                />
               )}
               <Card.Body>
-                <Card.Title className={`headline2 text-secondary ${styles.eventTitle}`}>{event.title}</Card.Title>
+                <Card.Title
+                  className={`headline2 text-secondary ${styles.eventTitle}`}
+                >
+                  {event.title}
+                </Card.Title>
                 <hr></hr>
-                <Card.Text className={styles.eventDescription}>{event.description}</Card.Text>
-                <Card.Text className={styles.eventDate}>{new Date(event.date).toLocaleDateString()}</Card.Text>
+                <Card.Text className={styles.eventDescription}>
+                  {event.description}
+                </Card.Text>
+                <Card.Text className={styles.eventDate}>
+                  {new Date(event.date).toLocaleDateString()}
+                </Card.Text>
               </Card.Body>
-              <Row className='mb-3 mt-3 ms-1'>
+              <Row className="mb-3 mt-3 ms-1">
                 <Col>
                   <Button
-                    variant='outline-primary'
-                    className='me-3'
+                    variant="outline-primary"
+                    className="me-3"
                     onClick={() => handleUpdateClick(event)}
                   >
                     <i className="bi bi-pencil"></i> Bearbeiten
                   </Button>
                   <Button
-                    variant='outline-danger'
+                    variant="outline-danger"
                     onClick={() => handleDeleteClick(event)}
                   >
                     <i className="bi bi-trash3"></i> Löschen
@@ -134,7 +159,7 @@ const UserEvents = () => {
         </>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default UserEvents;
+export default UserEvents

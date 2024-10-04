@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import {
   Container,
   Row,
@@ -8,72 +8,76 @@ import {
   Alert,
   Button,
   Modal,
-  Form
-} from 'react-bootstrap';
-import { getUserProfile, updateUserProfile, changeUserPassword } from '../../api/users';
-import { useLocation } from 'react-router-dom';
+  Form,
+} from 'react-bootstrap'
+import {
+  getUserProfile,
+  updateUserProfile,
+  changeUserPassword,
+} from '../../api/users'
+import { useLocation } from 'react-router-dom'
 
 const UserProfile = () => {
-  const [profileData, setProfileData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
-  const [showEditModal, setShowEditModal] = useState(false);
-  const [showPasswordModal, setShowPasswordModal] = useState(false);
-  const [newUsername, setNewUsername] = useState('');
-  const [newEmail, setNewEmail] = useState('');
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const location = useLocation();
+  const [profileData, setProfileData] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [success, setSuccess] = useState(null)
+  const [showEditModal, setShowEditModal] = useState(false)
+  const [showPasswordModal, setShowPasswordModal] = useState(false)
+  const [newUsername, setNewUsername] = useState('')
+  const [newEmail, setNewEmail] = useState('')
+  const [currentPassword, setCurrentPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+  const location = useLocation()
 
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const data = await getUserProfile();
-        setProfileData(data);
+        const data = await getUserProfile()
+        setProfileData(data)
       } catch (error) {
-        setError('Fehler beim Laden der Profil-Daten.');
+        setError('Fehler beim Laden der Profil-Daten.')
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
-    };
+    }
 
-    fetchProfileData();
-    setSuccess(null);
-  }, [location]);
+    fetchProfileData()
+    setSuccess(null)
+  }, [location])
 
   const handleEditProfile = async () => {
     try {
-      await updateUserProfile({ username: newUsername, email: newEmail });
-      const updatedProfile = await getUserProfile();
-      setProfileData(updatedProfile);
-      setSuccess('Profil erfolgreich aktualisiert.');
-      setError(null);
-      setTimeout(() => setSuccess(null), 5000);
-      setShowEditModal(false);
+      await updateUserProfile({ username: newUsername, email: newEmail })
+      const updatedProfile = await getUserProfile()
+      setProfileData(updatedProfile)
+      setSuccess('Profil erfolgreich aktualisiert.')
+      setError(null)
+      setTimeout(() => setSuccess(null), 5000)
+      setShowEditModal(false)
     } catch (error) {
-      setError('Fehler beim Aktualisieren des Profils.');
-      setSuccess(null);
+      setError('Fehler beim Aktualisieren des Profils.')
+      setSuccess(null)
     }
-  };
+  }
 
   const handleChangePassword = async () => {
     try {
-      await changeUserPassword(profileData.id, currentPassword, newPassword); // userId aus profileData
-      setSuccess('Passwort erfolgreich geändert.');
-      setError(null);
-      setTimeout(() => setSuccess(null), 5000);
-      setShowPasswordModal(false);
-      setCurrentPassword('');
-      setNewPassword('');
+      await changeUserPassword(profileData.id, currentPassword, newPassword) // userId aus profileData
+      setSuccess('Passwort erfolgreich geändert.')
+      setError(null)
+      setTimeout(() => setSuccess(null), 5000)
+      setShowPasswordModal(false)
+      setCurrentPassword('')
+      setNewPassword('')
     } catch (error) {
-      setError('Fehler beim Ändern des Passworts: ' + error.message);
-      setSuccess(null);
+      setError('Fehler beim Ändern des Passworts: ' + error.message)
+      setSuccess(null)
     }
-  };
+  }
 
   return (
-    <Container className='mt-3 mb-3'>
+    <Container className="mt-3 mb-3">
       <Row className="mb-4">
         <Col>
           <h4 className="headline2 text-info">Mein Profil</h4>
@@ -95,31 +99,50 @@ const UserProfile = () => {
               <Card className="p-4 shadow-sm">
                 <Card.Body>
                   <Row className="mb-2">
-                    <Col xs={4} className="fw-bold">Benutzername:</Col>
+                    <Col xs={4} className="fw-bold">
+                      Benutzername:
+                    </Col>
                     <Col xs={8}>{profileData.username}</Col>
                   </Row>
                   <Row className="mb-2">
-                    <Col xs={4} className="fw-bold">Email:</Col>
+                    <Col xs={4} className="fw-bold">
+                      Email:
+                    </Col>
                     <Col xs={8}>{profileData.email}</Col>
                   </Row>
                   <Row className="mb-2">
-                    <Col xs={4} className="fw-bold">Rolle:</Col>
+                    <Col xs={4} className="fw-bold">
+                      Rolle:
+                    </Col>
                     <Col xs={8}>{profileData.role}</Col>
                   </Row>
                   <Row>
-                    <Col xs={4} className="fw-bold">Registriert am:</Col>
-                    <Col xs={8}>{new Date(profileData.createdAt).toLocaleDateString()}</Col>
+                    <Col xs={4} className="fw-bold">
+                      Registriert am:
+                    </Col>
+                    <Col xs={8}>
+                      {new Date(profileData.createdAt).toLocaleDateString()}
+                    </Col>
                   </Row>
                   <Row className="mt-4">
                     <Col md={12}>
-                      <Button variant="outline-primary" className="me-3 mt-3" onClick={() => {
-                        setNewUsername(profileData.username);
-                        setNewEmail(profileData.email);
-                        setShowEditModal(true);
-                      }}>
-                        <i className="bi bi-pencil"></i> Benutzername & Email ändern
+                      <Button
+                        variant="outline-primary"
+                        className="me-3 mt-3"
+                        onClick={() => {
+                          setNewUsername(profileData.username)
+                          setNewEmail(profileData.email)
+                          setShowEditModal(true)
+                        }}
+                      >
+                        <i className="bi bi-pencil"></i> Benutzername & Email
+                        ändern
                       </Button>
-                      <Button variant="outline-danger" onClick={() => setShowPasswordModal(true)} className='mt-3'>
+                      <Button
+                        variant="outline-danger"
+                        onClick={() => setShowPasswordModal(true)}
+                        className="mt-3"
+                      >
                         <i className="bi bi-lock"></i> Passwort ändern
                       </Button>
                     </Col>
@@ -132,14 +155,22 @@ const UserProfile = () => {
       </Row>
 
       {/* Modal für Profilbearbeitung */}
-      <Modal show={showEditModal} onHide={() => setShowEditModal(false)} className="bg-mordal">
+      <Modal
+        show={showEditModal}
+        onHide={() => setShowEditModal(false)}
+        className="bg-mordal"
+      >
         <Modal.Header closeButton>
-          <Modal.Title className="text-color headline">Profil bearbeiten</Modal.Title>
+          <Modal.Title className="text-color headline">
+            Profil bearbeiten
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="formUsername">
-              <Form.Label className="fw-bold text-color">Benutzername</Form.Label>
+              <Form.Label className="fw-bold text-color">
+                Benutzername
+              </Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Neuen Benutzernamen eingeben"
@@ -148,7 +179,9 @@ const UserProfile = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formEmail">
-              <Form.Label className="fw-bold text-color">Email-Adresse</Form.Label>
+              <Form.Label className="fw-bold text-color">
+                Email-Adresse
+              </Form.Label>
               <Form.Control
                 type="email"
                 placeholder="Neue Email-Adresse eingeben"
@@ -164,14 +197,22 @@ const UserProfile = () => {
       </Modal>
 
       {/* Modal für Passwortänderung */}
-      <Modal show={showPasswordModal} onHide={() => setShowPasswordModal(false)} className="bg-mordal">
+      <Modal
+        show={showPasswordModal}
+        onHide={() => setShowPasswordModal(false)}
+        className="bg-mordal"
+      >
         <Modal.Header closeButton>
-          <Modal.Title className="text-color headline">Passwort ändern</Modal.Title>
+          <Modal.Title className="text-color headline">
+            Passwort ändern
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="formCurrentPassword">
-              <Form.Label className="fw-bold text-color">Aktuelles Passwort</Form.Label>
+              <Form.Label className="fw-bold text-color">
+                Aktuelles Passwort
+              </Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Aktuelles Passwort eingeben"
@@ -180,7 +221,9 @@ const UserProfile = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formNewPassword">
-              <Form.Label className="fw-bold text-color">Neues Passwort</Form.Label>
+              <Form.Label className="fw-bold text-color">
+                Neues Passwort
+              </Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Neues Passwort eingeben"
@@ -195,7 +238,7 @@ const UserProfile = () => {
         </Modal.Body>
       </Modal>
     </Container>
-  );
-};
+  )
+}
 
-export default UserProfile;
+export default UserProfile

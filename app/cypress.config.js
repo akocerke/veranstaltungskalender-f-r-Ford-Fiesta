@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-const { defineConfig } = require('cypress');
+const { defineConfig } = require('cypress')
 
 module.exports = defineConfig({
   e2e: {
@@ -10,4 +10,4 @@ module.exports = defineConfig({
     },
     specPattern: 'cypress/e2e/**/*.cy.js', // Pfad zu deinen Testdateien
   },
-});
+})

@@ -115,7 +115,6 @@ const Violations = () => {
                   ) : (
                     <>
                       <i className="bi bi-check-circle"></i>
-                      
                     </>
                   )}
                 </Button>

@@ -1,48 +1,56 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { Modal, Button, Form, Toast, ToastContainer } from 'react-bootstrap';
-import { updateEvent } from '../../api/users';
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import { Modal, Button, Form, Toast, ToastContainer } from 'react-bootstrap'
+import { updateEvent } from '../../api/users'
 
-const UserEventUpdate = ({ show, handleClose, event, onUpdate, refreshEvents }) => {
-  const [title, setTitle] = useState(event.title);
-  const [description, setDescription] = useState(event.description);
-  const [date, setDate] = useState(new Date(event.date).toISOString().split('T')[0]);
-  const [imageFile, setImageFile] = useState(null); // Neuer State für die Bilddatei
+const UserEventUpdate = ({
+  show,
+  handleClose,
+  event,
+  onUpdate,
+  refreshEvents,
+}) => {
+  const [title, setTitle] = useState(event.title)
+  const [description, setDescription] = useState(event.description)
+  const [date, setDate] = useState(
+    new Date(event.date).toISOString().split('T')[0]
+  )
+  const [imageFile, setImageFile] = useState(null) // Neuer State für die Bilddatei
 
   // State für Toast
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
-  const [toastVariant, setToastVariant] = useState('success'); // 'success' oder 'danger'
+  const [showToast, setShowToast] = useState(false)
+  const [toastMessage, setToastMessage] = useState('')
+  const [toastVariant, setToastVariant] = useState('success') // 'success' oder 'danger'
 
   const handleSubmit = async () => {
     try {
       const updatedEvent = await updateEvent(
         { id: event.id, title, description, date }, // Bildname wird nicht übergeben, weil es nicht mehr benötigt wird
         imageFile // Bilddatei übergeben
-      );
-      onUpdate(updatedEvent);
-      refreshEvents(); // Rufe die Funktion auf, um die Events zu aktualisieren
-      handleClose();
+      )
+      onUpdate(updatedEvent)
+      refreshEvents() // Rufe die Funktion auf, um die Events zu aktualisieren
+      handleClose()
 
       // Erfolgsmeldung anzeigen
-      setToastMessage('Event erfolgreich aktualisiert!');
-      setToastVariant('success');
-      setShowToast(true);
+      setToastMessage('Event erfolgreich aktualisiert!')
+      setToastVariant('success')
+      setShowToast(true)
     } catch (error) {
       // Fehlermeldung anzeigen
-      setToastMessage('Fehler beim Aktualisieren des Events!');
-      setToastVariant('danger');
-      setShowToast(true);
+      setToastMessage('Fehler beim Aktualisieren des Events!')
+      setToastVariant('danger')
+      setShowToast(true)
     }
-  };
-
-
+  }
 
   return (
     <>
-      <Modal show={show} onHide={handleClose} className='bg-mordal'>
+      <Modal show={show} onHide={handleClose} className="bg-mordal">
         <Modal.Header closeButton>
-          <Modal.Title className="text-color headline">Event bearbeiten</Modal.Title>
+          <Modal.Title className="text-color headline">
+            Event bearbeiten
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -55,7 +63,9 @@ const UserEventUpdate = ({ show, handleClose, event, onUpdate, refreshEvents }) 
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formDescription">
-              <Form.Label className="text-color fw-bold">Beschreibung</Form.Label>
+              <Form.Label className="text-color fw-bold">
+                Beschreibung
+              </Form.Label>
               <Form.Control
                 as="textarea"
                 rows={3}
@@ -78,13 +88,16 @@ const UserEventUpdate = ({ show, handleClose, event, onUpdate, refreshEvents }) 
                 type="file" // Ändere den Typ auf "file"
                 onChange={(e) => setImageFile(e.target.files[0])} // Setze die Bilddatei
               />
-              
             </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="outline-secondary" onClick={handleClose}>Abbrechen</Button>
-          <Button variant='outline-primary' onClick={handleSubmit}>Speichern</Button>
+          <Button variant="outline-secondary" onClick={handleClose}>
+            Abbrechen
+          </Button>
+          <Button variant="outline-primary" onClick={handleSubmit}>
+            Speichern
+          </Button>
         </Modal.Footer>
       </Modal>
 
@@ -99,14 +112,16 @@ const UserEventUpdate = ({ show, handleClose, event, onUpdate, refreshEvents }) 
           className="text-white"
         >
           <Toast.Header>
-            <strong className="me-auto text-success">{toastVariant === 'success' ? 'Erfolg' : 'Fehler'}</strong>
+            <strong className="me-auto text-success">
+              {toastVariant === 'success' ? 'Erfolg' : 'Fehler'}
+            </strong>
           </Toast.Header>
           <Toast.Body>{toastMessage}</Toast.Body>
         </Toast>
       </ToastContainer>
     </>
-  );
-};
+  )
+}
 
 UserEventUpdate.propTypes = {
   show: PropTypes.bool.isRequired,
@@ -116,10 +131,10 @@ UserEventUpdate.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
-    image: PropTypes.string
+    image: PropTypes.string,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
-  refreshEvents: PropTypes.func.isRequired // Füge refreshEvents als Prop hinzu
-};
+  refreshEvents: PropTypes.func.isRequired, // Füge refreshEvents als Prop hinzu
+}
 
-export default UserEventUpdate;
+export default UserEventUpdate

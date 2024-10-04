@@ -164,7 +164,9 @@ const Comments = () => {
 
       <Modal show={showModal} onHide={handleCloseModal} className="bg-mordal">
         <Modal.Header closeButton>
-          <Modal.Title className="text-color headline2">Kommentar löschen</Modal.Title>
+          <Modal.Title className="text-color headline2">
+            Kommentar löschen
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           Möchten Sie den Kommentar mit der{' '}

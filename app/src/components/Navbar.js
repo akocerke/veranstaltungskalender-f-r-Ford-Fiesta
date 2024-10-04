@@ -112,15 +112,15 @@ const NavigationBar = () => {
                 </Nav.Link>
               )}
               {(userRole === 'admin' || userRole === 'user') && (
-              <Nav.Link
-                className="me-3"
-                as={Link}
-                to="/create-event"
-                onClick={() => setIsNavExpanded(false)}
-              >
-                <i className="bi bi-plus-circle p-1"></i>Event erstellen
-              </Nav.Link>
-            )}
+                <Nav.Link
+                  className="me-3"
+                  as={Link}
+                  to="/create-event"
+                  onClick={() => setIsNavExpanded(false)}
+                >
+                  <i className="bi bi-plus-circle p-1"></i>Event erstellen
+                </Nav.Link>
+              )}
               <Nav.Link
                 className="me-3"
                 as={Link}
@@ -129,9 +129,8 @@ const NavigationBar = () => {
               >
                 <i className="bi bi-calendar-event p-1"></i>Events
               </Nav.Link>
-              
             </Nav>
-           
+
             <Nav>
               {token ? (
                 <Nav.Link as="button" onClick={handleLogout}>

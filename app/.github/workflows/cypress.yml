@@ -1,19 +1,19 @@
 name: Cypress Tests
 
-on: 
-  push: 
-    branches: 
+on:
+  push:
+    branches:
       - main
       - dev
-  pull_request: 
-    branches: 
+  pull_request:
+    branches:
       - main
 
 jobs:
-  cypress: 
-    runs-on: ubuntu-22.04 
-    name: E2E Tests on Chrome 
-    steps: 
+  cypress:
+    runs-on: ubuntu-22.04
+    name: E2E Tests on Chrome
+    steps:
       - uses: actions/checkout@v4 # Schritt zum Auschecken des Codes aus dem Repository
 
       - name: Set up Node.js
