@@ -1,0 +1,38 @@
+name: Lint and Format Code
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  lint_and_format:
+    runs-on: ubuntu-22.04
+    name: Run Linting and Formatting
+    steps:
+      - uses: actions/checkout@v4 # Schritt zum Auschecken des Codes aus dem Repository
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '21.7.1' # Deine Node.js-Version angeben
+
+      - name: Install dependencies
+        run: npm install # Installiere alle Abhängigkeiten
+
+      - name: Run ESLint with --fix
+        run: npm run lint:fix # Führe ESLint mit der Option --fix aus
+
+      - name: Run Prettier
+        run: npx prettier --write . # Führe Prettier aus, um den Code zu formatieren
+
+      - name: Check for changes
+        run: |
+          if [[ $(git status --porcelain) ]]; then
+            echo "Linting and formatting changes detected."
+            exit 1 # Gebe einen Fehler zurück, wenn Änderungen festgestellt werden
+          fi
