@@ -1,4 +1,4 @@
-name: Lint and Format Code
+name: Lint and Format Check
 
 on:
   push:
@@ -10,9 +10,9 @@ on:
       - main
 
 jobs:
-  lint_and_format:
+  lint_and_format_check:
     runs-on: ubuntu-22.04
-    name: Run Linting and Formatting
+    name: Run Linting and Format Check
     steps:
       - uses: actions/checkout@v4 # Schritt zum Auschecken des Codes aus dem Repository
 
@@ -22,17 +22,24 @@ jobs:
           node-version: '21.7.1' # Deine Node.js-Version angeben
 
       - name: Install dependencies
-        run: npm install # Installiere alle Abhängigkeiten
-
-      - name: Run ESLint with --fix
-        run: npm run lint:fix # Führe ESLint mit der Option --fix aus
-
-      - name: Run Prettier
-        run: npx prettier --write . # Führe Prettier aus, um den Code zu formatieren
-
-      - name: Check for changes
         run: |
+          cd app # Wechsel ins app-Verzeichnis
+          npm install # Installiere alle Abhängigkeiten
+
+      - name: Run ESLint
+        run: |
+          cd app # Wechsel ins app-Verzeichnis
+          npm run lint # Führe ESLint aus (ohne --fix)
+
+      - name: Check code formatting with Prettier
+        run: |
+          cd app # Wechsel ins app-Verzeichnis
+          npm run format:check # Führe Prettier im Check-Modus aus
+
+      - name: Check for formatting issues
+        run: |
+          cd app # Wechsel ins app-Verzeichnis
           if [[ $(git status --porcelain) ]]; then
-            echo "Linting and formatting changes detected."
-            exit 1 # Gebe einen Fehler zurück, wenn Änderungen festgestellt werden
+            echo "Linting and formatting issues detected."
+            exit 1 # Gebe einen Fehler zurück, wenn Probleme festgestellt werden
           fi
