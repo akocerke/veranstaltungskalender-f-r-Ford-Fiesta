@@ -1,16 +1,21 @@
-// index.js
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-icons/font/bootstrap-icons.css'
-import './styles/globalVars.css' // globale style Variabeln
+import './styles/globalVars.css'
+import { AuthProvider } from './context/AuthContext' // Importiere deinen AuthProvider
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
+
 root.render(
   <React.StrictMode>
-    <App />
+    <AuthProvider>
+      {' '}
+      {/* Wrapping the App with AuthProvider */}
+      <App />
+    </AuthProvider>
   </React.StrictMode>
 )
 

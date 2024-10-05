@@ -1,0 +1,18 @@
+# Ignoriere alle Dateien im node_modules-Verzeichnis
+node_modules/
+
+# Ignoriere alle Build-Ausgaben
+build/
+dist/
+
+# Ignore 
+package-lock.json
+package.json
+
+# Ignoriere Testordner und Config
+cypress.config.js
+src/App.test.js
+**/__tests__/
+cypress
+__tests__
+

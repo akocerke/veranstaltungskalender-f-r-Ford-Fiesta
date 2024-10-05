@@ -1,8 +1,10 @@
 // components/Footer.js
 import React from 'react'
 import { Container, Row, Col, Nav } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear()
   return (
     <footer className="text-white py-4">
       <Container>
@@ -32,13 +34,17 @@ const Footer = () => {
             <h5 className="text-center">Rechtliches</h5>
             <hr></hr>
             <Nav className="flex-column text-center">
-              <Nav.Link href="/impressum" className="text-white-50">
+              <Nav.Link as={Link} to="/imprint" className="text-white-50">
                 Impressum
               </Nav.Link>
-              <Nav.Link href="/datenschutz" className="text-white-50">
+              <Nav.Link as={Link} to="/policys" className="text-white-50">
                 Datenschutz
               </Nav.Link>
-              <Nav.Link href="/richtlinien" className="text-white-50">
+              <Nav.Link
+                as={Link}
+                to="forumguidelines"
+                className="text-white-50"
+              >
                 Forum-Richtlinien
               </Nav.Link>
             </Nav>
@@ -48,8 +54,8 @@ const Footer = () => {
           <hr></hr>
           <Col className="text-center text-white-50 mt-3">
             <p>
-              &copy; 2024 Veranstaltungskalender für Ford Fiesta. Alle Rechte
-              vorbehalten.
+              &copy; {currentYear} Veranstaltungskalender für Ford Fiesta. Alle
+              Rechte vorbehalten.
             </p>
           </Col>
         </Row>

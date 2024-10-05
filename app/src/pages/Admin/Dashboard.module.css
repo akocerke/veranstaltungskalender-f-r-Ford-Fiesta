@@ -1,0 +1,9 @@
+.board {
+  min-height: 100vh;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.board a {
+  color: var(--link-color);
+}
