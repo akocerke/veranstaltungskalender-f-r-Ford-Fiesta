@@ -93,7 +93,7 @@ const Violations = () => {
             <tr key={violation.id}>
               <td>{violation.id}</td>
               <td>{violation.eventId}</td>
-              <td>{violation.userId}</td>
+              <td>{violation.reportedBy}</td>
               <td>{violation.reason}</td>
               <td>{violation.details}</td>
               <td>{violation.status}</td>

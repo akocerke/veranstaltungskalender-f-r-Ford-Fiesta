@@ -33,3 +33,17 @@ body::-webkit-scrollbar-thumb {
   background-color: var(--highlight-color); /* color of the scroll thumb */
   border-radius: 20px; /* roundness of the scroll thumb */
 }
+
+/* Styling der table Scrollbar */
+.table-responsive::-webkit-scrollbar {
+  height: 11px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: #cbcbcb; /* color of the tracking area */
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background-color: var(--highlight-color); /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+}
