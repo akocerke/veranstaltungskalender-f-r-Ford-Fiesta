@@ -107,7 +107,7 @@ const Users = () => {
           <p>Lade Benutzer...</p>
         </div>
       ) : (
-        <Table striped bordered hover>
+        <Table striped bordered hover size="sm" variant="light" responsive>
           <thead>
             <tr>
               <th>ID</th>

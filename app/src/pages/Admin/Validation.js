@@ -75,7 +75,7 @@ const Violations = () => {
         </Alert>
       )}
 
-      <Table striped bordered hover>
+      <Table striped bordered hover size="sm" variant="light" responsive>
         <thead>
           <tr>
             <th>ID</th>
