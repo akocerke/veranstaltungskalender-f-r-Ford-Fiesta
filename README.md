@@ -315,21 +315,13 @@ Um die Benutzerfreundlichkeit und Navigation in unserem System zu verbessern, ha
   - **Admin:** Verwende ein Schild oder eine Krone neben den Benutzernamen in der Benutzerverwaltung, um Administratoren zu kennzeichnen.
   - **Benutzer:** Normale Icons oder Text für reguläre Benutzer.
 
-- **Dropdown-Menü:**
-  - Im Dropdown-Menü oder in der Sidebar wird neben dem Benutzernamen ein Label wie „Admin“ oder „User“ angezeigt.
-
 ### Farbcodierung
 
 - **Admin:**
-  - Verwende Farben wie Rot oder Blau, um die Admin-Bereiche hervorzuheben und sofortige Sichtbarkeit zu gewährleisten.
+  - Verwende Farben grün, um die Admin-Bereiche hervorzuheben und sofortige Sichtbarkeit zu gewährleisten.
 
 - **User:**
-  - Verwende Farben wie Grün oder Grau, die sich von den Admin-Farben abheben.
-
-### Tooltips
-
-- **Hover-Effekte:**
-  - Beim Überfahren mit der Maus werden zusätzliche Informationen über den Benutzerstatus angezeigt, z.B. „Administrator“ oder „Normaler Benutzer“.
+  - Verwende Farben blau, die sich von den Admin-Farben abheben.
 
 ### Designbeispiele
 
