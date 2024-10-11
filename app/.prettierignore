@@ -15,4 +15,9 @@ src/App.test.js
 **/__tests__/
 cypress
 __tests__
+# Ignoriere die folgenden Dateien
+src/reportWebVitals.js
+src/setupTests.js
+webpack.config.js
+
 

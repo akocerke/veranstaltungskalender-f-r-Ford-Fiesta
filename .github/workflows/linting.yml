@@ -14,27 +14,27 @@ jobs:
     runs-on: ubuntu-22.04
     name: Run Linting and Format Check
     steps:
-      - uses: actions/checkout@v4 # Schritt zum Auschecken des Codes aus dem Repository
+      - uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '21.7.1' # Deine Node.js-Version angeben
+          node-version: '21.7.1'
 
       - name: Change to app directory
         run: cd app # Wechsel ins app-Verzeichnis
 
       - name: Install dependencies
         run: |
-          cd app # Wechsel ins app-Verzeichnis
-          npm install --legacy-peer-deps # Installiere alle Abhängigkeiten mit legacy-peer-deps
+          cd app
+          npm install --legacy-peer-deps
 
       - name: Run ESLint
         run: |
-          cd app # Wechsel ins app-Verzeichnis
-          npm run lint || true # Führe ESLint aus und ignoriere Fehler
+          cd app
+          npm run lint || true  # Ignoriere Fehler, wenn nötig
 
       - name: Check code formatting with Prettier
         run: |
-          cd app # Wechsel ins app-Verzeichnis
-          npm run format:check || true # Führe Prettier im Check-Modus aus und ignoriere Fehler
+          cd app
+          npm run format:check || true  # Ignoriere Fehler, wenn nötig
