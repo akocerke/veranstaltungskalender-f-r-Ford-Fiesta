@@ -16,6 +16,7 @@ const AdminProtectedRoute = ({ children }) => {
     try {
       return JSON.parse(atob(token.split('.')[1])) // Dekodieren des JWT
     } catch (error) {
+      console.error('Token could not be decoded:', error)
       return null
     }
   }

@@ -36,7 +36,7 @@ const UserProfile = () => {
         const data = await getUserProfile()
         setProfileData(data)
       } catch (error) {
-        setError('Fehler beim Laden der Profil-Daten.')
+        setError('Fehler beim Laden der Profil-Daten.', error)
       } finally {
         setLoading(false)
       }
@@ -56,7 +56,7 @@ const UserProfile = () => {
       setTimeout(() => setSuccess(null), 5000)
       setShowEditModal(false)
     } catch (error) {
-      setError('Fehler beim Aktualisieren des Profils.')
+      setError('Fehler beim Aktualisieren des Profils.', error)
       setSuccess(null)
     }
   }

@@ -38,7 +38,7 @@ const UserEventUpdate = ({
       setShowToast(true)
     } catch (error) {
       // Fehlermeldung anzeigen
-      setToastMessage('Fehler beim Aktualisieren des Events!')
+      setToastMessage('Fehler beim Aktualisieren des Events!', error)
       setToastVariant('danger')
       setShowToast(true)
     }

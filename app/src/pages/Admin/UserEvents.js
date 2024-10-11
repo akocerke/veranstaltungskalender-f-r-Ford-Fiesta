@@ -32,7 +32,7 @@ const UserEvents = () => {
       )
       setEvents(eventsWithImages)
     } catch (error) {
-      setError('Fehler beim Abrufen der Events.')
+      setError('Fehler beim Abrufen der Events.', error)
     } finally {
       setLoading(false)
     }
