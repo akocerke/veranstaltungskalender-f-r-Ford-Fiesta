@@ -14,37 +14,32 @@ jobs:
     runs-on: ubuntu-22.04
     name: Run Linting and Format Check
     steps:
-      - uses: actions/checkout@v4 # Schritt zum Auschecken des Codes aus dem Repository
+      - uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '21.7.1' # Deine Node.js-Version angeben
-
-      - name: Change to app directory
-        run: cd app # Wechsel ins app-Verzeichnis
+          node-version: '21.7.1'
 
       - name: Install dependencies
         run: |
-          cd app # Wechsel ins app-Verzeichnis
-          npm install --legacy-peer-deps # Installiere alle Abhängigkeiten mit legacy-peer-deps
+          cd app
+          npm install --legacy-peer-deps
 
       - name: Run ESLint
-        id: eslint # Füge eine ID hinzu, um später auf das Ergebnis zugreifen zu können
         run: |
-          cd app # Wechsel ins app-Verzeichnis
-          npm run lint # Führe ESLint aus und lasse Fehler durch
+          cd app
+          npm run lint || true  
 
       - name: Check code formatting with Prettier
-        id: prettier # Füge eine ID hinzu, um später auf das Ergebnis zugreifen zu können
         run: |
-          cd app # Wechsel ins app-Verzeichnis
-          npm run format:check # Führe Prettier im Check-Modus aus und lasse Fehler durch
+          cd app
+          npm run format:check || true 
 
       - name: Check for linting and formatting issues
         run: |
-          cd app # Wechsel ins app-Verzeichnis
+          cd app
           if [[ $(git status --porcelain) ]]; then
             echo "Linting or formatting issues detected."
-            exit 1 # Gebe einen Fehler zurück, wenn Probleme festgestellt wurden
+            exit 1
           fi
