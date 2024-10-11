@@ -12,3 +12,4 @@ src/App.test.js
 # Ignoriere alle Testordner
 **/__tests__/
 cypress
+/build
