@@ -30,19 +30,21 @@ jobs:
           npm install --legacy-peer-deps # Installiere alle Abhängigkeiten mit legacy-peer-deps
 
       - name: Run ESLint
+        id: eslint # Füge eine ID hinzu, um später auf das Ergebnis zugreifen zu können
         run: |
           cd app # Wechsel ins app-Verzeichnis
-          npm run lint || true # Führe ESLint aus und ignoriere Fehler
+          npm run lint # Führe ESLint aus und lasse Fehler durch
 
       - name: Check code formatting with Prettier
+        id: prettier # Füge eine ID hinzu, um später auf das Ergebnis zugreifen zu können
         run: |
           cd app # Wechsel ins app-Verzeichnis
-          npm run format:check || true # Führe Prettier im Check-Modus aus und ignoriere Fehler
+          npm run format:check # Führe Prettier im Check-Modus aus und lasse Fehler durch
 
-      - name: Check for formatting issues
+      - name: Check for linting and formatting issues
         run: |
           cd app # Wechsel ins app-Verzeichnis
           if [[ $(git status --porcelain) ]]; then
-            echo "Linting issues detected."
+            echo "Linting or formatting issues detected."
             exit 1 # Gebe einen Fehler zurück, wenn Probleme festgestellt wurden
           fi
