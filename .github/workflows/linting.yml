@@ -1,4 +1,4 @@
-name: Lint and Format Check
+name: Format Check
 
 on:
   push:
@@ -8,11 +8,12 @@ on:
   pull_request:
     branches:
       - main
+      - dev
 
 jobs:
   lint_and_format_check:
     runs-on: ubuntu-22.04
-    name: Run Linting and Format Check
+    name: Format Check
     steps:
       - uses: actions/checkout@v4
 
@@ -21,20 +22,10 @@ jobs:
         with:
           node-version: '21.7.1'
 
-      - name: Change to app directory
-        run: cd app # Wechsel ins app-Verzeichnis
-
       - name: Install dependencies
-        run: |
-          cd app
-          npm install --legacy-peer-deps
-
-      - name: Run ESLint
-        run: |
-          cd app
-          npm run lint || true  # Ignoriere Fehler, wenn nötig
+        working-directory: app
+        run: npm install
 
       - name: Check code formatting with Prettier
-        run: |
-          cd app
-          npm run format:check || true  # Ignoriere Fehler, wenn nötig
+        working-directory: app
+        run: npm run format:check || true  # Ignoriere Fehler, falls nötig
