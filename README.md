@@ -7,9 +7,9 @@ Bitte lies unsere [Nutzungsbedingungen](TERMS.md) sorgfältig durch, bevor du di
 ## Anwendungsvideo
 
 Hier ist ein kurzes Video, das die Funktionen der Ford Fiesta Plattform zeigt:
-
+[Anwendungsvideo ansehen](Ford-Fiesta-A.Kocerke.mp4)
 <video width="600" controls>
-  <source src="Ford Fiesta A.Kocerke.mp4" type="video/mp4">
+  <source src="Ford-Fiesta-A.Kocerke.mp4" type="video/mp4">
   Ihr Browser unterstützt das Video-Tag nicht.
 </video>
 
