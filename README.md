@@ -4,15 +4,6 @@
 
 Bitte lies unsere [Nutzungsbedingungen](TERMS.md) sorgfältig durch, bevor du dieses Projekt verwendest oder weiterverwendest.
 
-## Anwendungsvideo
-
-Hier ist ein kurzes Video, das die Funktionen der Ford Fiesta Plattform zeigt:
-[Anwendungsvideo ansehen](Ford-Fiesta-A.Kocerke.mp4)
-<video width="600" controls>
-  <source src="Ford-Fiesta-A.Kocerke.mp4" type="video/mp4">
-  Ihr Browser unterstützt das Video-Tag nicht.
-</video>
-
 ## Übersicht
 Eine spezialisierte Plattform für Besitzer und Enthusiasten des Ford Fiesta (Modelljahr 11/2001–08/2008). Benutzer können Events finden, hinzufügen, bewerten und kommentieren. Events können Auto-Treffen, Reparatur-Workshops und Ausfahrten umfassen.
 
